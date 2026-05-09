@@ -1,0 +1,95 @@
+
+@import "tailwindcss";
+
+:root {
+  --font-sans: 'Raleway', system-ui, -apple-system, sans-serif;
+  --color-renan-light: #00bffa;
+  --color-renan-dark: #005eea;
+  --bg-dark: #020202;
+}
+
+@theme {
+  --color-performance: #00bffa;
+  --color-electric: #005eea;
+  --color-anthracite: #020202;
+}
+
+body {
+  @apply bg-[#020202] text-white antialiased selection:bg-[#00bffa]/20;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+}
+
+/* Premium Text Gradients */
+.text-gradient {
+  background: linear-gradient(to bottom, #00bffa, #005eea);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  @apply relative overflow-hidden bg-white/[0.01] backdrop-blur-3xl border border-white/[0.05] rounded-[32px];
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.glass-card::after {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent pointer-events-none;
+}
+
+/* 🏆 THE ELITE PRIMARY BUTTON (THE "REFINED ROUNDED SQUARE") */
+.btn-elite-primary {
+  @apply relative px-12 py-5 rounded-xl overflow-hidden transition-all duration-700 flex items-center justify-center gap-4 bg-gradient-to-br from-[#00bffa] to-[#005eea] text-white font-medium uppercase tracking-[0.2em] text-[13px] hover:scale-[1.05] hover:shadow-[0_20px_40px_-10px_rgba(0,191,250,0.4)] active:scale-[0.98] border border-white/20;
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.btn-elite-primary::before {
+  content: '';
+  @apply absolute inset-0 bg-white opacity-0 transition-opacity duration-500;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+}
+
+.btn-elite-primary:hover::before {
+  @apply opacity-100;
+}
+
+.btn-elite-primary::after {
+  content: '';
+  @apply absolute top-0 -left-[100%] w-1/2 h-full bg-gradient-to-r from-transparent via-white/50 to-transparent skew-x-[30deg] transition-all duration-1000;
+}
+
+.btn-elite-primary:hover::after {
+  @apply left-[150%];
+}
+
+/* 💎 THE ELITE GLASS BUTTON (ROUNDED SQUARE) */
+.btn-elite-glass {
+  @apply relative px-10 py-5 rounded-xl overflow-hidden transition-all duration-500 flex items-center justify-center gap-3 border border-white/10 bg-white/[0.02] backdrop-blur-3xl text-white/60 hover:text-white hover:border-white/30 hover:bg-white/[0.08] hover:scale-[1.02] uppercase tracking-[0.2em] text-[11px] font-medium;
+  box-shadow: 
+    0 4px 24px -1px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Mesh Gradient Backgrounds */
+.bg-mesh {
+  background: 
+    radial-gradient(circle at 0% 0%, rgba(0, 191, 250, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(0, 94, 234, 0.05) 0%, transparent 40%),
+    #020202;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 60s linear infinite;
+}
+
+.pause-on-hover:hover .animate-marquee {
+  animation-play-state: paused;
+}
