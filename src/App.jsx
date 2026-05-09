@@ -22,19 +22,19 @@ import logo from './assets/logo.webp';
 const LandingPage = () => (
   <>
     <Header />
-    <main className="relative z-10 space-y-24 md:space-y-48">
+    <main className="relative z-10 space-y-12 md:space-y-16">
       <Hero />
-      <section className="py-20 md:py-32"><SocialProof /></section>
-      <section className="py-20 md:py-32"><PerformanceComparison /></section>
-      <section className="py-20 md:py-32"><Services /></section>
-      <section className="py-20 md:py-32"><PerformanceProtocol /></section>
-      <section className="py-20 md:py-32"><Pricing /></section>
-      <section className="py-20 md:py-32"><ScreeningForm /></section>
-      <section className="py-20 md:py-40"><FAQ /></section>
+      <section className="py-10 md:py-16"><SocialProof /></section>
+      <section className="py-10 md:py-16"><PerformanceComparison /></section>
+      <section className="py-10 md:py-16"><Services /></section>
+      <section className="py-10 md:py-16"><PerformanceProtocol /></section>
+      <section className="py-10 md:py-16"><Pricing /></section>
+      <section className="py-10 md:py-16"><ScreeningForm /></section>
+      <section className="py-10 md:py-20"><FAQ /></section>
     </main>
     
     {/* RODAPÉ ROBUSTO E ESPAÇOSO */}
-    <footer className="py-40 md:py-60 px-10 md:px-20 border-t border-white/[0.05] bg-[#020202] relative z-10">
+    <footer className="py-20 md:py-32 px-10 md:px-20 border-t border-white/[0.05] bg-[#020202] relative z-10">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-20 md:gap-32 mb-32">
           <img src={logo} alt="Renan Filg" className="h-10 md:h-12 w-auto grayscale opacity-60 hover:opacity-100 transition-opacity" />
