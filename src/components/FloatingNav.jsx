@@ -29,9 +29,9 @@ export const FloatingNav = () => {
           <span className="hidden md:block">Social</span>
         </a>
         
-        <Link to="/login" className="flex items-center gap-2 text-[#00bffa] hover:text-white transition-all group">
+        <Link to="/login" className="flex items-center gap-2 text-[#00bffa] hover:text-white transition-all group px-3 py-1.5 rounded-lg bg-white/5 border border-white/5">
           <User size={14} className="group-hover:scale-110 transition-transform" />
-          <span className="hidden md:block">Área VIP</span>
+          <span className="text-[9px] tracking-widest font-medium">ASSINANTES</span>
         </Link>
       </div>
 

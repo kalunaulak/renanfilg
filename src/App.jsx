@@ -9,7 +9,7 @@ import { ScreeningForm } from './components/ScreeningForm';
 import { GridBackground } from './components/GridBackground';
 import { FAQ } from './components/FAQ';
 import { CustomCursor } from './components/CustomCursor';
-import { FloatingNav } from './components/FloatingNav';
+import { Header } from './components/Header';
 import { Login } from './pages/Login';
 import { Dashboard } from './pages/Dashboard';
 import { useEffect } from 'react';
@@ -17,7 +17,7 @@ import logo from './assets/logo.webp';
 
 const LandingPage = () => (
   <>
-    <FloatingNav />
+    <Header />
     <main className="relative z-10">
       <Hero />
       <SocialProof />
