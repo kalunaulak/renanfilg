@@ -10,6 +10,7 @@ import { GridBackground } from './components/GridBackground';
 import { FAQ } from './components/FAQ';
 import { CustomCursor } from './components/CustomCursor';
 import { Header } from './components/Header';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Login } from './pages/Login';
 import { Dashboard } from './pages/Dashboard';
 import { useEffect } from 'react';
@@ -46,6 +47,29 @@ const LandingPage = () => (
   </>
 );
 
+const AppContent = () => {
+  const { language, selectLanguage } = useLanguage();
+
+  return (
+    <Router>
+      <div className="min-h-screen bg-[#020202] text-white selection:bg-[#00bffa]/30 relative">
+        <CustomCursor />
+        <GridBackground />
+        
+        <AnimatePresence>
+          {!language && <LanguageSelector onSelect={selectLanguage} />}
+        </AnimatePresence>
+
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+};
+
 function App() {
   useEffect(() => {
     let interval;
@@ -69,18 +93,9 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <div className="min-h-screen bg-[#020202] text-white selection:bg-[#00bffa]/30 relative">
-        <CustomCursor />
-        <GridBackground />
-        
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
-      </div>
-    </Router>
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 }
 
