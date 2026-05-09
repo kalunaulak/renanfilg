@@ -40,7 +40,7 @@ export const PerformanceProtocol = () => {
             <div className="text-[#00bffa] font-light text-xs uppercase tracking-[0.4em] mb-6">{t.tag}</div>
             <h2 className="text-5xl md:text-8xl font-light tracking-tighter text-white leading-[0.85] uppercase italic">
               {t.title_part1} <br />
-              <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent not-italic font-bold">
+              <span className="inline-block bg-gradient-to-b from-[#00bffa] via-[#00bffa] to-[#005eea] bg-clip-text text-transparent not-italic font-bold drop-shadow-[0_0_15px_rgba(0,191,250,0.4)]">
                 {t.title_part2}
               </span>
             </h2>
