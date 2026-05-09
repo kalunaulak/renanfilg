@@ -2,8 +2,6 @@ import { motion } from 'framer-motion';
 import { GradientBars } from './GradientBars';
 import { ArrowRight } from 'lucide-react';
 import { MatrixHeroBackground } from './MatrixLoader';
-import { useContent } from '../hooks/useContent';
-import { EditableText } from './EditableText';
 
 const Particles = () => (
   <div className="absolute inset-0 pointer-events-none">
@@ -22,7 +20,7 @@ const Particles = () => (
         }}
         transition={{ 
           duration: 3 + Math.random() * 4, 
-          repeat: Infinity,
+          repeat: Infinity, 
           delay: Math.random() * 5
         }}
       />
@@ -31,17 +29,11 @@ const Particles = () => (
 );
 
 export const Hero = () => {
-  // const { content, isAdmin, updateContent } = useContent();
-  const content = {};
-  const isAdmin = false;
-  const updateContent = () => {};
-
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 overflow-hidden bg-black">
       <MatrixHeroBackground />
       <Particles />
       
-      {/* The Gradient Bars (Exact replica of the reference) - High Priority Z-Index */}
       <div className="absolute bottom-0 left-0 w-full h-[60vh] z-0 pointer-events-none">
         <GradientBars />
       </div>
@@ -58,29 +50,14 @@ export const Hero = () => {
         </div>
         
         <h1 className="text-6xl md:text-[8rem] font-light tracking-tighter leading-[0.9] mb-12 text-white text-balance">
-          <EditableText 
-            contentKey="hero_title_line1" 
-            defaultText={content.hero_title_line1 || "FPS BOOST"} 
-            isAdmin={isAdmin} 
-            updateContent={updateContent} 
-          /> <br />
+          FPS BOOST <br />
           <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent">
-            <EditableText 
-              contentKey="hero_title_line2" 
-              defaultText={content.hero_title_line2 || "DEFINITIVO"} 
-              isAdmin={isAdmin} 
-              updateContent={updateContent} 
-            />
+            DEFINITIVO
           </span>
         </h1>
         
         <p className="text-xl md:text-2xl text-zinc-500 max-w-2xl mx-auto mb-20 font-light leading-relaxed tracking-tight">
-          <EditableText 
-            contentKey="hero_description" 
-            defaultText={content.hero_description || "Sua máquina em sua melhor forma. Otimização de BIOS e kernel para pro-players que exigem o absoluto."} 
-            isAdmin={isAdmin} 
-            updateContent={updateContent} 
-          />
+          Sua máquina em sua melhor forma. Otimização de BIOS e kernel para pro-players que exigem o absoluto.
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
