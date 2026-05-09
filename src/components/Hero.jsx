@@ -31,7 +31,10 @@ const Particles = () => (
 );
 
 export const Hero = () => {
-  const { content, isAdmin, updateContent } = useContent();
+  // const { content, isAdmin, updateContent } = useContent();
+  const content = {};
+  const isAdmin = false;
+  const updateContent = () => {};
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 overflow-hidden bg-black">
