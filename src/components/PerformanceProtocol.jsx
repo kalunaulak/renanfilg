@@ -33,7 +33,7 @@ export const PerformanceProtocol = () => {
   }[language || 'pt'];
 
   return (
-    <section className="py-32 px-6 bg-zinc-950 border-y border-white/5 relative overflow-hidden">
+    <section className="py-32 px-10 md:px-6 bg-zinc-950 border-y border-white/5 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between mb-24 gap-12">
           <div className="max-w-2xl">

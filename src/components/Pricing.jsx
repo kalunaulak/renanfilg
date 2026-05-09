@@ -89,7 +89,7 @@ export const Pricing = () => {
   }[language || 'pt'];
 
   return (
-    <section id="precos" className="py-32 px-6 bg-black relative">
+    <section id="precos" className="py-32 px-10 md:px-8 bg-black relative">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-24">
           <h2 className="text-4xl md:text-7xl font-light tracking-tighter mb-8 text-white leading-none">

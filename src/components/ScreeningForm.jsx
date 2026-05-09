@@ -32,7 +32,7 @@ export const ScreeningForm = () => {
 
   if (submitted) {
     return (
-      <section id="agendar" className="py-32 px-6 bg-black flex flex-col items-center justify-center text-center min-h-[600px] relative overflow-hidden">
+      <section id="agendar" className="py-32 px-10 md:px-6 bg-black flex flex-col items-center justify-center text-center min-h-[600px] relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#00bffa]/5 to-[#005eea]/5 pointer-events-none"></div>
         <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="relative z-10">
           <div className="w-24 h-24 glass-card rounded-full flex items-center justify-center mx-auto mb-10 border border-white/10 text-performance shadow-[0_0_50px_rgba(0,191,250,0.1)]">
@@ -54,7 +54,7 @@ export const ScreeningForm = () => {
   }
 
   return (
-    <section id="agendar" className="py-32 px-6 bg-black relative border-t border-white/[0.03]">
+    <section id="agendar" className="py-32 px-10 md:px-6 bg-black relative border-t border-white/[0.03]">
       <div className="max-w-4xl mx-auto relative z-10">
         <div className="text-center mb-20">
           <h2 className="text-4xl md:text-6xl font-light tracking-tighter mb-6 uppercase text-white">

@@ -31,7 +31,7 @@ export const Services = () => {
   }[language || 'pt'];
 
   return (
-    <section className="py-40 px-6">
+    <section className="py-40 px-10 md:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="mb-24">
           <div className="text-[#00bffa] font-light text-[10px] uppercase tracking-[0.4em] mb-4">{t.tag}</div>
