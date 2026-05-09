@@ -1,7 +1,30 @@
 
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 export const PerformanceComparison = () => {
+  const { language } = useLanguage();
+  
+  const t = {
+    pt: {
+      tag: 'Benchmarking Real',
+      title: 'RESULTADOS QUE VOCÊ SENTE.',
+      desc: 'Medições feitas em ambiente controlado antes e depois da aplicação do protocolo.',
+      label1: 'Input Lag (ms)',
+      label2: 'Média de FPS',
+      before: 'Original',
+      after: 'Otimizado'
+    },
+    en: {
+      tag: 'Real Benchmarking',
+      title: 'RESULTS YOU CAN FEEL.',
+      desc: 'Measurements taken in a controlled environment before and after applying the protocol.',
+      label1: 'Input Lag (ms)',
+      label2: 'Avg FPS',
+      before: 'Original',
+      after: 'Optimized'
+    }
+  }[language || 'pt'];
   return (
     <section className="py-40 px-6 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">

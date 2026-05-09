@@ -1,30 +1,7 @@
-
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-
-const faqs = [
-  {
-    q: "O que exatamente é o Tweak?",
-    a: "O Tweak é uma configuração profunda no sistema operacional (Windows), na BIOS da sua placa-mãe e nos registros do sistema. Nós desativamos processos inúteis que rodam em segundo plano e otimizamos o uso do seu processador, placa de vídeo e memória RAM. O resultado é o máximo de FPS possível, fim das quedas de frame (stuttering) e quase zero input lag (atraso entre o clique e a ação na tela)."
-  },
-  {
-    q: "Fazer Tweak dá ban nos jogos (Valorant, Fortnite, etc.)?",
-    a: "Não. Nosso serviço é 100% seguro (White Hat). Nós não usamos programas de terceiros, hacks, macros ou arquivos que alteram os diretórios dos jogos. Trabalhamos apenas otimizando o seu Windows e o seu hardware. Os anti-cheats (como o Vanguard, Easy Anti-Cheat e BattlEye) não detectam nenhuma irregularidade, pois não há nenhuma violação das regras."
-  },
-  {
-    q: "Jogo GTA RP e meu FPS cai muito quando a cidade está lotada. O Tweak resolve?",
-    a: "Com certeza. O FiveM (GTA RP) é um jogo que exige demais do processador e da memória RAM por conta dos scripts e da quantidade de jogadores renderizando ao mesmo tempo. Seja em uma trocação ou administrando empresas e farmando na cidade, o Tweak foca em estabilizar o uso da memória e otimizar a leitura do jogo, evitando aquelas \"congeladas\" quando você está dirigindo rápido ou em áreas muito pesadas do mapa."
-  },
-  {
-    q: "Como o serviço é realizado? Preciso levar o PC até você?",
-    a: "Não, o serviço é 100% remoto. Após a confirmação, agendamos um horário. Nós acessamos o seu computador através de programas seguros de acesso remoto (como AnyDesk ou TeamViewer) e você acompanha todo o processo acontecendo na sua tela, no conforto da sua casa."
-  },
-  {
-    q: "Quanto tempo demora todo o processo?",
-    a: "Em média, a otimização completa leva entre 1 a 2 horas, dependendo do estado atual do seu computador e do pacote escolhido. É um processo artesanal e detalhista para garantir que a sua máquina extraia 100% do potencial."
-  }
-];
+import { useLanguage } from '../context/LanguageContext';
 
 const FAQItem = ({ q, a }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,19 +40,48 @@ const FAQItem = ({ q, a }) => {
 };
 
 export const FAQ = () => {
+  const { language } = useLanguage();
+
+  const t = {
+    pt: {
+      tag: 'FAQ',
+      title: 'DÚVIDAS',
+      title_italic: 'FREQUENTES.',
+      faqs: [
+        { q: "O que exatamente é o Tweak?", a: "O Tweak é uma configuração profunda no sistema operacional (Windows), na BIOS da sua placa-mãe e nos registros do sistema. Nós desativamos processos inúteis que rodam em segundo plano e otimizamos o uso do seu processador, placa de vídeo e memória RAM. O resultado é o máximo de FPS possível, fim das quedas de frame (stuttering) e quase zero input lag." },
+        { q: "Fazer Tweak dá ban nos jogos?", a: "Não. Nosso serviço é 100% seguro (White Hat). Nós não usamos programas de terceiros, hacks ou arquivos que alteram os diretórios dos jogos. Trabalhamos apenas otimizando o seu Windows e o seu hardware." },
+        { q: "Jogo GTA RP e meu FPS cai muito. O Tweak resolve?", a: "Com certeza. O FiveM (GTA RP) exige demais do processador e da RAM. O Tweak foca em estabilizar o uso da memória e otimizar a leitura do jogo, evitando aquelas congeladas." },
+        { q: "Como o serviço é realizado?", a: "O serviço é 100% remoto via AnyDesk ou TeamViewer. Você acompanha todo o processo acontecendo na sua tela, no conforto da sua casa." },
+        { q: "Quanto tempo demora o processo?", a: "Em média, entre 1 a 2 horas, dependendo do estado atual do seu computador e do pacote escolhido." }
+      ]
+    },
+    en: {
+      tag: 'FAQ',
+      title: 'COMMON',
+      title_italic: 'QUESTIONS.',
+      faqs: [
+        { q: "What exactly is Tweak?", a: "Tweak is a deep configuration of the OS (Windows), motherboard BIOS, and system registries. We disable useless background processes and optimize CPU, GPU, and RAM usage. The result is maximum FPS, no more stuttering, and near-zero input lag." },
+        { q: "Can Tweaking get me banned?", a: "No. Our service is 100% safe (White Hat). We do not use third-party programs, hacks, or files that alter game directories. We only optimize your Windows and hardware." },
+        { q: "I play GTA RP and my FPS drops. Does it fix it?", a: "Absolutely. FiveM (GTA RP) is very demanding on CPU and RAM. Tweaking focuses on stabilizing memory usage and optimizing game reading, avoiding those freezes." },
+        { q: "How is the service performed?", a: "The service is 100% remote via AnyDesk or TeamViewer. You watch the entire process happening on your screen from the comfort of your home." },
+        { q: "How long does it take?", a: "On average, between 1 to 2 hours, depending on your computer's current state and the chosen package." }
+      ]
+    }
+  }[language || 'pt'];
+
   return (
     <section className="py-40 px-6 bg-[#020202] relative overflow-hidden">
       <div className="max-w-4xl mx-auto">
         <div className="mb-24">
-          <div className="text-[#00bffa] font-light text-[10px] uppercase tracking-[0.4em] mb-4">FAQ</div>
+          <div className="text-[#00bffa] font-light text-[10px] uppercase tracking-[0.4em] mb-4">{t.tag}</div>
           <h2 className="text-5xl md:text-7xl font-light tracking-tighter text-white uppercase leading-none">
-            DÚVIDAS <br />
-            <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent italic">FREQUENTES.</span>
+            {t.title} <br />
+            <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent italic">{t.title_italic}</span>
           </h2>
         </div>
 
         <div className="space-y-4">
-          {faqs.map((faq, idx) => (
+          {t.faqs.map((faq, idx) => (
             <FAQItem key={idx} {...faq} />
           ))}
         </div>

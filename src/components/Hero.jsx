@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { GradientBars } from './GradientBars';
 import { ArrowRight } from 'lucide-react';
 import { MatrixHeroBackground } from './MatrixLoader';
+import { useLanguage } from '../context/LanguageContext';
 
 const Particles = () => (
   <div className="absolute inset-0 pointer-events-none">
@@ -29,6 +30,27 @@ const Particles = () => (
 );
 
 export const Hero = () => {
+  const { language } = useLanguage();
+  
+  const t = {
+    pt: {
+      tag: 'Expert Performance Engineering',
+      title1: 'FPS BOOST',
+      title2: 'DEFINITIVO',
+      subtitle: 'Sua máquina em sua melhor forma. Otimização de BIOS e kernel para pro-players que exigem o absoluto.',
+      cta: 'Agendar Otimização',
+      more: 'Saiba mais'
+    },
+    en: {
+      tag: 'Expert Performance Engineering',
+      title1: 'ULTIMATE',
+      title2: 'FPS BOOST',
+      subtitle: 'Your machine at its peak. BIOS and kernel optimization for pro-players who demand the absolute best.',
+      cta: 'Book Optimization',
+      more: 'Learn more'
+    }
+  }[language || 'pt'];
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 overflow-hidden bg-black">
       <MatrixHeroBackground />
@@ -46,27 +68,27 @@ export const Hero = () => {
       >
         <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/[0.05] bg-white/[0.02] mb-12">
           <div className="w-1.5 h-1.5 rounded-full bg-[#00bffa] animate-pulse shadow-[0_0_10px_#00bffa]"></div>
-          <span className="text-[10px] font-light text-zinc-400 uppercase tracking-[0.6em]">Expert Performance Engineering</span>
+          <span className="text-[10px] font-light text-zinc-400 uppercase tracking-[0.6em]">{t.tag}</span>
         </div>
         
         <h1 className="text-6xl md:text-[8rem] font-light tracking-tighter leading-[0.9] mb-12 text-white text-balance">
-          FPS BOOST <br />
+          {t.title1} <br />
           <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent">
-            DEFINITIVO
+            {t.title2}
           </span>
         </h1>
         
         <p className="text-xl md:text-2xl text-zinc-500 max-w-2xl mx-auto mb-20 font-light leading-relaxed tracking-tight">
-          Sua máquina em sua melhor forma. Otimização de BIOS e kernel para pro-players que exigem o absoluto.
+          {t.subtitle}
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
           <a href="#agendar" className="btn-elite-primary group">
-            Agendar Otimização 
+            {t.cta} 
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </a>
           <button className="btn-elite-glass">
-            Saiba mais
+            {t.more}
           </button>
         </div>
       </motion.div>

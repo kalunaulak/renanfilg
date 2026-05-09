@@ -1,55 +1,109 @@
-
 import { motion } from 'framer-motion';
 import { Check, Shield } from 'lucide-react';
-
-const plans = [
-  {
-    name: "Otimização Pro",
-    price: "R$ 260",
-    desc: "Melhor e mais completa otimização para performance extrema.",
-    highlight: true,
-    features: [
-      "Deep BIOS Tuning & Undervolt",
-      "Windows Customizado (Zero Bloat)",
-      "Redução Extrema de Input Lag",
-      "Análise de Hardware ao Vivo",
-      "Suporte via TeamViewer",
-      "Protocolo de Cuidados Vitalícios"
-    ]
-  },
-  {
-    name: "Organizações",
-    price: "Consultar",
-    desc: "Exclusivo para empresas, tal como feito para LOUD e Team Liquid.",
-    highlight: false,
-    features: [
-      "Otimização para Lines Pro",
-      "Suporte em Campeonatos Presenciais",
-      "Infraestrutura de Latência Zero",
-      "Consultoria de Hardware Enterprise",
-      "Suporte VIP 24/7",
-      "Treinamento de Staff Técnica"
-    ]
-  }
-];
+import { useLanguage } from '../context/LanguageContext';
 
 export const Pricing = () => {
+  const { language } = useLanguage();
+
+  const t = {
+    pt: {
+      title: 'UM',
+      title_grad: 'INVESTIMENTO.',
+      title_end: 'NÃO UM GASTO.',
+      subtitle: 'O último upgrade que você precisa. Sem recorrência, sem mensalidades.',
+      plans: [
+        {
+          name: "Otimização Pro",
+          price: "R$ 260",
+          desc: "Melhor e mais completa otimização para performance extrema.",
+          highlight: true,
+          badge: "Pagamento Único",
+          cta: "Garantir Minha Vaga",
+          features: [
+            "Deep BIOS Tuning & Undervolt",
+            "Windows Customizado (Zero Bloat)",
+            "Redução Extrema de Input Lag",
+            "Análise de Hardware ao Vivo",
+            "Suporte via TeamViewer",
+            "Protocolo de Cuidados Vitalícios"
+          ]
+        },
+        {
+          name: "Organizações",
+          price: "Consultar",
+          desc: "Exclusivo para empresas, tal como feito para LOUD e Team Liquid.",
+          highlight: false,
+          badge: "",
+          cta: "Solicitar Orçamento",
+          features: [
+            "Otimização para Lines Pro",
+            "Suporte em Campeonatos Presenciais",
+            "Infraestrutura de Latência Zero",
+            "Consultoria de Hardware Enterprise",
+            "Suporte VIP 24/7",
+            "Treinamento de Staff Técnica"
+          ]
+        }
+      ]
+    },
+    en: {
+      title: 'AN',
+      title_grad: 'INVESTMENT.',
+      title_end: 'NOT AN EXPENSE.',
+      subtitle: 'The last upgrade you will ever need. No recurrence, no monthly fees.',
+      plans: [
+        {
+          name: "Pro Optimization",
+          price: "$ 50",
+          desc: "The best and most complete optimization for extreme performance.",
+          highlight: true,
+          badge: "One-time Payment",
+          cta: "Secure My Spot",
+          features: [
+            "Deep BIOS Tuning & Undervolt",
+            "Custom Windows (Zero Bloat)",
+            "Extreme Input Lag Reduction",
+            "Live Hardware Analysis",
+            "Support via TeamViewer",
+            "Lifetime Care Protocol"
+          ]
+        },
+        {
+          name: "Organizations",
+          price: "Contact Us",
+          desc: "Exclusive for teams, as done for LOUD and Team Liquid.",
+          highlight: false,
+          badge: "",
+          cta: "Request Quote",
+          features: [
+            "Optimization for Pro Lines",
+            "On-site Championship Support",
+            "Zero Latency Infrastructure",
+            "Enterprise Hardware Consulting",
+            "24/7 VIP Support",
+            "Technical Staff Training"
+          ]
+        }
+      ]
+    }
+  }[language || 'pt'];
+
   return (
     <section id="precos" className="py-32 px-6 bg-black relative">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-24">
           <h2 className="text-4xl md:text-7xl font-light tracking-tighter mb-8 text-white leading-none">
-            UM <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent">INVESTIMENTO.</span> <br />NÃO UM GASTO.
+            {t.title} <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent">{t.title_grad}</span> <br />{t.title_end}
           </h2>
           <p className="text-zinc-500 text-xl font-light max-w-2xl mx-auto italic">
-            O último upgrade que você precisa. Sem recorrência, sem mensalidades.
+            {t.subtitle}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {plans.map((item, idx) => (
+          {t.plans.map((item, idx) => (
             <motion.div
-              key={item.name}
+              key={idx}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1 }}
@@ -66,7 +120,7 @@ export const Pricing = () => {
               
               <div className="mb-12">
                 <span className="text-6xl font-thin text-white tracking-tighter italic">{item.price}</span>
-                {item.highlight && <span className="text-zinc-500 ml-2 font-light uppercase text-xs">Pagamento Único</span>}
+                {item.badge && <span className="text-zinc-500 ml-2 font-light uppercase text-xs">{item.badge}</span>}
               </div>
 
               <div className="space-y-4 mb-12 flex-1">
@@ -80,9 +134,9 @@ export const Pricing = () => {
 
               <a 
                 href={item.highlight ? '#agendar' : 'https://instagram.com/renanfilg'} 
-                className={item.highlight ? 'btn-elite-primary' : 'btn-elite-glass'}
+                className={item.highlight ? 'btn-elite-primary text-center' : 'btn-elite-glass text-center'}
               >
-                {item.highlight ? 'Garantir Minha Vaga' : 'Solicitar Orçamento'}
+                {item.cta}
               </a>
             </motion.div>
           ))}

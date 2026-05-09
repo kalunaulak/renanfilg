@@ -1,93 +1,154 @@
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import bakImg from '../assets/bak.webp';
 import edImg from '../assets/ed_road_to_glory.webp';
 import flakesImg from '../assets/flakes_power.webp';
 import ninextImg from '../assets/nine_xt.webp';
 import tonyboyImg from '../assets/tonyboy.webp';
 
-const testimonials = [
-  {
-    name: "BAK",
-    role: "Pro Player - LOUD",
-    content: "O Protocolo mudou minha percepção de fluidez. O input lag simplesmente desapareceu.",
-    image: bakImg,
-    performance: "+40% FPS"
-  },
-  {
-    name: "FLAKES POWER",
-    role: "Content Creator",
-    content: "Consistência é tudo no Fortnite. O Renan entregou o que ninguém conseguiu até hoje.",
-    image: flakesImg,
-    performance: "-12ms Latency"
-  },
-  {
-    name: "TONYBOY",
-    role: "Pro Player",
-    content: "A estabilidade do frame time após a otimização é bizarra. Outro nível de gameplay.",
-    image: tonyboyImg,
-    performance: "Stable 0.1% Low"
-  },
-  {
-    name: "NINE XT",
-    role: "Streamer",
-    content: "Minha máquina de stream agora roda como se não tivesse nada aberto. Incrível.",
-    image: ninextImg,
-    performance: "Max Efficiency"
-  },
-  {
-    name: "ED ROAD TO GLORY",
-    role: "Tech Expert",
-    content: "A engenharia por trás desse protocolo é cirúrgica. Recomendo para qualquer entusiasta.",
-    image: edImg,
-    performance: "Top Tier Opt"
-  }
-];
-
 export const SocialProof = () => {
+  const { language } = useLanguage();
+  const containerRef = useRef(null);
+  const scrollRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [contentWidth, setContentWidth] = useState(0);
+  
+  // Valor real da posição (sem mola para o teletransporte)
+  const x = useMotionValue(0);
+  // Mola apenas para suavizar o scroll manual, mas vamos controlar o 'jump' dela
+  const springX = useSpring(x, { stiffness: 200, damping: 40, mass: 0.5 });
+
+  const t = {
+    pt: {
+      tag: 'Validado por Pros',
+      title_start: 'APROVADO POR',
+      title_accent: 'GIGANTES.',
+      testimonials: [
+        { name: "BAK", handle: "@bak", role: "Streamer", content: "O moleque é absurdo no que faz, fala dele! Recomendo demais.", image: bakImg },
+        { name: "FLAKES POWER", handle: "@flakespower", role: "Youtuber e Empresário", content: "Mano, o PC tava precisando de um talento e chamei o Renan. Ficou bizarro de rápido. Trampo absurdo!", image: flakesImg },
+        { name: "ED", handle: "@edroadtoglory", role: "PRO Player", content: "Pra quem joga camp, qualquer delayzinho já fode a play. Ele fez a otimização aqui, tirou todo o input lag e o FPS cravou. Muito mais fluido pra buildar e dar os edits. 100% aprovado.", image: edImg },
+        { name: "NINEXT", handle: "@ninextt", role: "Streamer", content: "Disparado o melhor tweaker que tem hoje no mercado. O cara sabe o que faz. Mexeu no meu setup e a diferença na fluidez do jogo é sacanagem. Confia que o moleque é brabo.", image: ninextImg },
+        { name: "TONYBOY", handle: "@tonyboy", role: "Pro Player", content: "A estabilidade do frame time após a otimização é bizarra. Outro nível de gameplay.", image: tonyboyImg }
+      ]
+    },
+    en: {
+      tag: 'Validated by Pros',
+      title_start: 'APPROVED BY',
+      title_accent: 'GIANTS.',
+      testimonials: [
+        { name: "BAK", handle: "@bak", role: "Streamer", content: "The dude is insane at what he does! Highly recommend.", image: bakImg },
+        { name: "FLAKES POWER", handle: "@flakespower", role: "Youtuber & Entrepreneur", content: "Man, the PC needed some love and I called Renan. It became insanely fast. Incredible work!", image: flakesImg },
+        { name: "ED", handle: "@edroadtoglory", role: "PRO Player", content: "For those playing competitive, any small delay ruins the play. He did the optimization here, removed all input lag, and the FPS stayed locked. Much smoother for building and editing. 100% approved.", image: edImg },
+        { name: "NINEXT", handle: "@ninextt", role: "Streamer", content: "Hands down the best tweaker on the market today. He knows what he's doing. He worked on my setup and the difference in game fluidity is crazy. Trust me, the dude is elite.", image: ninextImg },
+        { name: "TONYBOY", handle: "@tonyboy", role: "Pro Player", content: "The frame time stability after the optimization is bizarre. Another level of gameplay.", image: tonyboyImg }
+      ]
+    }
+  }[language || 'pt'];
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      setContentWidth(scrollRef.current.scrollWidth / 3);
+    }
+  }, []);
+
+  useEffect(() => {
+    let animationFrame;
+    let autoSpeed = -0.8;
+
+    const update = () => {
+      let currentX = x.get();
+      
+      // Movimento automático
+      if (!isHovered) {
+        currentX += autoSpeed;
+      }
+
+      // Lógica de Wrap (Loop Infinito)
+      // Se passar do limite da esquerda, pula pra direita
+      if (currentX <= -contentWidth) {
+        currentX += contentWidth;
+      } 
+      // Se passar do limite da direita (scroll manual), pula pra esquerda
+      else if (currentX >= 0) {
+        currentX -= contentWidth;
+      }
+
+      // Seta o valor bruto (x) e a mola (springX) simultaneamente
+      // Usamos 'false' no springX se quisermos que ele pule sem animar (jump)
+      x.set(currentX);
+      
+      animationFrame = requestAnimationFrame(update);
+    };
+
+    const handleWheel = (e) => {
+      if (isHovered) {
+        e.preventDefault();
+        let delta = e.deltaY * 0.8;
+        x.set(x.get() - delta);
+      }
+    };
+
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener('wheel', handleWheel, { passive: false });
+    }
+
+    animationFrame = requestAnimationFrame(update);
+    return () => {
+      cancelAnimationFrame(animationFrame);
+      if (container) container.removeEventListener('wheel', handleWheel);
+    };
+  }, [isHovered, contentWidth]);
+
   return (
     <section className="py-32 bg-black overflow-hidden border-y border-white/[0.03]">
-      <div className="container mx-auto px-6 mb-16">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#00bffa]/20 bg-[#00bffa]/5 mb-6">
-          <span className="text-[10px] tracking-[0.3em] text-[#00bffa] uppercase font-light italic">Validated by Pros</span>
+      <div className="container mx-auto px-6 mb-20 text-center">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#00bffa]/20 bg-[#00bffa]/5 mb-8">
+          <span className="text-[10px] tracking-[0.3em] text-[#00bffa] uppercase font-light italic">{t.tag}</span>
         </div>
-        <h2 className="text-4xl md:text-5xl font-light text-white tracking-tighter uppercase">
-          RESULTADOS <span className="text-zinc-600 italic">REAIS.</span>
+        <h2 className="text-5xl md:text-7xl font-light text-white tracking-tighter uppercase leading-none">
+          {t.title_start} <br />
+          <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent italic font-medium">
+            {t.title_accent}
+          </span>
         </h2>
       </div>
 
-      {/* Infinite Marquee */}
-      <div className="flex relative">
+      <div 
+        ref={containerRef}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className="flex relative cursor-grab active:cursor-grabbing select-none"
+      >
         <motion.div 
-          initial={{ x: 0 }}
-          animate={{ x: "-50%" }}
-          transition={{ 
-            duration: 40, 
-            repeat: Infinity, 
-            ease: "linear" 
-          }}
-          className="flex gap-6 pr-6 whitespace-nowrap"
+          ref={scrollRef}
+          style={{ x: springX, display: 'flex' }}
+          className="whitespace-nowrap"
         >
-          {[...testimonials, ...testimonials].map((t, i) => (
+          {[...t.testimonials, ...t.testimonials, ...t.testimonials].map((item, i) => (
             <div 
-              key={i}
-              className="w-[320px] md:w-[450px] glass-card p-8 md:p-10 border border-white/[0.05] relative group"
+              key={i} 
+              className="w-[320px] md:w-[500px] p-8 md:p-16 relative group transition-all duration-500"
             >
-              <div className="flex items-start justify-between mb-8">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-full overflow-hidden border border-white/10 grayscale group-hover:grayscale-0 transition-all duration-500">
-                    <img src={t.image} alt={t.name} className="w-full h-full object-cover" />
+              <div className="flex items-start justify-between mb-10 pointer-events-none">
+                <div className="flex items-center gap-6">
+                  <div className="w-20 h-20 rounded-full overflow-hidden border border-white/10 grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:border-[#00bffa]/50 transition-all duration-700 shadow-2xl">
+                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                   </div>
-                  <div className="whitespace-normal">
-                    <h4 className="text-white font-light tracking-tight text-lg uppercase leading-tight">{t.name}</h4>
-                    <p className="text-[#00bffa] text-[10px] tracking-[0.2em] uppercase font-light">{t.role}</p>
+                  <div>
+                    <div className="flex items-center gap-3 mb-2">
+                      <h4 className="text-white font-medium tracking-tight text-xl uppercase leading-tight group-hover:text-[#00bffa] transition-colors">{item.name}</h4>
+                      <div className="px-2 py-0.5 rounded bg-[#00bffa]/10 border border-[#00bffa]/20 text-[#00bffa] text-[9px] font-bold tracking-widest uppercase">{item.handle}</div>
+                    </div>
+                    <p className="text-zinc-500 text-[10px] tracking-widest uppercase font-light">{item.role}</p>
                   </div>
                 </div>
-                <div className="text-[10px] text-zinc-600 font-mono italic">{t.performance}</div>
               </div>
-              <p className="text-zinc-400 font-light text-base md:text-lg leading-relaxed italic whitespace-normal">
-                "{t.content}"
+              <p className="text-zinc-500 font-light text-lg md:text-2xl leading-relaxed italic whitespace-normal group-hover:text-white transition-colors duration-700 pointer-events-none">
+                "{item.content}"
               </p>
-              <div className="mt-8 h-px w-16 bg-gradient-to-r from-[#00bffa]/30 to-transparent"></div>
+              <div className="mt-10 h-px w-20 bg-gradient-to-r from-[#00bffa]/40 to-transparent group-hover:w-full transition-all duration-1000"></div>
             </div>
           ))}
         </motion.div>
