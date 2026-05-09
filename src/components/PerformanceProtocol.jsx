@@ -8,8 +8,7 @@ export const PerformanceProtocol = () => {
   const t = {
     pt: {
       tag: 'Metodologia Exclusiva',
-      title: 'PROTOCOLO DE',
-      title_performance: 'PERFORMANCE',
+      title: 'PROTOCOLO DE PERFORMANCE',
       desc: 'Transparência total. Você assiste e autoriza tudo remotamente.',
       steps: [
         { title: "Preparo do Pendrive e Backup.", desc: "Salvamos seus arquivos essenciais e preparamos as ferramentas exclusivas que serão usadas na sua máquina.", icon: Terminal },
@@ -20,8 +19,7 @@ export const PerformanceProtocol = () => {
     },
     en: {
       tag: 'Exclusive Methodology',
-      title: 'PERFORMANCE',
-      title_performance: 'PROTOCOL',
+      title: 'PERFORMANCE PROTOCOL',
       desc: 'Total transparency. You watch and authorize everything remotely.',
       steps: [
         { title: "Flash Drive Prep & Backup.", desc: "We save your essential files and prepare the exclusive tools to be used on your machine.", icon: Terminal },
@@ -33,19 +31,16 @@ export const PerformanceProtocol = () => {
   }[language || 'pt'];
 
   return (
-    <section className="py-32 px-10 md:px-6 bg-zinc-950 border-y border-white/5 relative overflow-hidden">
+    <section className="py-20 px-10 md:px-6 bg-zinc-950 border-y border-white/5 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row items-start justify-between mb-24 gap-12">
-          <div className="max-w-2xl">
+        <div className="flex flex-col md:flex-row items-start justify-between mb-20 gap-12">
+          <div className="max-w-3xl">
             <div className="text-[#00bffa] font-light text-xs uppercase tracking-[0.4em] mb-6">{t.tag}</div>
-            <h2 className="text-5xl md:text-8xl font-light tracking-tighter text-white leading-[0.9] uppercase">
-              {t.title} <br />
-              <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent italic font-medium">
-                {t.title_performance}
-              </span>
+            <h2 className="text-4xl md:text-7xl font-light tracking-tighter text-white leading-tight uppercase italic">
+              {t.title}
             </h2>
           </div>
-          <p className="text-zinc-500 text-xl font-light max-w-sm italic md:mt-12">
+          <p className="text-zinc-500 text-lg font-light max-w-sm italic md:mt-10">
             {t.desc}
           </p>
         </div>
@@ -59,13 +54,13 @@ export const PerformanceProtocol = () => {
               transition={{ delay: idx * 0.1 }}
               className="relative group"
             >
-              <div className="mb-8 flex items-center gap-4">
-                <span className="text-5xl font-thin text-white/5 italic group-hover:text-[#00bffa]/20 transition-colors">0{idx + 1}</span>
+              <div className="mb-6 flex items-center gap-4">
+                <span className="text-4xl font-thin text-white/5 italic group-hover:text-[#00bffa]/20 transition-colors">0{idx + 1}</span>
                 <div className="h-px flex-1 bg-white/5"></div>
               </div>
               
-              <h3 className="text-2xl font-light text-white uppercase tracking-tight mb-4 pr-10">{item.title}</h3>
-              <p className="text-zinc-500 text-base font-light leading-relaxed italic pr-4">
+              <h3 className="text-xl font-light text-white uppercase tracking-tight mb-4 pr-10">{item.title}</h3>
+              <p className="text-zinc-500 text-sm font-light leading-relaxed italic pr-4">
                 {item.desc}
               </p>
             </motion.div>
