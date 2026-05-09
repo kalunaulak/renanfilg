@@ -13,6 +13,8 @@ import { Header } from './components/Header';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Login } from './pages/Login';
 import { Dashboard } from './pages/Dashboard';
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
+import { LanguageSelector } from './components/LanguageSelector';
 import { useEffect } from 'react';
 import logo from './assets/logo.webp';
 
