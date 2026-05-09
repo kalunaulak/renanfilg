@@ -22,28 +22,34 @@ import logo from './assets/logo.webp';
 const LandingPage = () => (
   <>
     <Header />
-    <main className="relative z-10">
+    <main className="relative z-10 space-y-24 md:space-y-48">
       <Hero />
-      <SocialProof />
-      <PerformanceComparison />
-      <Services />
-      <PerformanceProtocol />
-      <Pricing />
-      <ScreeningForm />
-      <FAQ />
+      <section className="py-20 md:py-32"><SocialProof /></section>
+      <section className="py-20 md:py-32"><PerformanceComparison /></section>
+      <section className="py-20 md:py-32"><Services /></section>
+      <section className="py-20 md:py-32"><PerformanceProtocol /></section>
+      <section className="py-20 md:py-32"><Pricing /></section>
+      <section className="py-20 md:py-32"><ScreeningForm /></section>
+      <section className="py-20 md:py-40"><FAQ /></section>
     </main>
-    <footer className="py-32 px-10 border-t border-white/[0.03] bg-[#020202] relative z-10">
+    
+    {/* RODAPÉ ROBUSTO E ESPAÇOSO */}
+    <footer className="py-40 md:py-60 px-10 md:px-20 border-t border-white/[0.05] bg-[#020202] relative z-10">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:row justify-between items-center gap-12 mb-20">
-          <img src={logo} alt="Renan Filg" className="h-6 w-auto grayscale opacity-40" />
-          <div className="flex gap-12 text-[10px] font-light text-zinc-400 uppercase tracking-[0.4em]">
-            <a href="https://instagram.com/renanfilg" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a>
-            <a href="#" className="hover:text-white transition-colors">Twitter</a>
-            <a href="#" className="hover:text-white transition-colors">Discord</a>
+        <div className="flex flex-col md:flex-row justify-between items-center gap-20 md:gap-32 mb-32">
+          <img src={logo} alt="Renan Filg" className="h-10 md:h-12 w-auto grayscale opacity-60 hover:opacity-100 transition-opacity" />
+          <div className="flex flex-wrap justify-center gap-12 md:gap-24 text-[11px] md:text-xs font-bold text-white/40 uppercase tracking-[0.5em]">
+            <a href="https://instagram.com/renanfilg" target="_blank" rel="noopener noreferrer" className="hover:text-[#00bffa] transition-colors">Instagram</a>
+            <a href="#" className="hover:text-[#00bffa] transition-colors">Twitter</a>
+            <a href="#" className="hover:text-[#00bffa] transition-colors">Discord</a>
+            <a href="#" className="hover:text-[#00bffa] transition-colors">LinkedIn</a>
           </div>
         </div>
-        <div className="text-[10px] font-light text-zinc-500 uppercase tracking-widest text-center">
-          © 2026 Renan Filg® — Todos os direitos reservados. Built for the 1%.
+        <div className="flex flex-col gap-8 items-center border-t border-white/5 pt-20">
+          <div className="text-[10px] md:text-[12px] font-thin text-white/20 uppercase tracking-[1em] text-center leading-relaxed">
+            © 2026 Renan Filg® — Built for the 1%. <br className="md:hidden" /> Otimização Elite em Hardware.
+          </div>
+          <div className="h-1 w-20 bg-gradient-to-r from-transparent via-[#00bffa] to-transparent opacity-30"></div>
         </div>
       </div>
     </footer>
@@ -55,11 +61,10 @@ const AppContent = () => {
 
   return (
     <Router>
-      <div className="min-h-screen bg-[#020202] text-white selection:bg-[#00bffa]/30 relative">
+      <div className="min-h-screen bg-[#020202] text-white selection:bg-[#00bffa]/30 relative overflow-x-hidden">
         <CustomCursor />
         <GridBackground />
         
-        {/* Mostra o seletor se não houver idioma escolhido */}
         {!language && <LanguageSelector onSelect={selectLanguage} />}
 
         <Routes>
