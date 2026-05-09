@@ -1,16 +1,18 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import { viteSingleFile } from 'vite-plugin-singlefile'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    viteSingleFile(),
   ],
-  base: './', // Garante que os caminhos sejam relativos para a Vercel
   build: {
-    cssCodeSplit: false, // Força o CSS em um único arquivo para evitar quebras
-    assetsInlineLimit: 100000, // Embutir imagens pequenas para performance
-  }
+    target: 'esnext',
+    assetsInlineLimit: 100000000, // Força o inlining de tudo
+    chunkSizeWarningLimit: 100000,
+  },
 })
