@@ -58,9 +58,9 @@ const AppContent = () => {
         <CustomCursor />
         <GridBackground />
         
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {!language && <LanguageSelector onSelect={selectLanguage} />}
-        </AnimatePresence>
+        </AnimatePresence> */}
 
         <Routes>
           <Route path="/" element={<LandingPage />} />
