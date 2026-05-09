@@ -1,6 +1,6 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import bakImg from '../assets/bak.webp';
 import edImg from '../assets/ed_road_to_glory.webp';
 import flakesImg from '../assets/flakes_power.webp';
@@ -14,10 +14,8 @@ export const SocialProof = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [contentWidth, setContentWidth] = useState(0);
   
-  // Valor real da posição (sem mola para o teletransporte)
   const x = useMotionValue(0);
-  // Mola apenas para suavizar o scroll manual, mas vamos controlar o 'jump' dela
-  const springX = useSpring(x, { stiffness: 200, damping: 40, mass: 0.5 });
+  const springX = useSpring(x, { stiffness: 100, damping: 30, mass: 1 });
 
   const t = {
     pt: {
@@ -54,60 +52,32 @@ export const SocialProof = () => {
 
   useEffect(() => {
     let animationFrame;
-    let autoSpeed = -0.8;
+    const autoSpeed = -0.6;
 
     const update = () => {
-      let currentX = x.get();
-      
-      // Movimento automático
       if (!isHovered) {
+        let currentX = x.get();
         currentX += autoSpeed;
-      }
 
-      // Lógica de Wrap (Loop Infinito)
-      // Se passar do limite da esquerda, pula pra direita
-      if (currentX <= -contentWidth) {
-        currentX += contentWidth;
-      } 
-      // Se passar do limite da direita (scroll manual), pula pra esquerda
-      else if (currentX >= 0) {
-        currentX -= contentWidth;
+        if (currentX <= -contentWidth) currentX += contentWidth;
+        if (currentX >= 0) currentX -= contentWidth;
+        
+        x.set(currentX);
       }
-
-      // Seta o valor bruto (x) e a mola (springX) simultaneamente
-      // Usamos 'false' no springX se quisermos que ele pule sem animar (jump)
-      x.set(currentX);
-      
       animationFrame = requestAnimationFrame(update);
     };
 
-    const handleWheel = (e) => {
-      if (isHovered) {
-        e.preventDefault();
-        let delta = e.deltaY * 0.8;
-        x.set(x.get() - delta);
-      }
-    };
-
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener('wheel', handleWheel, { passive: false });
-    }
-
     animationFrame = requestAnimationFrame(update);
-    return () => {
-      cancelAnimationFrame(animationFrame);
-      if (container) container.removeEventListener('wheel', handleWheel);
-    };
-  }, [isHovered, contentWidth]);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [isHovered, contentWidth, x]);
 
   return (
-    <section className="py-32 bg-black overflow-hidden border-y border-white/[0.03]">
-      <div className="container mx-auto px-6 mb-20 text-center">
+    <section className="py-24 md:py-32 bg-black overflow-hidden border-y border-white/[0.03]">
+      <div className="max-w-7xl mx-auto px-8 md:px-12 mb-20 text-center">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#00bffa]/20 bg-[#00bffa]/5 mb-8">
           <span className="text-[10px] tracking-[0.3em] text-[#00bffa] uppercase font-light italic">{t.tag}</span>
         </div>
-        <h2 className="text-5xl md:text-7xl font-light text-white tracking-tighter uppercase leading-none">
+        <h2 className="text-5xl md:text-8xl font-thin text-white tracking-tighter uppercase leading-[0.85] mb-8">
           {t.title_start} <br />
           <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent italic font-medium">
             {t.title_accent}
@@ -123,29 +93,33 @@ export const SocialProof = () => {
       >
         <motion.div 
           ref={scrollRef}
+          drag="x"
+          dragConstraints={{ left: -contentWidth * 2, right: 0 }}
+          onDragStart={() => setIsHovered(true)}
+          onDragEnd={() => setIsHovered(false)}
           style={{ x: springX, display: 'flex' }}
           className="whitespace-nowrap"
         >
           {[...t.testimonials, ...t.testimonials, ...t.testimonials].map((item, i) => (
             <div 
               key={i} 
-              className="w-[320px] md:w-[500px] p-8 md:p-16 relative group transition-all duration-500"
+              className="w-[300px] md:w-[600px] p-6 md:p-16 relative group transition-all duration-500"
             >
               <div className="flex items-start justify-between mb-10 pointer-events-none">
                 <div className="flex items-center gap-6">
-                  <div className="w-20 h-20 rounded-full overflow-hidden border border-white/10 grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:border-[#00bffa]/50 transition-all duration-700 shadow-2xl">
+                  <div className="w-16 h-16 md:w-24 md:h-24 rounded-full overflow-hidden border border-white/10 grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:border-[#00bffa]/50 transition-all duration-700 shadow-2xl">
                     <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                   </div>
                   <div>
                     <div className="flex items-center gap-3 mb-2">
-                      <h4 className="text-white font-medium tracking-tight text-xl uppercase leading-tight group-hover:text-[#00bffa] transition-colors">{item.name}</h4>
-                      <div className="px-2 py-0.5 rounded bg-[#00bffa]/10 border border-[#00bffa]/20 text-[#00bffa] text-[9px] font-bold tracking-widest uppercase">{item.handle}</div>
+                      <h4 className="text-white font-medium tracking-tight text-lg md:text-2xl uppercase leading-tight group-hover:text-[#00bffa] transition-colors">{item.name}</h4>
+                      <div className="px-2 py-0.5 rounded bg-[#00bffa]/10 border border-[#00bffa]/20 text-[#00bffa] text-[8px] font-bold tracking-widest uppercase">{item.handle}</div>
                     </div>
-                    <p className="text-zinc-500 text-[10px] tracking-widest uppercase font-light">{item.role}</p>
+                    <p className="text-zinc-500 text-[9px] tracking-widest uppercase font-light">{item.role}</p>
                   </div>
                 </div>
               </div>
-              <p className="text-zinc-500 font-light text-lg md:text-2xl leading-relaxed italic whitespace-normal group-hover:text-white transition-colors duration-700 pointer-events-none">
+              <p className="text-zinc-400 font-thin text-base md:text-3xl leading-relaxed italic whitespace-normal group-hover:text-white transition-colors duration-700 pointer-events-none tracking-tight">
                 "{item.content}"
               </p>
               <div className="mt-10 h-px w-20 bg-gradient-to-r from-[#00bffa]/40 to-transparent group-hover:w-full transition-all duration-1000"></div>
