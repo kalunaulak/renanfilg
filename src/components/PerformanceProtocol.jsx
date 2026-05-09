@@ -8,7 +8,8 @@ export const PerformanceProtocol = () => {
   const t = {
     pt: {
       tag: 'Metodologia Exclusiva',
-      title: 'PROTOCOLO DE PERFORMANCE',
+      title_part1: 'PROTOCOLO DE',
+      title_part2: 'PERFORMANCE',
       desc: 'Transparência total. Você assiste e autoriza tudo remotamente.',
       steps: [
         { title: "Preparo do Pendrive e Backup.", desc: "Salvamos seus arquivos essenciais e preparamos as ferramentas exclusivas que serão usadas na sua máquina.", icon: Terminal },
@@ -19,7 +20,8 @@ export const PerformanceProtocol = () => {
     },
     en: {
       tag: 'Exclusive Methodology',
-      title: 'PERFORMANCE PROTOCOL',
+      title_part1: 'PERFORMANCE',
+      title_part2: 'PROTOCOL',
       desc: 'Total transparency. You watch and authorize everything remotely.',
       steps: [
         { title: "Flash Drive Prep & Backup.", desc: "We save your essential files and prepare the exclusive tools to be used on your machine.", icon: Terminal },
@@ -36,11 +38,14 @@ export const PerformanceProtocol = () => {
         <div className="flex flex-col md:flex-row items-start justify-between mb-20 gap-12">
           <div className="max-w-3xl">
             <div className="text-[#00bffa] font-light text-xs uppercase tracking-[0.4em] mb-6">{t.tag}</div>
-            <h2 className="text-4xl md:text-7xl font-light tracking-tighter text-white leading-tight uppercase italic">
-              {t.title}
+            <h2 className="text-5xl md:text-8xl font-light tracking-tighter text-white leading-[0.85] uppercase italic">
+              {t.title_part1} <br />
+              <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent not-italic font-bold">
+                {t.title_part2}
+              </span>
             </h2>
           </div>
-          <p className="text-zinc-500 text-lg font-light max-w-sm italic md:mt-10">
+          <p className="text-zinc-500 text-lg font-light max-w-sm italic md:mt-12">
             {t.desc}
           </p>
         </div>
