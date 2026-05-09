@@ -9,6 +9,6 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    viteSingleFile(),
-  ],
+    process.env.VITE_SINGLE_FILE === 'true' && viteSingleFile(),
+  ].filter(Boolean),
 })

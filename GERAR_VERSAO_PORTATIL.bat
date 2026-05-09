@@ -7,7 +7,9 @@ echo  ==========================================
 echo.
 
 :: Build do projeto
+set VITE_SINGLE_FILE=true
 call npm run build
+set VITE_SINGLE_FILE=
 
 :: Copia o resultado para a raiz com um nome amigavel
 if exist "dist\index.html" (
