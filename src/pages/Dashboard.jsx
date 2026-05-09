@@ -1,190 +1,179 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { useLanguage } from '../context/LanguageContext';
-import logo from '../assets/logo.webp';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Download, Play, Video, Shield, Settings, LogOut, CheckCircle, Clock, ExternalLink, RefreshCw } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '../lib/supabase';
 
 export const Dashboard = () => {
-  const { language } = useLanguage();
-  const [content, setContent] = useState(null);
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState('drivers');
+  const [drivers, setDrivers] = useState([]);
+  const [lessons, setLessons] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const loadData = useCallback(() => {
-    try {
-      const saved = localStorage.getItem('rf_content') || localStorage.getItem('RF_ADMIN_DATA');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        // Validação simples da estrutura
-        if (parsed.files && parsed.videos) {
-          setContent(parsed);
-          return;
-        }
-      }
-      
-      // Fallback Padrão
-      setContent({
-        files: [
-          { name: 'Pack de Drivers Elite v4.2', desc: 'Drivers otimizados para baixa latência', url: '#' },
-          { name: 'Scripts de Limpeza de Kernel', desc: 'Remoção de telemetria e bloatware', url: '#' },
-          { name: 'Otimizador de Latência TCP', desc: 'Ajustes de rede para jogos competitivos', url: '#' }
-        ],
-        videos: [
-          { title: 'Como formatar um pendrive para a BIOS', duration: '05:20', thumb: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&q=80&w=400', url: '#' },
-          { title: 'Ferramentas úteis pós-instalação', duration: '12:45', thumb: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400', url: '#' },
-          { title: 'Como salvar sua otimização (Backup)', duration: '08:15', thumb: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc48?auto=format&fit=crop&q=80&w=400', url: '#' },
-        ]
-      });
-    } catch (e) {
-      console.error("Dashboard Sync Error:", e);
-    }
-  }, []);
-
+  // CARREGAR DADOS DO SUPABASE (Sincronismo Global)
   useEffect(() => {
     loadData();
-
-    const handleSync = (e) => {
-      if (e.key === 'rf_content' || e.key === 'RF_ADMIN_DATA' || !e.key) {
+    
+    // Opcional: Listen para mudanças em tempo real
+    const channel = supabase
+      .channel('schema-db-changes')
+      .on('postgres_changes', { event: '*', schema: 'public' }, () => {
         loadData();
-      }
-    };
-
-    window.addEventListener('storage', handleSync);
-    // Polling agressivo de 1 segundo para garantir
-    const interval = setInterval(loadData, 1000);
+      })
+      .subscribe();
 
     return () => {
-      window.removeEventListener('storage', handleSync);
-      clearInterval(interval);
+      supabase.removeChannel(channel);
     };
-  }, [loadData]);
+  }, []);
 
-  if (!content) return null;
-
-  const t = {
-    pt: {
-      title: 'Painel do Assinante',
-      subtitle: 'Protocolo de Performance Elite',
-      logout: 'Sair do Painel',
-      files_title: 'Arquivos Obrigatórios (Pré-Otimização)',
-      playlist_title: 'Playlist de Treinamento',
-      video_lesson: 'Aula',
-      video_content: 'de conteúdo',
-      video_desc: 'Neste tutorial você aprenderá o passo a passo completo para executar esta etapa do protocolo com segurança.',
-      community_title: 'Comunidade VIP',
-      community_desc: 'Entre no grupo exclusivo de alunos no WhatsApp para atualizações em tempo real.',
-      community_btn: 'Acessar WhatsApp',
-    },
-    en: {
-      title: 'Subscriber Panel',
-      subtitle: 'Elite Performance Protocol',
-      logout: 'Exit Panel',
-      files_title: 'Mandatory Files (Pre-Optimization)',
-      playlist_title: 'Training Playlist',
-      video_lesson: 'Lesson',
-      video_content: 'of content',
-      video_desc: 'In this tutorial, you will learn the complete step-by-step to execute this stage of the protocol safely.',
-      community_title: 'VIP Community',
-      community_desc: 'Join the exclusive student group on WhatsApp for real-time updates.',
-      community_btn: 'Access WhatsApp',
+  async function loadData() {
+    setIsLoading(true);
+    try {
+      const { data: dData } = await supabase.from('drivers').select('*').order('created_at', { ascending: false });
+      const { data: lData } = await supabase.from('lessons').select('*').order('created_at', { ascending: false });
+      
+      setDrivers(dData || []);
+      setLessons(lData || []);
+    } catch (err) {
+      console.error('Erro ao buscar dados:', err);
+    } finally {
+      setIsLoading(false);
     }
-  }[language || 'pt'];
+  }
+
+  const handleLogout = () => {
+    navigate('/login');
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#020202] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-6">
+          <RefreshCw className="text-[#00bffa] animate-spin" size={48} />
+          <p className="text-zinc-500 font-bold tracking-[0.3em] text-xs uppercase">Sincronizando Protocolo...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-[#020202] text-white p-6 md:p-12 selection:bg-[#00bffa]/30">
-      <div className="max-w-7xl mx-auto">
-        
-        {/* Status Bar de Debug (Discreta) */}
-        <div className="fixed top-2 right-4 flex items-center gap-2">
-           <span className="w-1 h-1 rounded-full bg-[#00bffa] animate-pulse"></span>
-           <span className="text-[8px] font-black text-white/20 uppercase tracking-widest">Live Sync Ativo</span>
+    <div className="min-h-screen bg-[#020202] text-white font-sans selection:bg-[#00bffa]/30 overflow-x-hidden">
+      {/* Sidebar Luxo */}
+      <div className="fixed left-0 top-0 bottom-0 w-20 md:w-72 bg-black border-r border-white/5 z-50 flex flex-col items-center py-12">
+        <div className="mb-20">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#00bffa] to-[#005eea] flex items-center justify-center shadow-[0_0_30px_rgba(0,191,250,0.5)]">
+            <Shield className="text-white" size={28} />
+          </div>
         </div>
 
-        <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-16">
-          <div className="flex items-center gap-6">
-            <Link to="/">
-              <img src={logo} alt="RF" className="h-8 w-auto" />
-            </Link>
-            <div className="w-px h-8 bg-white/10 hidden md:block"></div>
-            <div>
-              <h1 className="text-xl font-light tracking-tight uppercase">{t.title}</h1>
-              <p className="text-zinc-500 text-[10px] uppercase tracking-[0.3em]">{t.subtitle}</p>
-            </div>
+        <nav className="flex-1 w-full px-6 space-y-6">
+          <button 
+            onClick={() => setActiveTab('drivers')}
+            className={`w-full flex items-center gap-5 p-5 rounded-2xl transition-all duration-500 ${activeTab === 'drivers' ? 'bg-[#00bffa]/10 text-[#00bffa] shadow-[0_0_20px_rgba(0,191,250,0.1)] border border-[#00bffa]/20' : 'text-zinc-600 hover:text-white hover:bg-white/5'}`}
+          >
+            <Download size={22} />
+            <span className="hidden md:block font-bold tracking-tight text-sm uppercase">Driver Hub</span>
+          </button>
+          <button 
+            onClick={() => setActiveTab('lessons')}
+            className={`w-full flex items-center gap-5 p-5 rounded-2xl transition-all duration-500 ${activeTab === 'lessons' ? 'bg-[#00bffa]/10 text-[#00bffa] shadow-[0_0_20px_rgba(0,191,250,0.1)] border border-[#00bffa]/20' : 'text-zinc-600 hover:text-white hover:bg-white/5'}`}
+          >
+            <Video size={22} />
+            <span className="hidden md:block font-bold tracking-tight text-sm uppercase">Streaming Hub</span>
+          </button>
+        </nav>
+
+        <button onClick={handleLogout} className="p-6 text-zinc-700 hover:text-red-500 transition-colors">
+          <LogOut size={26} />
+        </button>
+      </div>
+
+      {/* Main Content */}
+      <div className="pl-20 md:pl-72 p-8 md:p-20">
+        <header className="mb-20">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-2 h-2 rounded-full bg-[#00bffa] animate-pulse shadow-[0_0_10px_#00bffa]"></div>
+            <span className="text-zinc-500 text-[10px] font-bold tracking-[0.5em] uppercase italic">Acesso Autorizado • Elite Status</span>
           </div>
-          <Link to="/" className="text-[10px] uppercase tracking-widest text-zinc-500 hover:text-white transition-colors border border-white/5 px-6 py-3 rounded-full bg-white/[0.02]">
-            {t.logout}
-          </Link>
+          <h1 className="text-5xl md:text-7xl font-light tracking-tighter uppercase leading-none">
+            REMAN <span className="italic font-bold bg-gradient-to-r from-white to-zinc-500 bg-clip-text text-transparent">DASHBOARD.</span>
+          </h1>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          <div className="lg:col-span-2 space-y-12">
-            <section className="glass-card p-10 border border-[#00bffa]/20 bg-[#00bffa]/5 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-1 h-full bg-[#00bffa]"></div>
-              <h2 className="text-[10px] uppercase tracking-[0.4em] text-[#00bffa] mb-8">{t.files_title}</h2>
-              <div className="space-y-4">
-                {content.files.map((file, idx) => (
-                  <div key={idx} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 rounded-xl bg-white/[0.03] border border-white/5 hover:border-[#00bffa]/30 transition-all group gap-4">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-lg bg-[#00bffa]/10 flex items-center justify-center text-[10px] font-bold text-[#00bffa]">ZIP</div>
-                      <div>
-                        <span className="text-sm font-light uppercase tracking-widest block mb-1">{file.name}</span>
-                        <span className="text-[10px] text-zinc-500 uppercase tracking-widest">{file.desc}</span>
-                      </div>
+        <AnimatePresence mode="wait">
+          {activeTab === 'drivers' ? (
+            <motion.div 
+              key="drivers"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="grid grid-cols-1 xl:grid-cols-2 gap-8"
+            >
+              {drivers.map((driver) => (
+                <div key={driver.id} className="glass-card p-10 flex items-center justify-between group hover:border-[#00bffa]/30 transition-all duration-700">
+                  <div className="flex gap-8 items-center">
+                    <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:bg-[#00bffa]/10 transition-all duration-700">
+                      <Download size={32} className="text-zinc-500 group-hover:text-[#00bffa]" />
                     </div>
-                    <a href={file.url} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-6 py-3 rounded-full bg-white/5 text-[10px] text-center uppercase tracking-widest text-[#00bffa] hover:bg-[#00bffa] hover:text-black transition-all">Download</a>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section>
-              <h2 className="text-[10px] uppercase tracking-[0.4em] text-zinc-500 mb-8 flex items-center gap-2">
-                <span className="w-8 h-px bg-white/10"></span>
-                {t.playlist_title}
-              </h2>
-              <div className="space-y-8">
-                {content.videos.map((video, idx) => (
-                  <div key={idx} className="group glass-card p-4 border border-white/5 hover:border-white/10 transition-all">
-                    <div className="flex flex-col md:flex-row gap-8">
-                      <a href={video.url} target="_blank" rel="noopener noreferrer" className="w-full md:w-64 aspect-video rounded-lg overflow-hidden bg-zinc-900 relative shrink-0">
-                        <img src={video.thumb} alt={video.title} className="w-full h-full object-cover opacity-40 group-hover:opacity-70 transition-all" />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:bg-[#00bffa] transition-all">
-                            <span className="text-[10px] ml-1 text-white">▶</span>
-                          </div>
-                        </div>
-                      </a>
-                      <div className="flex flex-col justify-center">
-                        <div className="flex items-center gap-3 mb-3">
-                          <span className="text-[9px] px-2 py-0.5 rounded bg-white/5 text-zinc-500 uppercase tracking-widest border border-white/5">{t.video_lesson} {idx + 1}</span>
-                          <span className="text-[9px] text-[#00bffa] uppercase tracking-widest">{video.duration} {t.video_content}</span>
-                        </div>
-                        <h3 className="text-xl font-light tracking-tight mb-3 group-hover:text-[#00bffa] transition-colors">{video.title}</h3>
-                        <p className="text-xs text-zinc-500 font-light leading-relaxed max-w-xl">
-                          {t.video_desc}
-                        </p>
+                    <div>
+                      <div className="flex items-center gap-3 mb-3">
+                        <h3 className="text-2xl font-bold uppercase tracking-tight text-white group-hover:text-[#00bffa] transition-colors">{driver.title}</h3>
+                        <span className="px-3 py-1 rounded bg-white/5 border border-white/10 text-[9px] font-bold text-zinc-500 uppercase tracking-widest">{driver.category}</span>
+                      </div>
+                      <div className="flex gap-6 text-[10px] font-bold text-zinc-600 uppercase tracking-widest">
+                        <span className="flex items-center gap-2"><Settings size={12} /> v{driver.version}</span>
+                        <span className="flex items-center gap-2"><Clock size={12} /> {driver.date}</span>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </section>
-          </div>
-
-          <aside className="lg:col-span-1">
-            <section className="p-8 rounded-2xl bg-gradient-to-br from-[#25d366]/10 to-transparent border border-[#25d366]/20 sticky top-12">
-              <h2 className="text-[10px] uppercase tracking-[0.4em] text-[#25d366] mb-4">{t.community_title}</h2>
-              <p className="text-xs font-light text-zinc-400 mb-6 leading-relaxed">
-                {t.community_desc}
-              </p>
-              <a 
-                href="https://wa.me/55SEUNUMERO" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-3 w-full py-4 rounded-xl bg-[#25d366] text-black text-[10px] font-bold uppercase tracking-widest hover:bg-[#1fb355] transition-all"
-              >
-                {t.community_btn}
-              </a>
-            </section>
-          </aside>
-        </div>
+                  <a href={driver.link} className="p-5 rounded-2xl bg-[#00bffa] text-black hover:shadow-[0_0_30px_rgba(0,191,250,0.4)] hover:scale-105 transition-all">
+                    <Download size={24} />
+                  </a>
+                </div>
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div 
+              key="lessons"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="grid grid-cols-1 lg:grid-cols-2 gap-10"
+            >
+              {lessons.map((lesson) => (
+                <div key={lesson.id} className="glass-card overflow-hidden group hover:border-[#00bffa]/30 transition-all duration-700">
+                  <div className="aspect-video relative overflow-hidden bg-black/40">
+                    {lesson.video_id ? (
+                      <iframe 
+                        className="w-full h-full"
+                        src={`https://www.youtube.com/embed/${lesson.video_id}?rel=0&modestbranding=1`}
+                        title={lesson.title}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                         <Play size={64} className="text-white/10" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-10">
+                    <div className="flex items-center justify-between mb-6">
+                      <span className="text-[10px] font-bold text-[#00bffa] uppercase tracking-[0.3em] italic">{lesson.category}</span>
+                      <span className="text-xs font-mono text-zinc-600">{lesson.duration}</span>
+                    </div>
+                    <h3 className="text-2xl font-bold uppercase tracking-tight text-white mb-6 group-hover:text-[#00bffa] transition-colors">{lesson.title}</h3>
+                    <div className="flex items-center gap-3 text-zinc-500 text-[10px] font-bold uppercase tracking-widest border-t border-white/5 pt-6">
+                      <Clock size={14} /> Atualizado em {lesson.date}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
