@@ -35,19 +35,22 @@ export const PerformanceProtocol = () => {
   return (
     <section className="py-32 px-10 md:px-6 bg-zinc-950 border-y border-white/5 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between mb-24 gap-12">
+        <div className="flex flex-col md:flex-row items-start justify-between mb-24 gap-12">
           <div className="max-w-2xl">
-            <div className="text-[#00bffa] font-light text-xs uppercase tracking-[0.4em] mb-4">{t.tag}</div>
-            <h2 className="text-4xl md:text-7xl font-light tracking-tighter text-white leading-none">
-              {t.title} <br /><span className="text-[#00bffa]">{t.title_performance}</span>
+            <div className="text-[#00bffa] font-light text-xs uppercase tracking-[0.4em] mb-6">{t.tag}</div>
+            <h2 className="text-5xl md:text-8xl font-light tracking-tighter text-white leading-[0.9] uppercase">
+              {t.title} <br />
+              <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent italic font-medium">
+                {t.title_performance}
+              </span>
             </h2>
           </div>
-          <p className="text-zinc-500 text-xl font-light max-w-sm italic">
+          <p className="text-zinc-500 text-xl font-light max-w-sm italic md:mt-12">
             {t.desc}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {t.steps.map((item, idx) => (
             <motion.div
               key={idx}
@@ -61,8 +64,8 @@ export const PerformanceProtocol = () => {
                 <div className="h-px flex-1 bg-white/5"></div>
               </div>
               
-              <h3 className="text-xl font-light text-white uppercase tracking-tight mb-4 pr-10">{item.title}</h3>
-              <p className="text-zinc-500 text-sm font-light leading-relaxed italic pr-4">
+              <h3 className="text-2xl font-light text-white uppercase tracking-tight mb-4 pr-10">{item.title}</h3>
+              <p className="text-zinc-500 text-base font-light leading-relaxed italic pr-4">
                 {item.desc}
               </p>
             </motion.div>
