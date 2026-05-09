@@ -107,7 +107,7 @@ export const Pricing = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1 }}
-              className={`p-10 md:p-16 rounded-[32px] relative overflow-hidden flex flex-col ${item.highlight ? 'bg-zinc-900/50 border border-white/5 shadow-[0_0_60px_rgba(0,191,250,0.05)]' : 'glass-card'}`}
+              className={`p-8 md:p-16 rounded-[32px] relative overflow-hidden flex flex-col ${item.highlight ? 'bg-zinc-900/50 border border-white/5 shadow-[0_0_60px_rgba(0,191,250,0.05)]' : 'glass-card'}`}
             >
               {item.highlight && (
                 <div className="absolute top-8 right-8 text-[#00bffa]">

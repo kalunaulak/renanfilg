@@ -52,7 +52,7 @@ export const Hero = () => {
   }[language || 'pt'];
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-10 pt-24 overflow-hidden bg-black">
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-10 md:px-8 pt-24 overflow-hidden bg-black">
       <MatrixHeroBackground />
       <Particles />
       

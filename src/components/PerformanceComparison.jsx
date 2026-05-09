@@ -26,7 +26,7 @@ export const PerformanceComparison = () => {
     }
   }[language || 'pt'];
   return (
-    <section className="py-40 px-10 relative overflow-hidden">
+    <section className="py-40 px-10 md:px-8 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
           <div>
@@ -68,7 +68,7 @@ export const PerformanceComparison = () => {
           </div>
 
           <div className="relative">
-            <div className="glass-card p-12 aspect-video relative overflow-hidden flex flex-col justify-between border-white/[0.03] bg-black/40">
+            <div className="glass-card p-6 md:p-12 aspect-video relative overflow-hidden flex flex-col justify-between border-white/[0.03] bg-black/40">
               
               {/* Technical Grid Crosshairs */}
               <div className="absolute inset-0 p-8 flex flex-wrap justify-between pointer-events-none opacity-10">
