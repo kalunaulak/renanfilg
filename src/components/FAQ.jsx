@@ -48,11 +48,11 @@ export const FAQ = () => {
       title: 'DÚVIDAS',
       title_italic: 'FREQUENTES.',
       faqs: [
-        { q: "O que exatamente é o Tweak?", a: "O Tweak é uma configuração profunda no sistema operacional (Windows), na BIOS da sua placa-mãe e nos registros do sistema. Eu desativo processos inúteis que rodam em segundo plano e otimizo o uso do seu processador, placa de vídeo e memória RAM. O resultado é o máximo de FPS possível, fim das quedas de frame (stuttering) e quase zero input lag." },
-        { q: "Fazer Tweak dá ban nos jogos?", a: "Não. Meu serviço é 100% seguro (White Hat). Eu não uso programas de terceiros, hacks ou arquivos que alteram os diretórios dos jogos. Trabalho apenas otimizando o seu Windows e o seu hardware." },
-        { q: "Jogo GTA RP e meu FPS cai muito. O Tweak resolve?", a: "Com certeza. O FiveM (GTA RP) exige demais do processador e da RAM. O Tweak foca em estabilizar o uso da memória e otimizar a leitura do jogo, evitando aquelas congeladas." },
-        { q: "Como o serviço é realizado?", a: "O serviço é 100% remoto via AnyDesk ou TeamViewer. Você acompanha todo o processo acontecendo na sua tela, no conforto da sua casa." },
-        { q: "Quanto tempo demora o processo?", a: "Em média, entre 1 a 2 horas, dependendo do estado atual do seu computador e do pacote escolhido." }
+        { q: "O que exatamente é o Tweak?", a: "O Tweak é uma calibração profunda no seu Windows e nas configurações físicas do seu computador. Eu desativo programas desnecessários que rodam escondidos em segundo plano e faço o seu processador, placa de vídeo e memórias trabalharem em perfeita harmonia. O resultado é o máximo de FPS possível, fim absoluto das travadas no meio do jogo (stuttering) e respostas instantâneas ao clicar ou mover o mouse (sem atrasos)." },
+        { q: "Fazer Tweak dá ban nos jogos?", a: "Não. Meu serviço é 100% seguro e permitido pelas desenvolvedoras de jogos (método limpo). Eu não utilizo nenhum tipo de trapaça, hack ou programa proibido que altere os arquivos dos seus jogos. Trabalho apenas otimizando o seu Windows e ajustando o desempenho real das suas peças." },
+        { q: "Jogo GTA RP e meu FPS cai muito. O Tweak resolve?", a: "Com certeza. O FiveM (GTA RP) exige demais do computador e da memória RAM. O Tweak foca em estabilizar o uso da memória e fazer o jogo carregar mais rápido, evitando aquelas congeladas irritantes." },
+        { q: "Como o serviço é realizado?", a: "O serviço é 100% remoto através de programas de acesso seguro (como AnyDesk). Você acompanha tudo o que estou fazendo na sua tela, no conforto da sua casa." },
+        { q: "Quanto tempo demora o processo?", a: "Em média, entre 1 a 2 horas, dependendo do estado atual do seu computador." }
       ]
     },
     en: {
@@ -60,11 +60,11 @@ export const FAQ = () => {
       title: 'COMMON',
       title_italic: 'QUESTIONS.',
       faqs: [
-        { q: "What exactly is Tweak?", a: "Tweak is a deep configuration of the OS (Windows), motherboard BIOS, and system registries. I disable useless background processes and optimize CPU, GPU, and RAM usage. The result is maximum FPS, no more stuttering, and near-zero input lag." },
-        { q: "Can Tweaking get me banned?", a: "No. My service is 100% safe (White Hat). I do not use third-party programs, hacks, or files that alter game directories. I only optimize your Windows and hardware." },
-        { q: "I play GTA RP and my FPS drops. Does it fix it?", a: "Absolutely. FiveM (GTA RP) is very demanding on CPU and RAM. Tweaking focuses on stabilizing memory usage and optimizing game reading, avoiding those freezes." },
-        { q: "How is the service performed?", a: "The service is 100% remote via AnyDesk or TeamViewer. You watch the entire process happening on your screen from the comfort of your home." },
-        { q: "How long does it take?", a: "On average, between 1 to 2 hours, depending on your computer's current state and the chosen package." }
+        { q: "What exactly is Tweak?", a: "Tweak is a deep calibration of your Windows and your computer's physical hardware settings. I disable useless background programs and make your CPU, GPU, and RAM work in perfect harmony. The result is maximum FPS, an absolute end to mid-game stuttering, and instant mouse and click responses (zero delay)." },
+        { q: "Can Tweaking get me banned?", a: "No. My service is 100% safe and fully allowed by game developers (clean method). I do not use any cheats, hacks, or prohibited programs that alter your game files. I only optimize your Windows and fine-tune your hardware's actual performance." },
+        { q: "I play GTA RP and my FPS drops. Does it fix it?", a: "Absolutely. FiveM (GTA RP) is highly demanding on CPU and RAM. The Tweak focuses on stabilizing memory usage and making the game load faster, avoiding those annoying freezes." },
+        { q: "How is the service performed?", a: "The service is 100% remote using secure screen-share programs (like AnyDesk). You can watch everything I do on your screen from the comfort of your home." },
+        { q: "How long does it take?", a: "On average, between 1 to 2 hours, depending on your computer's current state." }
       ]
     }
   }[language || 'pt'];

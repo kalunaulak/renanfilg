@@ -11,10 +11,10 @@ export const Services = () => {
       title: 'RESULTADOS',
       title_italic: 'CIRÚRGICOS.',
       services: [
-        { title: "Engenharia de Sistema", desc: "Eu vou até a raiz do seu hardware. BIOS tuning para o processador rodar frio e estável.", icon: Cpu, badge: "Deep BIOS" },
-        { title: "Kernel & Latency", desc: "Instalação de Windows modificado direto dos servidores da Microsoft. Zero bloatware.", icon: Terminal, badge: "Low Latency" },
-        { title: "Consultoria 1 a 1", desc: "Procedimento de 3h assistido via TeamViewer com raio-X completo do seu setup.", icon: Zap, badge: "TeamViewer" },
-        { title: "Suporte Vitalício", desc: "Manual de cuidados essenciais. Sem mensalidades ou recorrência.", icon: Shield, badge: "Permanent" }
+        { title: "Calibração de Peças", desc: "Eu vou até a raiz do seu computador. Ajusto as configurações de fábrica para o processador rodar frio e estável.", icon: Cpu, badge: "Deep Tuning" },
+        { title: "Windows Sem Lixo", desc: "Instalação de um Windows otimizado direto da Microsoft. Sem programas inúteis travando a máquina.", icon: Terminal, badge: "Resposta Rápida" },
+        { title: "Atendimento VIP 1 a 1", desc: "Procedimento de 3h comigo no seu computador (acesso remoto seguro) com raio-X completo.", icon: Zap, badge: "Remoto Seguro" },
+        { title: "Suporte Vitalício", desc: "Manual de cuidados essenciais. Sem mensalidades ou cobranças mensais adicionais.", icon: Shield, badge: "Para Sempre" }
       ]
     },
     en: {
@@ -22,10 +22,10 @@ export const Services = () => {
       title: 'SURGICAL',
       title_italic: 'RESULTS.',
       services: [
-        { title: "System Engineering", desc: "I go to the root of your hardware. BIOS tuning for stable and cool processor performance.", icon: Cpu, badge: "Deep BIOS" },
-        { title: "Kernel & Latency", desc: "Modified Windows installation directly from Microsoft servers. Zero bloatware.", icon: Terminal, badge: "Low Latency" },
-        { title: "1-on-1 Consulting", desc: "3h assisted procedure via TeamViewer with a complete X-ray of your setup.", icon: Zap, badge: "TeamViewer" },
-        { title: "Lifetime Support", desc: "Essential care manual. No monthly fees or recurrence.", icon: Shield, badge: "Permanent" }
+        { title: "Hardware Tuning", desc: "I go to the root of your computer. I adjust factory settings so the processor runs cool and stable.", icon: Cpu, badge: "Deep Tuning" },
+        { title: "Clean Windows", desc: "Installation of an optimized Windows directly from Microsoft. No useless background apps slowing you down.", icon: Terminal, badge: "Quick Response" },
+        { title: "1-on-1 VIP Consulting", desc: "3-hour safe remote session with me for a complete X-ray and setup of your PC.", icon: Zap, badge: "Safe Remote" },
+        { title: "Lifetime Support", desc: "Essential care manual. No monthly fees or additional recurring charges.", icon: Shield, badge: "Forever" }
       ]
     }
   }[language || 'pt'];
