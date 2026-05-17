@@ -36,7 +36,7 @@ export const MatrixHeroBackground = () => {
       gradient.addColorStop(1, '#005eea'); // Deep Blue
 
       ctx.fillStyle = gradient;
-      ctx.shadowBlur = 8;
+      ctx.shadowBlur = 15;
       ctx.shadowColor = '#00bffa';
       ctx.font = fontSize + 'px monospace';
 
@@ -64,11 +64,11 @@ export const MatrixHeroBackground = () => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
-      animate={{ opacity: 0.4 }} // Ajustado para 0.4 para ficar suave no fundo
+      animate={{ opacity: 0.8 }} // Aumentado significativamente para maior brilho
       transition={{ duration: 3 }}
       className="absolute inset-0 z-0 pointer-events-none"
     >
-      <canvas ref={canvasRef} className="w-full h-full opacity-60" />
+      <canvas ref={canvasRef} className="w-full h-full opacity-90" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-[#020202]"></div>
     </motion.div>
   );
