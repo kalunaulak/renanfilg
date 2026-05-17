@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { HelpCircle } from 'lucide-react';
+import { HelpCircle, MousePointer } from 'lucide-react';
 
 const glossary = {
   bios: {
@@ -129,4 +129,36 @@ export const parseGlossaryTerms = (text) => {
   });
 
   return parts.map((part, idx) => part.isReact ? part.node : part.text);
+};
+
+export const HoverHelper = ({ centered = false }) => {
+  return (
+    <div className={`hidden md:flex items-center gap-3.5 text-[#00bffa] text-[10px] uppercase tracking-[0.18em] bg-[#00bffa]/[0.06] border border-[#00bffa]/25 rounded-full px-5 py-2.5 shadow-[0_0_20px_rgba(0,191,250,0.12)] w-fit ${centered ? 'mx-auto mt-8' : ''}`}>
+      <motion.div
+        animate={{ 
+          x: [0, 6, 0], 
+          y: [0, -3, 0],
+          scale: [1, 0.9, 1]
+        }}
+        transition={{ 
+          repeat: Infinity, 
+          duration: 2.2, 
+          ease: "easeInOut" 
+        }}
+        className="relative text-[#00bffa]"
+      >
+        <MousePointer className="w-3.5 h-3.5 fill-[#00bffa]/25" />
+        <motion.span 
+          animate={{ opacity: [0, 1, 0], scale: [0.6, 1.4, 0.6] }}
+          transition={{ repeat: Infinity, duration: 2.2, ease: "easeInOut" }}
+          className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[#00bffa] shadow-[0_0_8px_#00bffa]"
+        />
+      </motion.div>
+      <span className="font-semibold text-white tracking-wider">
+        Dica: <span className="text-zinc-400 font-light lowercase">Passe o mouse nos termos em </span>
+        <span className="text-[#00bffa] font-bold tracking-widest uppercase">ciano</span> 
+        <span className="text-zinc-400 font-light lowercase"> para ver a explicação didática</span>
+      </span>
+    </div>
+  );
 };

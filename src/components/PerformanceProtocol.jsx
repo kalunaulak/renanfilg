@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Terminal, Search, Zap, Cpu } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { parseGlossaryTerms } from './TechnicalTooltip';
+import { parseGlossaryTerms, HoverHelper } from './TechnicalTooltip';
 
 export const PerformanceProtocol = () => {
   const { language } = useLanguage();
@@ -50,10 +50,7 @@ export const PerformanceProtocol = () => {
             <p className="text-zinc-500 text-lg font-light max-w-sm italic">
               {t.desc}
             </p>
-            <div className="hidden md:flex items-center gap-2 text-zinc-500 text-[9px] uppercase tracking-widest bg-white/[0.02] border border-white/5 rounded-full px-4 py-1.5 w-fit">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00bffa] animate-pulse"></span>
-              <span>Passe o mouse nos termos destacados em ciano</span>
-            </div>
+            <HoverHelper />
           </div>
         </div>
 
