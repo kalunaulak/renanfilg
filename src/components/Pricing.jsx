@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check, Shield } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { OrganizationModal } from './OrganizationModal';
 
 export const Pricing = () => {
   const { language } = useLanguage();
+  const [isOrgModalOpen, setIsOrgModalOpen] = useState(false);
 
   const t = {
     pt: {
@@ -139,19 +142,22 @@ export const Pricing = () => {
                   {item.cta}
                 </button>
               ) : (
-                <a 
-                  href="https://instagram.com/renanfilg" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
+                <button 
+                  onClick={(e) => { e.preventDefault(); setIsOrgModalOpen(true); }}
                   className="btn-elite-glass text-center w-full"
                 >
                   {item.cta}
-                </a>
+                </button>
               )}
             </motion.div>
           ))}
         </div>
       </div>
+
+      <OrganizationModal 
+        isOpen={isOrgModalOpen} 
+        onClose={() => setIsOrgModalOpen(false)} 
+      />
     </section>
   );
 };
