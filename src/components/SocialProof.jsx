@@ -126,7 +126,9 @@ export const SocialProof = () => {
                         </a>
                       )}
                     </div>
-                    <p className="text-zinc-500 text-[9px] tracking-widest uppercase font-light">{item.role}</p>
+                    <p className="text-zinc-400 group-hover:text-[#00bffa] text-[11px] md:text-xs tracking-[0.18em] uppercase font-semibold transition-colors duration-500">
+                      {item.role}
+                    </p>
                   </div>
                 </div>
               </div>
