@@ -13,7 +13,8 @@ export const PerformanceComparison = () => {
       label1: 'Input Lag (ms)',
       label2: 'Média de FPS',
       before: 'Original',
-      after: 'Otimizado'
+      after: 'Otimizado',
+      disclaimer: '*Nota: As métricas apresentadas representam médias obtidas em testes internos. Os ganhos reais são variáveis e dependem diretamente das especificações de hardware, refrigeração e condições físicas de cada computador.'
     },
     en: {
       tag: 'Real Benchmarking',
@@ -22,11 +23,12 @@ export const PerformanceComparison = () => {
       label1: 'Input Lag (ms)',
       label2: 'Avg FPS',
       before: 'Original',
-      after: 'Optimized'
+      after: 'Optimized',
+      disclaimer: '*Note: The metrics presented represent averages obtained in internal tests. Actual gains are variable and depend directly on hardware specifications, cooling, and the physical conditions of each computer.'
     }
   }[language || 'pt'];
   return (
-    <section className="py-40 px-10 md:px-8 relative overflow-hidden">
+    <section className="py-16 md:py-40 px-6 md:px-8 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
           <div>
@@ -65,6 +67,10 @@ export const PerformanceComparison = () => {
                 </motion.div>
               ))}
             </div>
+            
+            <p className="text-[10px] text-zinc-500 font-light italic leading-relaxed mt-8 max-w-md">
+              {t.disclaimer}
+            </p>
           </div>
 
           <div className="relative">
