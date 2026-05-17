@@ -47,7 +47,7 @@ export const OrganizationModal = ({ isOpen, onClose }) => {
       const phone = "5547991914050";
       
       // Formatação da mensagem para o WhatsApp
-      const message = `*Nova Proposta de Consultoria Enterprise*%0A%0A*Organização:* ${formData.orgName}%0A*E-mail do Manager:* ${formData.email}%0A*Quantidade de PCs:* ${formData.pcCount}%0A*Modalidades/Jogos:* ${formData.games}%0A*Necessidades:* ${formData.needs}`;
+      const message = `*Solicitação de Orçamento - Consultoria Enterprise*%0A%0A*Organização:* ${formData.orgName}%0A*E-mail do Manager:* ${formData.email}%0A*Quantidade de PCs:* ${formData.pcCount}%0A*Modalidades/Jogos:* ${formData.games}%0A*Necessidades:* ${formData.needs}`;
       const whatsappUrl = `https://wa.me/${phone}?text=${message}`;
       
       // Abre o WhatsApp numa nova aba
