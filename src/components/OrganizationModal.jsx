@@ -30,18 +30,32 @@ export const OrganizationModal = ({ isOpen, onClose }) => {
     }
   }[language || 'pt'];
 
+  const [formData, setFormData] = useState({ orgName: '', email: '', needs: '' });
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setStatus('loading');
     
-    // Simulação de envio para o backend (Substituir pela sua API/Webhook depois)
     setTimeout(() => {
       setStatus('success');
+      
+      // Número de telefone do Renan (Apenas números, inclua DDI e DDD, ex: 5511988887777)
+      const phone = "5511999999999"; 
+      
+      // Formatação da mensagem para o WhatsApp
+      const message = `*Nova Proposta de Consultoria Enterprise*%0A%0A*Organização:* ${formData.orgName}%0A*E-mail do Manager:* ${formData.email}%0A*Necessidades:* ${formData.needs}`;
+      const whatsappUrl = `https://wa.me/${phone}?text=${message}`;
+      
+      // Abre o WhatsApp numa nova aba
+      window.open(whatsappUrl, '_blank');
+      
+      // Fecha o modal e reseta o form
       setTimeout(() => {
         setStatus('idle');
+        setFormData({ orgName: '', email: '', needs: '' });
         onClose();
-      }, 3000);
-    }, 1500);
+      }, 2000);
+    }, 1000);
   };
 
   return (
@@ -100,6 +114,8 @@ export const OrganizationModal = ({ isOpen, onClose }) => {
                     <input 
                       required
                       type="text" 
+                      value={formData.orgName}
+                      onChange={(e) => setFormData({...formData, orgName: e.target.value})}
                       placeholder={t.orgName}
                       className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-12 py-4 text-sm font-light text-white placeholder-zinc-600 focus:outline-none focus:border-[#00bffa]/50 focus:bg-white/[0.05] transition-all"
                     />
@@ -112,6 +128,8 @@ export const OrganizationModal = ({ isOpen, onClose }) => {
                     <input 
                       required
                       type="email" 
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
                       placeholder={t.email}
                       className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-12 py-4 text-sm font-light text-white placeholder-zinc-600 focus:outline-none focus:border-[#00bffa]/50 focus:bg-white/[0.05] transition-all"
                     />
@@ -124,6 +142,8 @@ export const OrganizationModal = ({ isOpen, onClose }) => {
                     <textarea 
                       required
                       rows={4}
+                      value={formData.needs}
+                      onChange={(e) => setFormData({...formData, needs: e.target.value})}
                       placeholder={t.needs}
                       className="w-full bg-white/[0.03] border border-white/10 rounded-xl pl-12 pr-4 py-4 text-sm font-light text-white placeholder-zinc-600 focus:outline-none focus:border-[#00bffa]/50 focus:bg-white/[0.05] transition-all resize-none"
                     />
