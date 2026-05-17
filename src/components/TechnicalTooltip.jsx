@@ -54,18 +54,18 @@ export const TechnicalTooltip = ({ term, children }) => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 5, scale: 0.95 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 p-4 rounded-xl backdrop-blur-xl bg-zinc-950/95 border border-white/10 shadow-[0_10px_35px_-5px_rgba(0,0,0,0.8)] z-50 text-left pointer-events-none sm:pointer-events-auto"
+            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-72 p-5 rounded-2xl backdrop-blur-2xl bg-zinc-950/98 border border-[#00bffa]/15 shadow-[0_12px_40px_-5px_rgba(0,0,0,0.9)] z-50 text-left normal-case tracking-normal font-sans pointer-events-none sm:pointer-events-auto"
           >
-            <span className="flex items-center gap-1.5 text-[9px] font-bold text-[#00bffa] uppercase tracking-widest mb-1.5">
+            <span className="flex items-center gap-1.5 text-[9px] font-bold text-[#00bffa] uppercase tracking-widest mb-2.5">
               <HelpCircle className="w-3.5 h-3.5" /> Explicação Didática
             </span>
-            <span className="block text-xs font-semibold text-white mb-1 not-italic">
+            <span className="block text-sm font-semibold text-white mb-1.5 not-italic tracking-wide">
               {data.title}
             </span>
-            <span className="block text-[11px] text-zinc-400 font-light leading-relaxed not-italic">
+            <span className="block text-[12px] text-zinc-300 font-light leading-relaxed not-italic tracking-normal">
               {data.desc}
             </span>
-            <span className="absolute top-full left-1/2 -translate-x-1/2 -mt-[5px] border-[5px] border-transparent border-t-zinc-950/95 pointer-events-none"></span>
+            <span className="absolute top-full left-1/2 -translate-x-1/2 -mt-[5px] border-[5px] border-transparent border-t-zinc-950 pointer-events-none"></span>
           </motion.span>
         )}
       </AnimatePresence>
