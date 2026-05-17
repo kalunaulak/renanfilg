@@ -37,7 +37,7 @@ export const Hero = () => {
       tag: 'Expert Performance Engineering',
       title1: 'FPS BOOST',
       title2: 'DEFINITIVO',
-      subtitle: 'Sua máquina em sua melhor forma. Otimização de BIOS e kernel para pro-players que exigem o absoluto.',
+      subtitle: 'Sua máquina em sua melhor forma. Otimização profunda de BIOS e kernel para quem exige FPS absoluto nos jogos e performance extrema no dia a dia.',
       cta: 'Agendar Otimização',
       more: 'Saiba mais'
     },
@@ -45,7 +45,7 @@ export const Hero = () => {
       tag: 'Expert Performance Engineering',
       title1: 'ULTIMATE',
       title2: 'FPS BOOST',
-      subtitle: 'Your machine at its peak. BIOS and kernel optimization for pro-players who demand the absolute best.',
+      subtitle: 'Your machine at its peak. Deep BIOS and kernel optimization for those who demand absolute FPS in games and extreme performance in daily tasks.',
       cta: 'Book Optimization',
       more: 'Learn more'
     }
