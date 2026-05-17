@@ -38,12 +38,12 @@ export const TechnicalTooltip = ({ term, children }) => {
 
   return (
     <span 
-      className="relative inline-block cursor-help group mx-0.5 align-baseline"
+      className="relative inline cursor-help group"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
       onTouchStart={(e) => { e.stopPropagation(); setIsOpen(!isOpen); }}
     >
-      <span className="inline-block bg-[#00bffa]/[0.05] hover:bg-[#00bffa]/[0.12] border border-[#00bffa]/15 hover:border-[#00bffa]/40 text-[#00bffa] rounded px-1.5 py-0.5 text-xs md:text-sm font-medium transition-all duration-300 tracking-wide drop-shadow-[0_0_8px_rgba(0,191,250,0.05)]">
+      <span className="text-[#00bffa] hover:text-[#005eea] transition-colors duration-300 font-normal">
         {children}
       </span>
       
