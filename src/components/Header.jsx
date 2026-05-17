@@ -37,7 +37,7 @@ export const Header = () => {
         <Link to="/" className="flex items-center gap-4 group">
           <img src={logo} alt="RF" className="h-10 md:h-8 w-auto" />
           <div className="hidden lg:block w-px h-4 bg-white/10"></div>
-          <span className="hidden lg:block text-[9px] font-light text-zinc-500 uppercase tracking-[0.4em]">Expert Systems</span>
+          <span className="hidden lg:block text-[9px] font-light text-zinc-500 uppercase tracking-[0.4em]">Renan Filg</span>
         </Link>
 
         {/* Desktop Nav (Escondido no mobile para evitar o bug de amontoamento) */}

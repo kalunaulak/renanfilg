@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, ChevronRight, Play, FileText, ArrowRight } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { db } from '../lib/db';
 
 export const Blog = () => {
   const [posts, setPosts] = useState([]);
@@ -13,8 +13,7 @@ export const Blog = () => {
 
   const fetchPosts = async () => {
     try {
-      const { data, error } = await supabase.from('posts').select('*').order('created_at', { ascending: false });
-      if (error) throw error;
+      const data = await db.getPosts();
       
       // Se não houver posts, mostramos exemplos de elite
       if (!data || data.length === 0) {

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Trash2, Save, LogOut, RefreshCw, Database, Layout, Video, Download, FileText, ImageIcon, Link as LinkIcon, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import { db } from '../lib/db';
 
 export const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -13,15 +14,19 @@ export const AdminDashboard = () => {
   const [isPublishing, setIsPublishing] = useState(false);
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [isOffline, setIsOffline] = useState(false);
 
-  useEffect(() => { loadData(); }, []);
+  useEffect(() => { 
+    loadData(); 
+    db.isOffline().then(offline => setIsOffline(offline));
+  }, []);
 
   async function loadData() {
     setIsLoading(true);
     try {
-      const { data: fData } = await supabase.from('files').select('*').order('created_at', { ascending: false });
-      const { data: vData } = await supabase.from('videos').select('*').order('created_at', { ascending: false });
-      const { data: pData } = await supabase.from('posts').select('*').order('created_at', { ascending: false });
+      const fData = await db.getFiles();
+      const vData = await db.getVideos();
+      const pData = await db.getPosts();
       setFiles(fData || []);
       setVideos(vData || []);
       setPosts(pData || []);
@@ -35,18 +40,11 @@ export const AdminDashboard = () => {
 
   const publishData = async () => {
     setIsPublishing(true);
-    setMessage('Sincronizando Sistema Elite...');
+    const offline = await db.isOffline();
+    setMessage(offline ? 'Salvando localmente...' : 'Sincronizando Sistema Elite...');
     try {
-      await supabase.from('files').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-      if (files.length > 0) await supabase.from('files').insert(files.map(({id, created_at, ...rest}) => rest));
-
-      await supabase.from('videos').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-      if (videos.length > 0) await supabase.from('videos').insert(videos.map(({id, created_at, ...rest}) => rest));
-
-      await supabase.from('posts').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-      if (posts.length > 0) await supabase.from('posts').insert(posts.map(({id, created_at, ...rest}) => rest));
-
-      setMessage('SITE ATUALIZADO COM SUCESSO! 💎');
+      await db.publishData(files, videos, posts);
+      setMessage(offline ? 'DADOS SALVOS LOCALMENTE! 💎 (Modo Offline)' : 'SITE ATUALIZADO COM SUCESSO! 💎');
       setTimeout(() => setMessage(''), 4000);
     } catch (error) {
       setMessage(`ERRO: ${error.message}`);
@@ -84,8 +82,21 @@ export const AdminDashboard = () => {
       </div>
 
       <div className="pl-20 md:pl-64 p-8 md:p-16 max-w-7xl mx-auto">
-        <header className="flex flex-col lg:row justify-between items-start lg:items-center mb-16 gap-8">
-          <h1 className="text-4xl md:text-5xl font-light tracking-tighter uppercase leading-none">ELITE <span className="text-[#00bffa]">MANAGER.</span></h1>
+        <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 gap-8">
+          <div className="flex items-center gap-4">
+            <h1 className="text-4xl md:text-5xl font-light tracking-tighter uppercase leading-none">ELITE <span className="text-[#00bffa]">MANAGER.</span></h1>
+            {isOffline ? (
+              <span className="text-[8px] bg-amber-500/10 border border-amber-500/20 text-amber-400 px-3 py-1 rounded-full uppercase tracking-[0.2em] font-medium flex items-center gap-1.5 shadow-[0_0_15px_rgba(245,158,11,0.05)]">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                Modo Offline
+              </span>
+            ) : (
+              <span className="text-[8px] bg-green-500/10 border border-green-500/20 text-green-400 px-3 py-1 rounded-full uppercase tracking-[0.2em] font-medium flex items-center gap-1.5 shadow-[0_0_15px_rgba(34,197,94,0.05)]">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-400"></span>
+                Nuvem Ativa
+              </span>
+            )}
+          </div>
           <button onClick={publishData} disabled={isPublishing} className="px-10 py-5 bg-[#00bffa] text-black text-[10px] font-bold uppercase tracking-[0.3em] rounded-2xl hover:shadow-[0_0_30px_rgba(0,191,250,0.4)] transition-all">
             {isPublishing ? 'SINCRONIZANDO...' : 'SALVAR TUDO'}
           </button>

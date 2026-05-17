@@ -82,24 +82,64 @@ const AppContent = () => {
 
 function App() {
   useEffect(() => {
-    let interval;
-    const originalTitle = document.title;
+    // Limpar imediatamente qualquer intervalo residual de reloads anteriores do Vite HMR
+    if (window.__tabBlinkInterval) {
+      clearInterval(window.__tabBlinkInterval);
+      window.__tabBlinkInterval = null;
+    }
+
+    const originalTitle = "Renan Filg | Extreme Hardware Tuning & FPS Boost";
+    document.title = originalTitle; // Forçar o título original imediatamente ao montar/recarregar
     
+    const startBlinking = () => {
+      // Se já houver um loop ativo, não cria outro para evitar aceleração ou vazamentos
+      if (window.__tabBlinkInterval) return;
+      
+      let toggle = false;
+      window.__tabBlinkInterval = setInterval(() => {
+        document.title = toggle ? "O segredo do zero Lag 🤫" : originalTitle;
+        toggle = !toggle;
+      }, 800);
+    };
+
+    const stopBlinking = () => {
+      if (window.__tabBlinkInterval) {
+        clearInterval(window.__tabBlinkInterval);
+        window.__tabBlinkInterval = null;
+      }
+      document.title = originalTitle;
+    };
+
     const handleVisibilityChange = () => {
       if (document.hidden) {
-        let toggle = false;
-        interval = setInterval(() => {
-          document.title = toggle ? "O segredo do zero lag... 🤫" : originalTitle;
-          toggle = !toggle;
-        }, 500);
+        startBlinking();
       } else {
-        clearInterval(interval);
-        document.title = originalTitle;
+        stopBlinking();
       }
     };
 
+    const handleBlur = () => {
+      startBlinking();
+    };
+
+    const handleFocus = () => {
+      stopBlinking();
+    };
+
+    // Registrar múltiplos ganchos para garantir funcionamento em abas secundárias e múltiplos monitores
     document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("blur", handleBlur);
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("blur", handleBlur);
+      window.removeEventListener("focus", handleFocus);
+      if (window.__tabBlinkInterval) {
+        clearInterval(window.__tabBlinkInterval);
+        window.__tabBlinkInterval = null;
+      }
+    };
   }, []);
 
   return (

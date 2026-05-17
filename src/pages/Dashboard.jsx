@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { supabase } from '../lib/supabase';
+import { db } from '../lib/db';
 
 export const Dashboard = () => {
   const navigate = useNavigate();
@@ -13,19 +14,27 @@ export const Dashboard = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedPost, setSelectedPost] = useState(null);
+  const [isOffline, setIsOffline] = useState(false);
 
   useEffect(() => {
     loadData();
-    const channel = supabase.channel('schema-db-changes').on('postgres_changes', { event: '*', schema: 'public' }, () => loadData()).subscribe();
-    return () => { supabase.removeChannel(channel); };
+    db.isOffline().then(offline => {
+      setIsOffline(offline);
+      
+      // Real-time listener only if online
+      if (!offline) {
+        const channel = supabase.channel('schema-db-changes').on('postgres_changes', { event: '*', schema: 'public' }, () => loadData()).subscribe();
+        return () => { supabase.removeChannel(channel); };
+      }
+    });
   }, []);
 
   async function loadData() {
     setIsLoading(true);
     try {
-      const { data: fData } = await supabase.from('files').select('*').order('created_at', { ascending: false });
-      const { data: vData } = await supabase.from('videos').select('*').order('created_at', { ascending: false });
-      const { data: pData } = await supabase.from('posts').select('*').order('created_at', { ascending: false });
+      const fData = await db.getFiles();
+      const vData = await db.getVideos();
+      const pData = await db.getPosts();
       setFiles(fData || []);
       setVideos(vData || []);
       setPosts(pData || []);
@@ -54,7 +63,20 @@ export const Dashboard = () => {
         <div className="flex items-center gap-6">
           <Shield size={26} className="text-[#00bffa] drop-shadow-[0_0_8px_rgba(0,191,250,0.5)]" />
           <div>
-            <h1 className="text-2xl font-light tracking-tighter uppercase leading-none">PAINEL DO <span className="text-[#00bffa] font-normal">ASSINANTE</span></h1>
+            <div className="flex items-center gap-4">
+              <h1 className="text-2xl font-light tracking-tighter uppercase leading-none">PAINEL DO <span className="text-[#00bffa] font-normal">ASSINANTE</span></h1>
+              {isOffline ? (
+                <span className="hidden sm:inline-flex text-[8px] bg-amber-500/10 border border-amber-500/20 text-amber-400 px-3 py-1 rounded-full uppercase tracking-[0.2em] font-medium items-center gap-1.5 shadow-[0_0_15px_rgba(245,158,11,0.05)]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                  Modo Offline
+                </span>
+              ) : (
+                <span className="hidden sm:inline-flex text-[8px] bg-green-500/10 border border-green-500/20 text-green-400 px-3 py-1 rounded-full uppercase tracking-[0.2em] font-medium items-center gap-1.5 shadow-[0_0_15px_rgba(34,197,94,0.05)]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-400"></span>
+                  Nuvem Ativa
+                </span>
+              )}
+            </div>
             <p className="text-[10px] text-zinc-400 font-light tracking-[0.5em] uppercase mt-2 italic">Renan Filg Performance Hub</p>
           </div>
         </div>

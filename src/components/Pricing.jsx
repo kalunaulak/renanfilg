@@ -7,10 +7,9 @@ export const Pricing = () => {
 
   const t = {
     pt: {
-      title: 'UM',
-      title_grad: 'INVESTIMENTO.',
-      title_end: 'NÃO UM GASTO.',
-      subtitle: 'O último upgrade que você precisa. Sem recorrência, sem mensalidades.',
+      title: 'NÃO UM GASTO.',
+      title_grad: 'UM INVESTIMENTO.',
+      subtitle: 'A otimização definitiva projetada tanto para quem busca o máximo de FPS e fluidez em jogos competitivos quanto para aceleração extrema em fluxos de trabalho e produtividade profissional. Sem recorrência, sem mensalidades.',
       plans: [
         {
           name: "Otimização Pro",
@@ -47,10 +46,9 @@ export const Pricing = () => {
       ]
     },
     en: {
-      title: 'AN',
-      title_grad: 'INVESTMENT.',
-      title_end: 'NOT AN EXPENSE.',
-      subtitle: 'The last upgrade you will ever need. No recurrence, no monthly fees.',
+      title: 'NOT AN EXPENSE.',
+      title_grad: 'AN INVESTMENT.',
+      subtitle: 'The ultimate optimization engineered both for maximum FPS and smoothness in competitive games and extreme acceleration in professional work and productivity. No recurrence, no monthly fees.',
       plans: [
         {
           name: "Pro Optimization",
@@ -93,9 +91,10 @@ export const Pricing = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-24">
           <h2 className="text-4xl md:text-7xl font-light tracking-tighter mb-8 text-white leading-none">
-            {t.title} <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent">{t.title_grad}</span> <br />{t.title_end}
+            {t.title} <br />
+            <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent">{t.title_grad}</span>
           </h2>
-          <p className="text-zinc-500 text-xl font-light max-w-2xl mx-auto italic">
+          <p className="text-zinc-500 text-xl font-light max-w-3xl mx-auto italic leading-relaxed">
             {t.subtitle}
           </p>
         </div>

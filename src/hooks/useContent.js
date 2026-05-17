@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { db } from '../lib/db';
 
 export const useContent = () => {
   const [content, setContent] = useState({});
@@ -7,31 +8,30 @@ export const useContent = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const fetchContent = async () => {
-    const { data, error } = await supabase.from('site_content').select('*');
-    if (data) {
-      const contentMap = {};
-      data.forEach(item => {
-        contentMap[item.key] = item.content;
-      });
-      setContent(contentMap);
+    try {
+      const data = await db.getSiteContent();
+      setContent(data || {});
+    } catch (err) {
+      console.error(err);
     }
     setLoading(false);
   };
 
   const checkAdmin = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    setIsAdmin(user?.email === 'kaluancout@gmail.com' || user?.email === 'admin@renanfilg.com');
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      setIsAdmin(user?.email === 'kaluancout@gmail.com' || user?.email === 'admin@renanfilg.com');
+    } catch (err) {
+      setIsAdmin(false);
+    }
   };
 
   const updateContent = async (key, newContent) => {
-    const { error } = await supabase
-      .from('site_content')
-      .upsert({ key, content: newContent }, { onConflict: 'key' });
-    
-    if (!error) {
+    const success = await db.updateSiteContent(key, newContent);
+    if (success) {
       setContent(prev => ({ ...prev, [key]: newContent }));
     }
-    return !error;
+    return success;
   };
 
   useEffect(() => {
