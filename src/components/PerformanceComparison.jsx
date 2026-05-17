@@ -63,12 +63,12 @@ export const PerformanceComparison = () => {
                       className="absolute inset-0 bg-primary-gradient origin-left opacity-30"
                     ></motion.div>
                   </div>
-                  <p className="text-[10px] text-zinc-600 uppercase tracking-widest mt-2 font-light">{item.desc}</p>
+                  <p className="text-sm md:text-xs text-zinc-400 mt-2 font-light italic">{item.desc}</p>
                 </motion.div>
               ))}
             </div>
             
-            <p className="text-[10px] text-zinc-500 font-light italic leading-relaxed mt-8 max-w-md">
+            <p className="text-xs md:text-sm text-zinc-400 font-light italic leading-relaxed mt-10 max-w-md">
               {t.disclaimer}
             </p>
           </div>
