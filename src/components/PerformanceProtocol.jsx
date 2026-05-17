@@ -38,9 +38,9 @@ export const PerformanceProtocol = () => {
         <div className="flex flex-col md:flex-row items-start justify-between mb-20 gap-12">
           <div className="max-w-3xl">
             <div className="text-[#00bffa] font-light text-xs uppercase tracking-[0.4em] mb-6">{t.tag}</div>
-            <h2 className="text-5xl md:text-8xl font-light tracking-tighter text-white leading-[0.85] uppercase italic">
+            <h2 className="text-5xl md:text-8xl font-light tracking-tighter text-white leading-[1.15] uppercase italic pt-1">
               {t.title_part1} <br />
-              <span className="inline-block bg-gradient-to-b from-[#00bffa] via-[#00bffa] to-[#005eea] bg-clip-text text-transparent not-italic font-bold drop-shadow-[0_0_15px_rgba(0,191,250,0.4)]">
+              <span className="inline-block bg-gradient-to-b from-[#00bffa] via-[#00bffa] to-[#005eea] bg-clip-text text-transparent not-italic font-bold drop-shadow-[0_0_15px_rgba(0,191,250,0.4)] pt-2 pb-1 leading-normal">
                 {t.title_part2}
               </span>
             </h2>
