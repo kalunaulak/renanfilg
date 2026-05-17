@@ -8,14 +8,14 @@ export const PerformanceProtocol = () => {
   const t = {
     pt: {
       tag: 'Metodologia Exclusiva',
-      title_part1: 'PROTOCOLO DE',
-      title_part2: 'PERFORMANCE',
+      title_part1: 'PASSOS DA',
+      title_part2: 'OTIMIZAÇÃO',
       desc: 'Transparência total. Você assiste e autoriza tudo remotamente.',
       steps: [
-        { title: "Preparo e Cópia de Segurança.", desc: "Salvo seus arquivos importantes e preparo as ferramentas exclusivas que vou usar na sua máquina.", icon: Terminal },
+        { title: "PREPARO DO PENDRIVE E ATUALIZAÇÃO DE BIOS.", desc: "Envio um vídeo gravado por mim orientando a como deixar o pendrive pronto para o dia agendado.", icon: Terminal },
         { title: "Raio-X e Diagnóstico do PC.", desc: "Escaneio seu computador de ponta a ponta. Identifico se ele está esquentando muito ou se tem peças trabalhando sobrecarregadas.", icon: Search },
-        { title: "Configurações da Placa-mãe.", desc: "Ajusto as configurações físicas da sua placa e memórias de forma 100% segura para extrair a máxima velocidade.", icon: Zap },
-        { title: "Instalação do Windows Otimizado.", desc: "Aplico um sistema limpo, tirando todo o lixo do Windows para garantir respostas instantâneas ao clicar e FPS no máximo.", icon: Cpu }
+        { title: "CONFIGURAÇÕES DA PLACA-MÃE (BIOS)", desc: "Altero as configurações físicas de frequências, tensões e latências de suas peças, de forma 100% segura para extrair a máxima velocidade além de reduzir sua temperatura.", icon: Zap },
+        { title: "INSTALAÇÃO DO WINDOWS OTIMIZADO.", desc: "Formato seu computador para um sistema limpo, modificado por mim. Sem lixos ou bloatwares, para garantir o máximo de FPS e o mínimo de atraso de entrada.", icon: Cpu }
       ]
     },
     en: {
