@@ -3,11 +3,15 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState(localStorage.getItem('rf-lang') || null);
+  const [language, setLanguage] = useState(() => {
+    const saved = localStorage.getItem('rf-lang');
+    return (saved === 'pt' || saved === 'en') ? saved : null;
+  });
 
   const selectLanguage = (lang) => {
-    setLanguage(lang);
-    localStorage.setItem('rf-lang', lang);
+    const validLang = (lang === 'pt' || lang === 'en') ? lang : 'pt';
+    setLanguage(validLang);
+    localStorage.setItem('rf-lang', validLang);
   };
 
   return (
