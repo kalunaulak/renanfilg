@@ -100,7 +100,7 @@ export const PerformanceComparison = () => {
                       <div className="w-2 h-2 rounded-full bg-[#00bffa] animate-pulse"></div>
                       <span className="text-[10px] font-light text-[#00bffa] uppercase tracking-[0.4em] italic">RF Peak Performance</span>
                     </div>
-                    <span className="text-7xl font-light text-white font-mono tracking-tighter drop-shadow-[0_0_20px_rgba(0,191,250,0.3)]">975 <span className="text-sm opacity-30 text-[#00bffa]">FPS</span></span>
+                    <span className="text-7xl font-light text-white font-mono tracking-tighter drop-shadow-[0_0_20px_rgba(0,191,250,0.3)]">966 <span className="text-sm opacity-30 text-[#00bffa]">FPS</span></span>
                   </motion.div>
                 </div>
               </div>
