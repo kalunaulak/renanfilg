@@ -33,9 +33,8 @@ export const Header = () => {
     >
       <div className="max-w-7xl mx-auto px-6 md:px-8 flex items-center justify-between">
         
-        {/* Logo - Grande no mobile, Normal no PC */}
         <Link to="/" className="flex items-center gap-4 group">
-          <img src={logo} alt="RF" className="h-10 md:h-8 w-auto" />
+          <img src={logo} alt="RF" width={930} height={830} className="h-10 md:h-8 w-auto object-contain" />
           <div className="hidden lg:block w-px h-4 bg-white/10"></div>
           <span className="hidden lg:block text-[9px] font-light text-zinc-500 uppercase tracking-[0.4em]">Renan Filg</span>
         </Link>

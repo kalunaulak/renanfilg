@@ -14,7 +14,7 @@ export const FloatingNav = () => {
     >
       <div className="flex items-center gap-4 pr-4 border-r border-white/10">
         <Link to="/">
-          <img src={logo} alt="RF" className="h-5 w-auto" />
+          <img src={logo} alt="RF" width={930} height={830} className="h-5 w-auto object-contain" />
         </Link>
       </div>
 

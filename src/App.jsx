@@ -34,7 +34,7 @@ const LandingPage = () => (
     <footer className="py-16 md:py-32 px-6 md:px-20 border-t border-white/[0.05] bg-[#020202] relative z-10">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-12 md:gap-32 mb-16 md:mb-32">
-          <img src={logo} alt="Renan Filg" className="h-10 md:h-12 w-auto grayscale opacity-60 hover:opacity-100 transition-opacity" />
+          <img src={logo} alt="Renan Filg" width={930} height={830} className="h-10 md:h-12 w-auto object-contain grayscale opacity-60 hover:opacity-100 transition-opacity" />
           <div className="flex flex-wrap justify-center gap-6 md:gap-24 text-[11px] md:text-xs font-bold text-white/60 uppercase tracking-[0.5em]">
             <a href="https://instagram.com/renanfilg" target="_blank" rel="noopener noreferrer" className="hover:text-[#00bffa] transition-colors">Instagram</a>
             <a href="https://x.com/renanfilg2" target="_blank" rel="noopener noreferrer" className="hover:text-[#00bffa] transition-colors">Twitter</a>
