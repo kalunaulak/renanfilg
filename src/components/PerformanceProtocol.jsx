@@ -60,7 +60,7 @@ export const PerformanceProtocol = () => {
               className="relative group"
             >
               <div className="mb-6 flex items-center gap-4">
-                <span className="text-4xl font-thin text-white/5 italic group-hover:text-[#00bffa]/20 transition-colors">0{idx + 1}</span>
+                <span className="text-4xl font-thin text-white/30 italic group-hover:text-[#00bffa]/50 transition-colors">0{idx + 1}</span>
                 <div className="h-px flex-1 bg-white/5"></div>
               </div>
               
