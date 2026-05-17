@@ -12,10 +12,10 @@ export const PerformanceProtocol = () => {
       title_part2: 'PERFORMANCE',
       desc: 'Transparência total. Você assiste e autoriza tudo remotamente.',
       steps: [
-        { title: "Preparo do Pendrive e Backup.", desc: "Salvamos seus arquivos essenciais e preparamos as ferramentas exclusivas que serão usadas na sua máquina.", icon: Terminal },
-        { title: "Telemetria e Diagnóstico de Hardware.", desc: "Escaneamos seu setup de ponta a ponta. Identificamos gargalos de temperatura e uso excessivo de CPU/RAM.", icon: Search },
-        { title: "Otimização de BIOS e Overclock Seguro.", desc: "Ajustamos latências de memória e aplicamos um tuning fino na placa-mãe para extrair o máximo de performance.", icon: Zap },
-        { title: "Instalação de Windows Customizado.", desc: "Aplicamos um sistema limpo, removendo bloatwares para garantir zero input lag e FPS nas alturas.", icon: Cpu }
+        { title: "Preparo do Pendrive e Backup.", desc: "Salvo seus arquivos essenciais e preparo as ferramentas exclusivas que serão usadas na sua máquina.", icon: Terminal },
+        { title: "Telemetria e Diagnóstico de Hardware.", desc: "Escaneio seu setup de ponta a ponta. Identifico gargalos de temperatura e uso excessivo de CPU/RAM.", icon: Search },
+        { title: "Otimização de BIOS e Overclock Seguro.", desc: "Ajusto latências de memória e aplico um tuning fino na placa-mãe para extrair o máximo de performance.", icon: Zap },
+        { title: "Instalação de Windows Customizado.", desc: "Aplico um sistema limpo, removendo bloatwares para garantir zero input lag e FPS nas alturas.", icon: Cpu }
       ]
     },
     en: {
@@ -24,10 +24,10 @@ export const PerformanceProtocol = () => {
       title_part2: 'PROTOCOL',
       desc: 'Total transparency. You watch and authorize everything remotely.',
       steps: [
-        { title: "Flash Drive Prep & Backup.", desc: "We save your essential files and prepare the exclusive tools to be used on your machine.", icon: Terminal },
-        { title: "Telemetry & Hardware Diagnostics.", desc: "We scan your setup end-to-end. Identifying temperature bottlenecks and excessive CPU/RAM usage.", icon: Search },
-        { title: "BIOS Optimization & Safe Overclock.", desc: "We tune memory latencies and apply fine adjustments to the motherboard for maximum performance.", icon: Zap },
-        { title: "Custom Windows Installation.", desc: "We apply a clean system, removing bloatware to ensure zero input lag and peak FPS.", icon: Cpu }
+        { title: "Flash Drive Prep & Backup.", desc: "I save your essential files and prepare the exclusive tools to be used on your machine.", icon: Terminal },
+        { title: "Telemetry & Hardware Diagnostics.", desc: "I scan your setup end-to-end. Identifying temperature bottlenecks and excessive CPU/RAM usage.", icon: Search },
+        { title: "BIOS Optimization & Safe Overclock.", desc: "I tune memory latencies and apply fine adjustments to the motherboard for maximum performance.", icon: Zap },
+        { title: "Custom Windows Installation.", desc: "I apply a clean system, removing bloatware to ensure zero input lag and peak FPS.", icon: Cpu }
       ]
     }
   }[language || 'pt'];

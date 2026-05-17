@@ -61,7 +61,7 @@ export const ScreeningForm = () => {
             PRÉ-TRIAGEM <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent underline decoration-white/10 underline-offset-8">TÉCNICA</span>
           </h2>
           <p className="text-zinc-500 max-w-xl mx-auto font-light text-lg italic">
-            Analisamos seu hardware para garantir que você atinja o potencial máximo. Vagas limitadas por semana.
+            Analiso seu hardware para garantir que você atinja o potencial máximo. Vagas limitadas por semana.
           </p>
         </div>
 
