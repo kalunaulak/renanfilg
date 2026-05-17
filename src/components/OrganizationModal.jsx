@@ -140,34 +140,32 @@ export const OrganizationModal = ({ isOpen, onClose }) => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <div className="relative">
-                      <Monitor size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" />
-                      <input 
-                        required
-                        type="number"
-                        min="1" 
-                        value={formData.pcCount}
-                        onChange={(e) => setFormData({...formData, pcCount: e.target.value})}
-                        placeholder={t.pcCount}
-                        className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-12 py-4 text-sm font-light text-white placeholder-zinc-600 focus:outline-none focus:border-[#00bffa]/50 focus:bg-white/[0.05] transition-all"
-                      />
-                    </div>
+                <div className="space-y-2">
+                  <div className="relative">
+                    <Monitor size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" />
+                    <input 
+                      required
+                      type="number"
+                      min="1" 
+                      value={formData.pcCount}
+                      onChange={(e) => setFormData({...formData, pcCount: e.target.value})}
+                      placeholder={t.pcCount}
+                      className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-12 py-4 text-sm font-light text-white placeholder-zinc-600 focus:outline-none focus:border-[#00bffa]/50 focus:bg-white/[0.05] transition-all"
+                    />
                   </div>
+                </div>
 
-                  <div className="space-y-2">
-                    <div className="relative">
-                      <Gamepad2 size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" />
-                      <input 
-                        required
-                        type="text" 
-                        value={formData.games}
-                        onChange={(e) => setFormData({...formData, games: e.target.value})}
-                        placeholder={t.games}
-                        className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-12 py-4 text-sm font-light text-white placeholder-zinc-600 focus:outline-none focus:border-[#00bffa]/50 focus:bg-white/[0.05] transition-all"
-                      />
-                    </div>
+                <div className="space-y-2">
+                  <div className="relative">
+                    <Gamepad2 size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" />
+                    <input 
+                      required
+                      type="text" 
+                      value={formData.games}
+                      onChange={(e) => setFormData({...formData, games: e.target.value})}
+                      placeholder={t.games}
+                      className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-12 py-4 text-sm font-light text-white placeholder-zinc-600 focus:outline-none focus:border-[#00bffa]/50 focus:bg-white/[0.05] transition-all"
+                    />
                   </div>
                 </div>
 
