@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Calendar, ArrowRight, MessageSquare } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export const ScreeningForm = () => {
+  const { language } = useLanguage();
+  const isEn = language?.startsWith('en');
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     cpu: '',
@@ -10,6 +13,45 @@ export const ScreeningForm = () => {
     motherboard: '',
     objective: ''
   });
+
+  const t = {
+    pt: {
+      success_title: "TRIAGEM CONCLUÍDA.",
+      success_desc: "Seu perfil técnico foi pré-aprovado. Agora, chame o Renan no WhatsApp para confirmar seu horário.",
+      success_cta: "AGENDAR VIA WHATSAPP",
+      title: "PRÉ-TRIAGEM",
+      title_bold: "TÉCNICA",
+      subtitle: "Analiso seu hardware para garantir que você atinja o potencial máximo. Vagas limitadas por semana.",
+      cpu_label: "Processador (CPU)",
+      gpu_label: "Placa de Vídeo (GPU)",
+      motherboard_label: "Placa-mãe",
+      objective_label: "Objetivo Principal",
+      cpu_placeholder: "Ex: i9-14900K",
+      gpu_placeholder: "Ex: RTX 4090",
+      motherboard_placeholder: "Ex: ASUS ROG Maximus",
+      objective_placeholder: "Ex: Warzone / Reduzir Input Lag",
+      cta: "SOLICITAR ACESSO À AGENDA",
+      wa_message: (cpu, gpu, mobo, obj) => `Olá Renan! Gostaria de agendar meu Protocolo de Performance.%0A%0A*Dados Técnicos:*%0A- CPU: ${cpu}%0A- GPU: ${gpu}%0A- Placa-mãe: ${mobo}%0A- Objetivo: ${obj}%0A%0AEstou pré-aprovado pelo site e pronto para começar.`
+    },
+    en: {
+      success_title: "SCREENING COMPLETED.",
+      success_desc: "Your technical profile has been pre-approved. Now, message Renan on WhatsApp to confirm your schedule.",
+      success_cta: "SCHEDULE VIA WHATSAPP",
+      title: "TECHNICAL",
+      title_bold: "PRE-SCREENING",
+      subtitle: "I analyze your hardware to guarantee you hit maximum potential. Limited slots per week.",
+      cpu_label: "Processor (CPU)",
+      gpu_label: "Graphics Card (GPU)",
+      motherboard_label: "Motherboard",
+      objective_label: "Main Objective",
+      cpu_placeholder: "e.g., i9-14900K",
+      gpu_placeholder: "e.g., RTX 4090",
+      motherboard_placeholder: "e.g., ASUS ROG Maximus",
+      objective_placeholder: "e.g., Warzone / Reduce Input Lag",
+      cta: "REQUEST ACCESS TO SCHEDULE",
+      wa_message: (cpu, gpu, mobo, obj) => `Hello Renan! I would like to schedule my Performance Protocol.%0A%0A*Technical Data:*%0A- CPU: ${cpu}%0A- GPU: ${gpu}%0A- Motherboard: ${mobo}%0A- Objective: ${obj}%0A%0AI am pre-approved by the website and ready to start.`
+    }
+  }[isEn ? 'en' : 'pt'];
 
   const handleChange = (e) => {
     setFormData({
@@ -25,7 +67,7 @@ export const ScreeningForm = () => {
 
   const generateWhatsAppLink = () => {
     const phoneNumber = "5547991914050"; // NÚMERO DO RENAN ATUALIZADO
-    const message = `Olá Renan! Gostaria de agendar meu Protocolo de Performance.%0A%0A*Dados Técnicos:*%0A- CPU: ${formData.cpu}%0A- GPU: ${formData.gpu}%0A- Placa-mãe: ${formData.motherboard}%0A- Objetivo: ${formData.objective}%0A%0AEstou pré-aprovado pelo site e pronto para começar.`;
+    const message = t.wa_message(formData.cpu, formData.gpu, formData.motherboard, formData.objective);
     
     return `https://wa.me/${phoneNumber}?text=${message}`;
   };
@@ -38,15 +80,19 @@ export const ScreeningForm = () => {
           <div className="w-24 h-24 glass-card rounded-full flex items-center justify-center mx-auto mb-10 border border-white/10 text-performance shadow-[0_0_50px_rgba(0,191,250,0.1)]">
             <MessageSquare size={40} />
           </div>
-          <h2 className="text-4xl md:text-6xl font-clash font-medium mb-6 uppercase text-white tracking-tighter">TRIAGEM CONCLUÍDA.</h2>
-          <p className="text-zinc-400 mb-12 max-w-md mx-auto italic text-lg leading-tight font-light">Seu perfil técnico foi pré-aprovado. Agora, chame o Renan no WhatsApp para confirmar seu horário.</p>
+          <h2 className="text-4xl md:text-6xl font-clash font-medium mb-6 uppercase text-white tracking-tighter">
+            {t.success_title}
+          </h2>
+          <p className="text-zinc-400 mb-12 max-w-md mx-auto italic text-lg leading-tight font-light">
+            {t.success_desc}
+          </p>
           <a 
             href={generateWhatsAppLink()} 
             target="_blank" 
             rel="noopener noreferrer"
             className="btn-elite-primary inline-flex gap-3"
           >
-            AGENDAR VIA WHATSAPP <Send size={20} />
+            {t.success_cta} <Send size={20} />
           </a>
         </motion.div>
       </section>
@@ -58,10 +104,10 @@ export const ScreeningForm = () => {
       <div className="max-w-4xl mx-auto relative z-10">
         <div className="text-center mb-20">
           <h2 className="text-4xl md:text-6xl font-light tracking-tighter mb-6 uppercase text-white">
-            PRÉ-TRIAGEM <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent underline decoration-white/10 underline-offset-8">TÉCNICA</span>
+            {t.title} <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent underline decoration-white/10 underline-offset-8">{t.title_bold}</span>
           </h2>
           <p className="text-zinc-500 max-w-xl mx-auto font-light text-lg italic">
-            Analiso seu hardware para garantir que você atinja o potencial máximo. Vagas limitadas por semana.
+            {t.subtitle}
           </p>
         </div>
 
@@ -72,35 +118,35 @@ export const ScreeningForm = () => {
             <div className="space-y-3">
               <label className="text-[10px] font-normal font-[Helvetica,Arial,sans-serif] text-zinc-500 uppercase tracking-[0.3em] px-1 flex items-center gap-2">
                 <div className="w-1.5 h-1.5 bg-gradient-to-br from-[#00bffa] to-[#005eea] rounded-full animate-pulse"></div>
-                Processador (CPU)
+                {t.cpu_label}
               </label>
-              <input name="cpu" value={formData.cpu} onChange={handleChange} required type="text" placeholder="Ex: i9-14900K" className="w-full bg-white/2 border border-white/10 rounded-xl p-5 text-white focus:outline-none focus:border-[#00bffa]/30 focus:bg-white/5 transition-all font-normal font-[Helvetica,Arial,sans-serif] placeholder:text-zinc-700 shadow-inner" />
+              <input name="cpu" value={formData.cpu} onChange={handleChange} required type="text" placeholder={t.cpu_placeholder} className="w-full bg-white/2 border border-white/10 rounded-xl p-5 text-white focus:outline-none focus:border-[#00bffa]/30 focus:bg-white/5 transition-all font-normal font-[Helvetica,Arial,sans-serif] placeholder:text-zinc-700 shadow-inner" />
             </div>
             <div className="space-y-3">
               <label className="text-[10px] font-normal font-[Helvetica,Arial,sans-serif] text-zinc-500 uppercase tracking-[0.3em] px-1 flex items-center gap-2">
                 <div className="w-1.5 h-1.5 bg-gradient-to-br from-[#00bffa] to-[#005eea] rounded-full animate-pulse"></div>
-                Placa de Vídeo (GPU)
+                {t.gpu_label}
               </label>
-              <input name="gpu" value={formData.gpu} onChange={handleChange} required type="text" placeholder="Ex: RTX 4090" className="w-full bg-white/2 border border-white/10 rounded-xl p-5 text-white focus:outline-none focus:border-[#00bffa]/30 focus:bg-white/5 transition-all font-normal font-[Helvetica,Arial,sans-serif] placeholder:text-zinc-700 shadow-inner" />
+              <input name="gpu" value={formData.gpu} onChange={handleChange} required type="text" placeholder={t.gpu_placeholder} className="w-full bg-white/2 border border-white/10 rounded-xl p-5 text-white focus:outline-none focus:border-[#00bffa]/30 focus:bg-white/5 transition-all font-normal font-[Helvetica,Arial,sans-serif] placeholder:text-zinc-700 shadow-inner" />
             </div>
             <div className="space-y-3">
               <label className="text-[10px] font-normal font-[Helvetica,Arial,sans-serif] text-zinc-500 uppercase tracking-[0.3em] px-1 flex items-center gap-2">
                 <div className="w-1.5 h-1.5 bg-gradient-to-br from-[#00bffa] to-[#005eea] rounded-full animate-pulse"></div>
-                Placa-mãe
+                {t.motherboard_label}
               </label>
-              <input name="motherboard" value={formData.motherboard} onChange={handleChange} required type="text" placeholder="Ex: ASUS ROG Maximus" className="w-full bg-white/2 border border-white/10 rounded-xl p-5 text-white focus:outline-none focus:border-[#00bffa]/30 focus:bg-white/5 transition-all font-normal font-[Helvetica,Arial,sans-serif] placeholder:text-zinc-700 shadow-inner" />
+              <input name="motherboard" value={formData.motherboard} onChange={handleChange} required type="text" placeholder={t.motherboard_placeholder} className="w-full bg-white/2 border border-white/10 rounded-xl p-5 text-white focus:outline-none focus:border-[#00bffa]/30 focus:bg-white/5 transition-all font-normal font-[Helvetica,Arial,sans-serif] placeholder:text-zinc-700 shadow-inner" />
             </div>
             <div className="space-y-3">
               <label className="text-[10px] font-normal font-[Helvetica,Arial,sans-serif] text-zinc-500 uppercase tracking-[0.3em] px-1 flex items-center gap-2">
                 <div className="w-1.5 h-1.5 bg-gradient-to-br from-[#00bffa] to-[#005eea] rounded-full animate-pulse"></div>
-                Objetivo Principal
+                {t.objective_label}
               </label>
-              <input name="objective" value={formData.objective} onChange={handleChange} required type="text" placeholder="Ex: Warzone / Reduzir Input Lag" className="w-full bg-white/2 border border-white/10 rounded-xl p-5 text-white focus:outline-none focus:border-[#00bffa]/30 focus:bg-white/5 transition-all font-normal font-[Helvetica,Arial,sans-serif] placeholder:text-zinc-700 shadow-inner" />
+              <input name="objective" value={formData.objective} onChange={handleChange} required type="text" placeholder={t.objective_placeholder} className="w-full bg-white/2 border border-white/10 rounded-xl p-5 text-white focus:outline-none focus:border-[#00bffa]/30 focus:bg-white/5 transition-all font-normal font-[Helvetica,Arial,sans-serif] placeholder:text-zinc-700 shadow-inner" />
             </div>
           </div>
           
           <button type="submit" className="btn-elite-primary w-full !py-8 group text-base tracking-[0.2em]">
-            SOLICITAR ACESSO À AGENDA <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
+            {t.cta} <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
           </button>
         </form>
       </div>

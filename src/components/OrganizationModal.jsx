@@ -46,8 +46,13 @@ export const OrganizationModal = ({ isOpen, onClose }) => {
       // Número do Renan (Sincronizado com o formulário principal)
       const phone = "5547991914050";
       
+      const isEn = language?.startsWith('en');
+      
       // Formatação da mensagem para o WhatsApp
-      const message = `*Solicitação de Orçamento - Consultoria Enterprise*%0A%0A*Organização:* ${formData.orgName}%0A*E-mail do Manager:* ${formData.email}%0A*Quantidade de PCs:* ${formData.pcCount}%0A*Modalidades/Jogos:* ${formData.games}%0A*Necessidades:* ${formData.needs}`;
+      const message = isEn
+        ? `*Quote Request - Enterprise Consulting*%0A%0A*Organization:* ${formData.orgName}%0A*Manager Email:* ${formData.email}%0A*Number of PCs:* ${formData.pcCount}%0A*Games/Rosters:* ${formData.games}%0A*Needs:* ${formData.needs}`
+        : `*Solicitação de Orçamento - Consultoria Enterprise*%0A%0A*Organização:* ${formData.orgName}%0A*E-mail do Manager:* ${formData.email}%0A*Quantidade de PCs:* ${formData.pcCount}%0A*Modalidades/Jogos:* ${formData.games}%0A*Necessidades:* ${formData.needs}`;
+        
       const whatsappUrl = `https://wa.me/${phone}?text=${message}`;
       
       // Abre o WhatsApp numa nova aba

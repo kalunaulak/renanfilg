@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Hero } from './components/Hero';
 import { SocialProof } from './components/SocialProof';
 import { PerformanceComparison } from './components/PerformanceComparison';
+import { PerformanceCalculator } from './components/PerformanceCalculator';
 import { Services } from './components/Services';
 import { PerformanceProtocol } from './components/PerformanceProtocol';
 import { Pricing } from './components/Pricing';
@@ -23,6 +24,7 @@ const LandingPage = () => (
       <div className="bg-black">
         <SocialProof />
         <PerformanceComparison />
+        <PerformanceCalculator />
         <Services />
         <PerformanceProtocol />
         <Pricing />

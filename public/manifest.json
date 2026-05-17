@@ -1,0 +1,25 @@
+{
+  "name": "Renan Filg | Extreme Hardware Tuning",
+  "short_name": "Renan Filg",
+  "description": "Otimização elite de hardware e tuning profundo de BIOS e Kernel para máximo FPS e menor Input Lag.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#020202",
+  "theme_color": "#020202",
+  "categories": ["utilities", "games"],
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    }
+  ]
+}
