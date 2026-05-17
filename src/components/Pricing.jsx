@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Check, Shield } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { OrganizationModal } from './OrganizationModal';
+import { parseGlossaryTerms } from './TechnicalTooltip';
 
 export const Pricing = () => {
   const { language } = useLanguage();
@@ -129,7 +130,7 @@ export const Pricing = () => {
                 {item.features.map(f => (
                   <div key={f} className="flex items-center gap-3">
                     <Check size={16} className="text-[#00bffa]" />
-                    <span className="text-zinc-300 font-light italic">{f}</span>
+                    <span className="text-zinc-300 font-light italic">{parseGlossaryTerms(f)}</span>
                   </div>
                 ))}
               </div>

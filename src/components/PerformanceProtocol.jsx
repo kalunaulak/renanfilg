@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Terminal, Search, Zap, Cpu } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { parseGlossaryTerms } from './TechnicalTooltip';
 
 export const PerformanceProtocol = () => {
   const { language } = useLanguage();
@@ -64,9 +65,9 @@ export const PerformanceProtocol = () => {
                 <div className="h-px flex-1 bg-white/5"></div>
               </div>
               
-              <h3 className="text-xl font-light text-white uppercase tracking-tight mb-4 pr-10">{item.title}</h3>
+              <h3 className="text-xl font-light text-white uppercase tracking-tight mb-4 pr-10">{parseGlossaryTerms(item.title)}</h3>
               <p className="text-zinc-400 text-base md:text-sm font-light leading-relaxed italic pr-4">
-                {item.desc}
+                {parseGlossaryTerms(item.desc)}
               </p>
             </motion.div>
           ))}

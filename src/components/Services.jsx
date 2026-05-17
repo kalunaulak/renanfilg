@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Cpu, Terminal, Shield, Zap } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { parseGlossaryTerms } from './TechnicalTooltip';
 
 export const Services = () => {
   const { language } = useLanguage();
@@ -54,8 +55,8 @@ export const Services = () => {
                 <item.icon size={20} className="text-zinc-400 group-hover:text-[#00bffa] transition-colors" />
               </div>
               <div className="inline-block px-3 py-1 rounded-full bg-white/[0.03] border border-white/5 text-[8px] font-light text-zinc-500 uppercase tracking-widest mb-4 group-hover:border-[#00bffa]/20 transition-colors">{item.badge}</div>
-              <h3 className="text-2xl font-light text-white mb-6 tracking-tight italic uppercase">{item.title}</h3>
-              <p className="text-zinc-400 text-base md:text-sm leading-relaxed font-light">{item.desc}</p>
+              <h3 className="text-2xl font-light text-white mb-6 tracking-tight italic uppercase">{parseGlossaryTerms(item.title)}</h3>
+              <p className="text-zinc-400 text-base md:text-sm leading-relaxed font-light">{parseGlossaryTerms(item.desc)}</p>
             </motion.div>
           ))}
         </div>
