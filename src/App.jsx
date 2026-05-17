@@ -126,15 +126,21 @@ function App() {
       stopBlinking();
     };
 
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+    };
+
     // Registrar múltiplos ganchos para garantir funcionamento em abas secundárias e múltiplos monitores
     document.addEventListener("visibilitychange", handleVisibilityChange);
     window.addEventListener("blur", handleBlur);
     window.addEventListener("focus", handleFocus);
+    document.addEventListener("contextmenu", handleContextMenu);
 
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("blur", handleBlur);
       window.removeEventListener("focus", handleFocus);
+      document.removeEventListener("contextmenu", handleContextMenu);
       if (window.__tabBlinkInterval) {
         clearInterval(window.__tabBlinkInterval);
         window.__tabBlinkInterval = null;
