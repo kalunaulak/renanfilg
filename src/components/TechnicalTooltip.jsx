@@ -136,23 +136,45 @@ export const HoverHelper = ({ centered = false }) => {
     <div className={`hidden md:flex items-center gap-3.5 text-[#00bffa] text-[10px] uppercase tracking-[0.18em] bg-[#00bffa]/[0.06] border border-[#00bffa]/25 rounded-full px-5 py-2.5 shadow-[0_0_20px_rgba(0,191,250,0.12)] w-fit ${centered ? 'mx-auto mt-8' : ''}`}>
       <motion.div
         animate={{ 
-          x: [0, 6, 0], 
-          y: [0, -3, 0],
-          scale: [1, 0.9, 1]
+          x: [0, 8, 0], 
+          y: [0, -4, 0],
+          scale: [1, 0.95, 1]
         }}
         transition={{ 
           repeat: Infinity, 
           duration: 2.2, 
           ease: "easeInOut" 
         }}
-        className="relative text-[#00bffa]"
+        className="relative flex items-center justify-center pointer-events-none"
       >
-        <MousePointer className="w-3.5 h-3.5 fill-[#00bffa]/25" />
+        {/* Aura de luz ambiente idêntica ao cursor real */}
         <motion.span 
-          animate={{ opacity: [0, 1, 0], scale: [0.6, 1.4, 0.6] }}
+          animate={{ opacity: [0.2, 0.5, 0.2], scale: [0.8, 1.4, 0.8] }}
           transition={{ repeat: Infinity, duration: 2.2, ease: "easeInOut" }}
-          className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[#00bffa] shadow-[0_0_8px_#00bffa]"
+          className="absolute w-8 h-8 rounded-full pointer-events-none blur-[4px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(0, 191, 250, 0.4) 0%, rgba(0, 94, 234, 0.1) 50%, transparent 80%)'
+          }}
         />
+
+        {/* Vetor idêntico ao cursor customizado da página */}
+        <svg 
+          width="20" 
+          height="20" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+          className="drop-shadow-[0_0_5px_rgba(0,191,250,0.85)] z-10"
+          style={{ marginLeft: '-1px', marginTop: '-1px' }}
+        >
+          <path 
+            d="M2 2L18 8L10.5 10.5L8 18L2 2Z" 
+            fill="#020202" 
+            stroke="#00bffa" 
+            strokeWidth="1.8" 
+            strokeLinejoin="round"
+          />
+        </svg>
       </motion.div>
       <span className="font-semibold text-white tracking-wider">
         Dica: <span className="text-zinc-400 font-light lowercase">Passe o mouse nos termos em </span>
