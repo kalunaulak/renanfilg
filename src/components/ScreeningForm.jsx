@@ -57,7 +57,7 @@ export const ScreeningForm = () => {
     <section id="agendar" className="py-16 md:py-32 px-6 md:px-6 bg-black relative border-t border-white/[0.03]">
       <div className="max-w-4xl mx-auto relative z-10">
         <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-6xl font-clash font-medium tracking-tighter mb-6 uppercase text-white">
+          <h2 className="text-4xl md:text-6xl font-light tracking-tighter mb-6 uppercase text-white">
             PRÉ-TRIAGEM <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent underline decoration-white/10 underline-offset-8">TÉCNICA</span>
           </h2>
           <p className="text-zinc-500 max-w-xl mx-auto font-light text-lg italic">
@@ -70,32 +70,32 @@ export const ScreeningForm = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div className="space-y-3">
-              <label className="text-[10px] font-light text-zinc-500 uppercase tracking-[0.3em] px-1 flex items-center gap-2">
+              <label className="text-[10px] font-normal font-[Helvetica,Arial,sans-serif] text-zinc-500 uppercase tracking-[0.3em] px-1 flex items-center gap-2">
                 <div className="w-1.5 h-1.5 bg-gradient-to-br from-[#00bffa] to-[#005eea] rounded-full animate-pulse"></div>
                 Processador (CPU)
               </label>
-              <input name="cpu" value={formData.cpu} onChange={handleChange} required type="text" placeholder="Ex: i9-14900K" className="w-full bg-white/2 border border-white/10 rounded-xl p-5 text-white focus:outline-none focus:border-[#00bffa]/30 focus:bg-white/5 transition-all font-light placeholder:text-zinc-700 shadow-inner" />
+              <input name="cpu" value={formData.cpu} onChange={handleChange} required type="text" placeholder="Ex: i9-14900K" className="w-full bg-white/2 border border-white/10 rounded-xl p-5 text-white focus:outline-none focus:border-[#00bffa]/30 focus:bg-white/5 transition-all font-normal font-[Helvetica,Arial,sans-serif] placeholder:text-zinc-700 shadow-inner" />
             </div>
             <div className="space-y-3">
-              <label className="text-[10px] font-light text-zinc-500 uppercase tracking-[0.3em] px-1 flex items-center gap-2">
+              <label className="text-[10px] font-normal font-[Helvetica,Arial,sans-serif] text-zinc-500 uppercase tracking-[0.3em] px-1 flex items-center gap-2">
                 <div className="w-1.5 h-1.5 bg-gradient-to-br from-[#00bffa] to-[#005eea] rounded-full animate-pulse"></div>
                 Placa de Vídeo (GPU)
               </label>
-              <input name="gpu" value={formData.gpu} onChange={handleChange} required type="text" placeholder="Ex: RTX 4090" className="w-full bg-white/2 border border-white/10 rounded-xl p-5 text-white focus:outline-none focus:border-[#00bffa]/30 focus:bg-white/5 transition-all font-light placeholder:text-zinc-700 shadow-inner" />
+              <input name="gpu" value={formData.gpu} onChange={handleChange} required type="text" placeholder="Ex: RTX 4090" className="w-full bg-white/2 border border-white/10 rounded-xl p-5 text-white focus:outline-none focus:border-[#00bffa]/30 focus:bg-white/5 transition-all font-normal font-[Helvetica,Arial,sans-serif] placeholder:text-zinc-700 shadow-inner" />
             </div>
             <div className="space-y-3">
-              <label className="text-[10px] font-light text-zinc-500 uppercase tracking-[0.3em] px-1 flex items-center gap-2">
+              <label className="text-[10px] font-normal font-[Helvetica,Arial,sans-serif] text-zinc-500 uppercase tracking-[0.3em] px-1 flex items-center gap-2">
                 <div className="w-1.5 h-1.5 bg-gradient-to-br from-[#00bffa] to-[#005eea] rounded-full animate-pulse"></div>
                 Placa-mãe
               </label>
-              <input name="motherboard" value={formData.motherboard} onChange={handleChange} required type="text" placeholder="Ex: ASUS ROG Maximus" className="w-full bg-white/2 border border-white/10 rounded-xl p-5 text-white focus:outline-none focus:border-[#00bffa]/30 focus:bg-white/5 transition-all font-light placeholder:text-zinc-700 shadow-inner" />
+              <input name="motherboard" value={formData.motherboard} onChange={handleChange} required type="text" placeholder="Ex: ASUS ROG Maximus" className="w-full bg-white/2 border border-white/10 rounded-xl p-5 text-white focus:outline-none focus:border-[#00bffa]/30 focus:bg-white/5 transition-all font-normal font-[Helvetica,Arial,sans-serif] placeholder:text-zinc-700 shadow-inner" />
             </div>
             <div className="space-y-3">
-              <label className="text-[10px] font-light text-zinc-500 uppercase tracking-[0.3em] px-1 flex items-center gap-2">
+              <label className="text-[10px] font-normal font-[Helvetica,Arial,sans-serif] text-zinc-500 uppercase tracking-[0.3em] px-1 flex items-center gap-2">
                 <div className="w-1.5 h-1.5 bg-gradient-to-br from-[#00bffa] to-[#005eea] rounded-full animate-pulse"></div>
                 Objetivo Principal
               </label>
-              <input name="objective" value={formData.objective} onChange={handleChange} required type="text" placeholder="Ex: Warzone / Reduzir Input Lag" className="w-full bg-white/2 border border-white/10 rounded-xl p-5 text-white focus:outline-none focus:border-[#00bffa]/30 focus:bg-white/5 transition-all font-light placeholder:text-zinc-700 shadow-inner" />
+              <input name="objective" value={formData.objective} onChange={handleChange} required type="text" placeholder="Ex: Warzone / Reduzir Input Lag" className="w-full bg-white/2 border border-white/10 rounded-xl p-5 text-white focus:outline-none focus:border-[#00bffa]/30 focus:bg-white/5 transition-all font-normal font-[Helvetica,Arial,sans-serif] placeholder:text-zinc-700 shadow-inner" />
             </div>
           </div>
           

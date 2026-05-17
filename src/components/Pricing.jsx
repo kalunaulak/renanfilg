@@ -121,7 +121,7 @@ export const Pricing = () => {
               <p className="text-zinc-500 font-light mb-10 italic">{item.desc}</p>
               
               <div className="mb-12 flex items-baseline">
-                <span className={`text-5xl md:text-6xl font-clash font-medium tracking-tighter italic ${item.highlight ? 'text-[#00bffa]' : 'text-white'}`}>{item.price}</span>
+                <span className={`text-5xl md:text-6xl font-clash font-medium tracking-tighter ${item.highlight ? 'text-[#00bffa]' : 'text-white'}`}>{item.price}</span>
                 {item.badge && <span className="text-zinc-500 ml-3 font-light uppercase text-[10px] md:text-xs tracking-widest">{item.badge}</span>}
               </div>
 
