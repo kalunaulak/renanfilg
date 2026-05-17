@@ -78,7 +78,7 @@ export const SocialProof = () => {
   }, [isDragging, isHovered, contentWidth, x]);
 
   return (
-    <section className="py-24 md:py-32 bg-black overflow-hidden border-y border-white/[0.03]">
+    <section className="py-16 md:py-32 bg-black overflow-hidden border-y border-white/[0.03]">
       <div className="max-w-7xl mx-auto px-8 md:px-12 mb-20 text-center">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#00bffa]/20 bg-[#00bffa]/5 mb-8">
           <span className="text-[10px] tracking-[0.3em] text-[#00bffa] uppercase font-light italic">{t.tag}</span>
@@ -110,11 +110,11 @@ export const SocialProof = () => {
           {[...t.testimonials, ...t.testimonials, ...t.testimonials].map((item, i) => (
             <div 
               key={i} 
-              className="w-[300px] md:w-[600px] shrink-0 p-6 md:p-16 relative group transition-all duration-500"
+              className="w-[85vw] md:w-[600px] shrink-0 p-8 md:p-16 relative group transition-all duration-500"
             >
-              <div className="flex items-start justify-between mb-10">
-                <div className="flex items-center gap-6">
-                  <div className="w-16 h-16 md:w-24 md:h-24 rounded-full overflow-hidden border border-white/10 grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:border-[#00bffa]/50 transition-all duration-700 shadow-2xl">
+              <div className="flex flex-col md:flex-row items-start justify-between mb-8 md:mb-10">
+                <div className="flex flex-col md:flex-row md:items-center gap-6">
+                  <div className="w-16 h-16 md:w-24 md:h-24 shrink-0 rounded-full overflow-hidden border border-white/10 grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:border-[#00bffa]/50 transition-all duration-700 shadow-2xl">
                     <img src={item.image} alt={item.name} loading="lazy" className="w-full h-full object-cover" />
                   </div>
                   <div>

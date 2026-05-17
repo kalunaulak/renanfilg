@@ -31,7 +31,7 @@ export const Services = () => {
   }[language || 'pt'];
 
   return (
-    <section className="py-40 px-10 md:px-12">
+    <section className="py-16 md:py-40 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="mb-24">
           <div className="text-[#00bffa] font-light text-[10px] uppercase tracking-[0.4em] mb-4">{t.tag}</div>
@@ -55,7 +55,7 @@ export const Services = () => {
               </div>
               <div className="inline-block px-3 py-1 rounded-full bg-white/[0.03] border border-white/5 text-[8px] font-light text-zinc-500 uppercase tracking-widest mb-4 group-hover:border-[#00bffa]/20 transition-colors">{item.badge}</div>
               <h3 className="text-2xl font-light text-white mb-6 tracking-tight italic uppercase">{item.title}</h3>
-              <p className="text-zinc-500 text-sm leading-relaxed font-light">{item.desc}</p>
+              <p className="text-zinc-400 text-base md:text-sm leading-relaxed font-light">{item.desc}</p>
             </motion.div>
           ))}
         </div>

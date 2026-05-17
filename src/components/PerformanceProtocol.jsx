@@ -33,7 +33,7 @@ export const PerformanceProtocol = () => {
   }[language || 'pt'];
 
   return (
-    <section className="py-20 px-10 md:px-6 bg-zinc-950 border-y border-white/5 relative overflow-hidden">
+    <section className="py-16 md:py-32 px-6 md:px-6 bg-zinc-950 border-y border-white/5 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-start justify-between mb-20 gap-12">
           <div className="max-w-3xl">
@@ -65,7 +65,7 @@ export const PerformanceProtocol = () => {
               </div>
               
               <h3 className="text-xl font-light text-white uppercase tracking-tight mb-4 pr-10">{item.title}</h3>
-              <p className="text-zinc-500 text-sm font-light leading-relaxed italic pr-4">
+              <p className="text-zinc-400 text-base md:text-sm font-light leading-relaxed italic pr-4">
                 {item.desc}
               </p>
             </motion.div>

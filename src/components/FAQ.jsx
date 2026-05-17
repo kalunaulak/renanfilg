@@ -70,7 +70,7 @@ export const FAQ = () => {
   }[language || 'pt'];
 
   return (
-    <section className="py-40 px-6 bg-[#020202] relative overflow-hidden">
+    <section className="py-16 md:py-40 px-6 bg-[#020202] relative overflow-hidden">
       <div className="max-w-4xl mx-auto">
         <div className="mb-24">
           <div className="text-[#00bffa] font-light text-[10px] uppercase tracking-[0.4em] mb-4">{t.tag}</div>

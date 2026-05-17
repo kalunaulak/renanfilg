@@ -31,7 +31,7 @@ export const CustomCursor = () => {
   }, [isVisible]);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[9999] overflow-hidden">
+    <div className="hidden md:block fixed inset-0 pointer-events-none z-[9999] overflow-hidden">
       {/* Smaller, more intense Ambient Light "Aura" */}
       <motion.div
         className="absolute top-0 left-0 w-[300px] h-[300px] rounded-full pointer-events-none"

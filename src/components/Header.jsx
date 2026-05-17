@@ -51,12 +51,6 @@ export const Header = () => {
           </div>
 
           <div className="flex items-center gap-4 border-l border-white/10 pl-8">
-            <Link 
-              to="/login" 
-              className="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest text-zinc-300 hover:text-[#00bffa] hover:border-[#00bffa]/30 transition-all"
-            >
-              {t.members}
-            </Link>
             <button onClick={(e) => { e.preventDefault(); document.getElementById('agendar')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-elite-primary !py-2.5 !px-6 !text-[10px] !rounded-xl">
               {t.cta}
             </button>

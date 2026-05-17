@@ -90,9 +90,9 @@ export const Pricing = () => {
   }[language || 'pt'];
 
   return (
-    <section id="precos" className="py-32 px-10 md:px-8 bg-black relative">
+    <section id="precos" className="py-16 md:py-32 px-6 md:px-8 bg-black relative">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-24">
+        <div className="text-center mb-16 md:mb-24">
           <h2 className="text-4xl md:text-7xl font-light tracking-tighter mb-8 text-white leading-none">
             {t.title} <br />
             <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent">{t.title_grad}</span>
@@ -120,9 +120,9 @@ export const Pricing = () => {
               <h3 className="text-2xl font-light text-white uppercase italic tracking-tight mb-2">{item.name}</h3>
               <p className="text-zinc-500 font-light mb-10 italic">{item.desc}</p>
               
-              <div className="mb-12">
-                <span className="text-6xl font-thin text-white tracking-tighter italic">{item.price}</span>
-                {item.badge && <span className="text-zinc-500 ml-2 font-light uppercase text-xs">{item.badge}</span>}
+              <div className="mb-12 flex items-baseline">
+                <span className={`text-5xl md:text-6xl font-clash font-medium tracking-tighter italic ${item.highlight ? 'text-[#00bffa]' : 'text-white'}`}>{item.price}</span>
+                {item.badge && <span className="text-zinc-500 ml-3 font-light uppercase text-[10px] md:text-xs tracking-widest">{item.badge}</span>}
               </div>
 
               <div className="space-y-4 mb-12 flex-1">

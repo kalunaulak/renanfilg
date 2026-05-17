@@ -32,13 +32,13 @@ export const ScreeningForm = () => {
 
   if (submitted) {
     return (
-      <section id="agendar" className="py-32 px-10 md:px-6 bg-black flex flex-col items-center justify-center text-center min-h-[600px] relative overflow-hidden">
+      <section id="agendar" className="py-16 md:py-32 px-6 md:px-6 bg-black flex flex-col items-center justify-center text-center min-h-[600px] relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#00bffa]/5 to-[#005eea]/5 pointer-events-none"></div>
         <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="relative z-10">
           <div className="w-24 h-24 glass-card rounded-full flex items-center justify-center mx-auto mb-10 border border-white/10 text-performance shadow-[0_0_50px_rgba(0,191,250,0.1)]">
             <MessageSquare size={40} />
           </div>
-          <h2 className="text-4xl md:text-6xl font-light mb-6 uppercase text-white tracking-tighter">TRIAGEM CONCLUÍDA.</h2>
+          <h2 className="text-4xl md:text-6xl font-clash font-medium mb-6 uppercase text-white tracking-tighter">TRIAGEM CONCLUÍDA.</h2>
           <p className="text-zinc-400 mb-12 max-w-md mx-auto italic text-lg leading-tight font-light">Seu perfil técnico foi pré-aprovado. Agora, chame o Renan no WhatsApp para confirmar seu horário.</p>
           <a 
             href={generateWhatsAppLink()} 
@@ -54,10 +54,10 @@ export const ScreeningForm = () => {
   }
 
   return (
-    <section id="agendar" className="py-32 px-10 md:px-6 bg-black relative border-t border-white/[0.03]">
+    <section id="agendar" className="py-16 md:py-32 px-6 md:px-6 bg-black relative border-t border-white/[0.03]">
       <div className="max-w-4xl mx-auto relative z-10">
         <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-6xl font-light tracking-tighter mb-6 uppercase text-white">
+          <h2 className="text-4xl md:text-6xl font-clash font-medium tracking-tighter mb-6 uppercase text-white">
             PRÉ-TRIAGEM <span className="bg-gradient-to-b from-[#00bffa] to-[#005eea] bg-clip-text text-transparent underline decoration-white/10 underline-offset-8">TÉCNICA</span>
           </h2>
           <p className="text-zinc-500 max-w-xl mx-auto font-light text-lg italic">
@@ -65,7 +65,7 @@ export const ScreeningForm = () => {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8 glass-card p-10 md:p-16 relative">
+        <form onSubmit={handleSubmit} className="space-y-8 glass-card p-6 md:p-16 relative">
           <div className="absolute top-0 right-0 p-8 text-white/5 font-thin text-6xl italic pointer-events-none tracking-tighter">RF.01</div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
