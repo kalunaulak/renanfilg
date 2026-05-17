@@ -120,7 +120,11 @@ export const SocialProof = () => {
                   <div>
                     <div className="flex items-center gap-3 mb-2">
                       <h4 className="text-white font-medium tracking-tight text-lg md:text-2xl uppercase leading-tight group-hover:text-[#00bffa] transition-colors">{item.name}</h4>
-                      <a href={"https://instagram.com/" + item.handle.replace('@', '')} target="_blank" rel="noopener noreferrer" className="px-2 py-0.5 rounded bg-[#00bffa]/10 border border-[#00bffa]/20 text-[#00bffa] text-[8px] font-bold tracking-widest uppercase hover:bg-[#00bffa]/20 hover:border-[#00bffa]/30 transition-colors">{item.handle}</a>
+                      {item.handle && (
+                        <a href={"https://instagram.com/" + item.handle.replace('@', '')} target="_blank" rel="noopener noreferrer" className="px-2 py-0.5 rounded bg-[#00bffa]/10 border border-[#00bffa]/20 text-[#00bffa] text-[8px] font-bold tracking-widest uppercase hover:bg-[#00bffa]/20 hover:border-[#00bffa]/30 transition-colors">
+                          {item.handle}
+                        </a>
+                      )}
                     </div>
                     <p className="text-zinc-500 text-[9px] tracking-widest uppercase font-light">{item.role}</p>
                   </div>
