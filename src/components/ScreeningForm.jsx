@@ -66,7 +66,7 @@ export const ScreeningForm = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8 glass-card p-6 md:p-16 relative">
-          <div className="absolute top-0 right-0 p-8 text-white/5 font-thin text-6xl italic pointer-events-none tracking-tighter">RF.01</div>
+          <div className="hidden md:block absolute top-0 right-0 p-8 text-white/5 font-thin text-6xl italic pointer-events-none tracking-tighter">RF.01</div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div className="space-y-3">
