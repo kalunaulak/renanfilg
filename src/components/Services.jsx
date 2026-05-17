@@ -14,8 +14,8 @@ export const Services = () => {
       services: [
         { title: "Calibração de Peças", desc: "Eu vou até a raiz do seu computador. Ajusto as configurações de fábrica para o processador rodar frio e estável.", icon: Cpu, badge: "Deep Tuning" },
         { title: "Windows Sem Lixo", desc: "Instalação de um Windows otimizado direto da Microsoft. Sem programas inúteis travando a máquina.", icon: Terminal, badge: "Resposta Rápida" },
-        { title: "Atendimento VIP 1 a 1", desc: "Procedimento de 3h comigo no seu computador (acesso remoto seguro) com raio-X completo.", icon: Zap, badge: "Remoto Seguro" },
-        { title: "Suporte Vitalício", desc: "Manual de cuidados essenciais. Sem mensalidades ou cobranças mensais adicionais.", icon: Shield, badge: "Para Sempre" }
+        { title: "Atendimento 1 a 1", desc: "Procedimento de 3h comigo no seu computador (acesso remoto seguro) com raio-X completo.", icon: Zap, badge: "Remoto Seguro" },
+        { title: "Manual de Preservação", desc: "Você recebe um manual de cuidados práticos essenciais para manter a máquina voando sozinho, garantindo total autonomia. Sem mensalidades.", icon: Shield, badge: "Autonomia" }
       ]
     },
     en: {
@@ -25,8 +25,8 @@ export const Services = () => {
       services: [
         { title: "Hardware Tuning", desc: "I go to the root of your computer. I adjust factory settings so the processor runs cool and stable.", icon: Cpu, badge: "Deep Tuning" },
         { title: "Clean Windows", desc: "Installation of an optimized Windows directly from Microsoft. No useless background apps slowing you down.", icon: Terminal, badge: "Quick Response" },
-        { title: "1-on-1 VIP Consulting", desc: "3-hour safe remote session with me for a complete X-ray and setup of your PC.", icon: Zap, badge: "Safe Remote" },
-        { title: "Lifetime Support", desc: "Essential care manual. No monthly fees or additional recurring charges.", icon: Shield, badge: "Forever" }
+        { title: "1-on-1 Consulting", desc: "3-hour safe remote session with me for a complete X-ray and setup of your PC.", icon: Zap, badge: "Safe Remote" },
+        { title: "Preservation Guide", desc: "You receive a complete manual of essential care guidelines to maintain peak performance on your own, ensuring total autonomy. No monthly fees.", icon: Shield, badge: "Autonomy" }
       ]
     }
   }[language || 'pt'];
