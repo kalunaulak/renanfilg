@@ -39,8 +39,8 @@ export const OrganizationModal = ({ isOpen, onClose }) => {
     setTimeout(() => {
       setStatus('success');
       
-      // Número de telefone do Renan (Apenas números, inclua DDI e DDD, ex: 5511988887777)
-      const phone = "5511999999999"; 
+      // Número do Renan (Sincronizado com o formulário principal)
+      const phone = "5547991914050";
       
       // Formatação da mensagem para o WhatsApp
       const message = `*Nova Proposta de Consultoria Enterprise*%0A%0A*Organização:* ${formData.orgName}%0A*E-mail do Manager:* ${formData.email}%0A*Necessidades:* ${formData.needs}`;
