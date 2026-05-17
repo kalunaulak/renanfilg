@@ -57,9 +57,9 @@ export const Header = () => {
             >
               {t.members}
             </Link>
-            <a href="#agendar" className="btn-elite-primary !py-2.5 !px-6 !text-[10px] !rounded-xl">
+            <button onClick={(e) => { e.preventDefault(); document.getElementById('agendar')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-elite-primary !py-2.5 !px-6 !text-[10px] !rounded-xl">
               {t.cta}
-            </a>
+            </button>
 
             {/* Language Switch */}
             <div onClick={toggleLanguage} className="flex items-center gap-3 ml-2 cursor-pointer group">
@@ -74,9 +74,9 @@ export const Header = () => {
 
         {/* Mobile View - Apenas o CTA para manter o design clean e alto */}
         <div className="md:hidden flex items-center gap-4">
-           <a href="#agendar" className="btn-elite-primary !py-3 !px-6 !text-[9px] !rounded-xl">
+           <button onClick={(e) => { e.preventDefault(); document.getElementById('agendar')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-elite-primary !py-3 !px-6 !text-[9px] !rounded-xl">
               {t.cta}
-            </a>
+            </button>
         </div>
       </div>
     </header>

@@ -131,12 +131,23 @@ export const Pricing = () => {
                 ))}
               </div>
 
-              <a 
-                href={item.highlight ? '#agendar' : 'https://instagram.com/renanfilg'} 
-                className={item.highlight ? 'btn-elite-primary text-center' : 'btn-elite-glass text-center'}
-              >
-                {item.cta}
-              </a>
+              {item.highlight ? (
+                <button 
+                  onClick={(e) => { e.preventDefault(); document.getElementById('agendar')?.scrollIntoView({ behavior: 'smooth' }); }}
+                  className="btn-elite-primary text-center w-full"
+                >
+                  {item.cta}
+                </button>
+              ) : (
+                <a 
+                  href="https://instagram.com/renanfilg" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="btn-elite-glass text-center w-full"
+                >
+                  {item.cta}
+                </a>
+              )}
             </motion.div>
           ))}
         </div>

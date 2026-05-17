@@ -35,9 +35,9 @@ export const FloatingNav = () => {
         </Link>
       </div>
 
-      <a href="#agendar" className="btn-elite-primary !py-2 !px-6 !text-[9px] !rounded-full whitespace-nowrap">
+      <button onClick={(e) => { e.preventDefault(); document.getElementById('agendar')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-elite-primary !py-2 !px-6 !text-[9px] !rounded-full whitespace-nowrap">
         AGENDAR
-      </a>
+      </button>
 
       {/* Drag Indicator (Mobile Only) */}
       <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 md:hidden">

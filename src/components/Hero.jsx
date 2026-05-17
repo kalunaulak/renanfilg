@@ -83,10 +83,10 @@ export const Hero = () => {
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-          <a href="#agendar" className="btn-elite-primary group">
+          <button onClick={(e) => { e.preventDefault(); document.getElementById('agendar')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-elite-primary group">
             {t.cta} 
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-          </a>
+          </button>
           <button className="btn-elite-glass">
             {t.more}
           </button>
