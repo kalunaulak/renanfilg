@@ -62,7 +62,10 @@ const AppContent = () => {
 
   return (
     <Router>
-      <div className="min-h-screen bg-[#020202] text-white selection:bg-[#00bffa]/30 relative overflow-x-hidden">
+      <div 
+        onContextMenu={(e) => e.preventDefault()}
+        className="min-h-screen bg-[#020202] text-white selection:bg-[#00bffa]/30 relative overflow-x-hidden"
+      >
         <CustomCursor />
         <GridBackground />
         
