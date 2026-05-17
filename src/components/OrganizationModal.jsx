@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, Building, Mail, FileText } from 'lucide-react';
+import { X, Send, Building, Mail, FileText, Monitor, Gamepad2 } from 'lucide-react';
 import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -13,6 +13,8 @@ export const OrganizationModal = ({ isOpen, onClose }) => {
       subtitle: 'Estruturação VIP para Organizações e Lines Profissionais.',
       orgName: 'Nome da Organização',
       email: 'E-mail Corporativo do Manager',
+      pcCount: 'Quantidade de PCs',
+      games: 'Modalidades (Ex: CS2, LoL)',
       needs: 'Descreva as necessidades da Line',
       btnSubmit: 'SOLICITAR ORÇAMENTO',
       btnLoading: 'ENVIANDO...',
@@ -23,6 +25,8 @@ export const OrganizationModal = ({ isOpen, onClose }) => {
       subtitle: 'VIP Setup for Organizations and Professional Rosters.',
       orgName: 'Organization Name',
       email: 'Manager Corporate E-mail',
+      pcCount: 'Number of PCs',
+      games: 'Games (e.g. CS2, LoL)',
       needs: 'Describe your Roster needs',
       btnSubmit: 'REQUEST QUOTE',
       btnLoading: 'SENDING...',
@@ -30,7 +34,7 @@ export const OrganizationModal = ({ isOpen, onClose }) => {
     }
   }[language || 'pt'];
 
-  const [formData, setFormData] = useState({ orgName: '', email: '', needs: '' });
+  const [formData, setFormData] = useState({ orgName: '', email: '', pcCount: '', games: '', needs: '' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,7 +47,7 @@ export const OrganizationModal = ({ isOpen, onClose }) => {
       const phone = "5547991914050";
       
       // Formatação da mensagem para o WhatsApp
-      const message = `*Nova Proposta de Consultoria Enterprise*%0A%0A*Organização:* ${formData.orgName}%0A*E-mail do Manager:* ${formData.email}%0A*Necessidades:* ${formData.needs}`;
+      const message = `*Nova Proposta de Consultoria Enterprise*%0A%0A*Organização:* ${formData.orgName}%0A*E-mail do Manager:* ${formData.email}%0A*Quantidade de PCs:* ${formData.pcCount}%0A*Modalidades/Jogos:* ${formData.games}%0A*Necessidades:* ${formData.needs}`;
       const whatsappUrl = `https://wa.me/${phone}?text=${message}`;
       
       // Abre o WhatsApp numa nova aba
@@ -52,7 +56,7 @@ export const OrganizationModal = ({ isOpen, onClose }) => {
       // Fecha o modal e reseta o form
       setTimeout(() => {
         setStatus('idle');
-        setFormData({ orgName: '', email: '', needs: '' });
+        setFormData({ orgName: '', email: '', pcCount: '', games: '', needs: '' });
         onClose();
       }, 2000);
     }, 1000);
@@ -133,6 +137,37 @@ export const OrganizationModal = ({ isOpen, onClose }) => {
                       placeholder={t.email}
                       className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-12 py-4 text-sm font-light text-white placeholder-zinc-600 focus:outline-none focus:border-[#00bffa]/50 focus:bg-white/[0.05] transition-all"
                     />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <div className="relative">
+                      <Monitor size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" />
+                      <input 
+                        required
+                        type="number"
+                        min="1" 
+                        value={formData.pcCount}
+                        onChange={(e) => setFormData({...formData, pcCount: e.target.value})}
+                        placeholder={t.pcCount}
+                        className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-12 py-4 text-sm font-light text-white placeholder-zinc-600 focus:outline-none focus:border-[#00bffa]/50 focus:bg-white/[0.05] transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="relative">
+                      <Gamepad2 size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" />
+                      <input 
+                        required
+                        type="text" 
+                        value={formData.games}
+                        onChange={(e) => setFormData({...formData, games: e.target.value})}
+                        placeholder={t.games}
+                        className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-12 py-4 text-sm font-light text-white placeholder-zinc-600 focus:outline-none focus:border-[#00bffa]/50 focus:bg-white/[0.05] transition-all"
+                      />
+                    </div>
                   </div>
                 </div>
 
