@@ -115,7 +115,7 @@ export const SocialProof = () => {
               <div className="flex items-start justify-between mb-10">
                 <div className="flex items-center gap-6">
                   <div className="w-16 h-16 md:w-24 md:h-24 rounded-full overflow-hidden border border-white/10 grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:border-[#00bffa]/50 transition-all duration-700 shadow-2xl">
-                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                    <img src={item.image} alt={item.name} loading="lazy" className="w-full h-full object-cover" />
                   </div>
                   <div>
                     <div className="flex items-center gap-3 mb-2">

@@ -51,6 +51,8 @@ body {
   font-family: var(--font-sans);
   font-weight: 300;
   letter-spacing: -0.01em;
+  user-select: none; /* Block global text selection for an app-like feel */
+  -webkit-user-select: none;
 }
 
 /* Hide default cursor on desktop to use Custom Cursor */
