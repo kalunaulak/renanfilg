@@ -59,6 +59,30 @@ export const CustomCursor = () => {
           opacity: isVisible ? 1 : 0,
         }}
       />
+      {/* Outer tracking ring */}
+      <motion.div
+        className="absolute top-0 left-0 w-[28px] h-[28px] border border-[#00bffa]/40 rounded-full pointer-events-none transition-transform duration-75"
+        style={{
+          x: mouseX,
+          y: mouseY,
+          translateX: '-50%',
+          translateY: '-50%',
+          opacity: isVisible ? 1 : 0,
+        }}
+      />
+      
+      {/* Precision Core Dot */}
+      <motion.div
+        className="absolute top-0 left-0 w-[4px] h-[4px] bg-[#00bffa] rounded-full pointer-events-none mix-blend-screen"
+        style={{
+          x: mouseX,
+          y: mouseY,
+          translateX: '-50%',
+          translateY: '-50%',
+          opacity: isVisible ? 1 : 0,
+          boxShadow: '0 0 10px 2px rgba(0, 191, 250, 0.6)'
+        }}
+      />
     </div>
   );
 };
