@@ -74,39 +74,40 @@ export const PerformanceComparison = () => {
           </div>
 
           <div className="relative">
-            <div className="glass-card p-6 md:p-12 aspect-video relative overflow-hidden flex flex-col justify-between border-white/[0.03] bg-black/40">
+            {/* Glassmorphism Card */}
+            <div className="backdrop-blur-xl bg-white/[0.02] border border-white/[0.05] rounded-3xl p-6 md:p-10 relative overflow-hidden flex flex-col justify-between min-h-[350px] md:aspect-video">
               
               {/* Technical Grid Crosshairs (Extremely Subtle) */}
-              <div className="absolute inset-0 p-8 flex flex-wrap justify-between pointer-events-none opacity-[0.03]">
+              <div className="absolute inset-0 p-8 flex flex-wrap justify-between pointer-events-none opacity-[0.02]">
                 {[...Array(12)].map((_, i) => (
                   <div key={i} className="w-2 h-2 border-l border-t border-white"></div>
                 ))}
               </div>
 
-              {/* Ultra-Minimalist Labels */}
-              <div className="flex justify-between items-start relative z-20">
-                <div className="flex flex-col gap-1">
-                  <span className="text-[9px] font-light text-zinc-500 uppercase tracking-[0.3em]">Hardware Base</span>
-                  <span className="text-3xl font-light text-zinc-400 font-mono tracking-tighter">680 <span className="text-xs opacity-40">FPS</span></span>
+              {/* Minimalist Labels (No Overlap) */}
+              <div className="flex justify-between items-start relative z-20 gap-4">
+                <div className="flex flex-col">
+                  <span className="text-[9px] font-medium text-zinc-500 uppercase tracking-widest">Base</span>
+                  <span className="text-2xl md:text-3xl font-light text-zinc-400 font-mono tracking-tighter">680 <span className="text-[10px] opacity-40">FPS</span></span>
                 </div>
-                <div className="flex flex-col gap-1 text-right">
+                <div className="flex flex-col text-right">
                   <motion.div 
                     initial={{ opacity: 0, y: -5 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1 }}
-                    className="flex flex-col gap-1"
+                    className="flex flex-col"
                   >
-                    <div className="flex items-center justify-end gap-2">
+                    <div className="flex items-center justify-end gap-1.5 mb-1">
                       <div className="w-1.5 h-1.5 rounded-full bg-[#00bffa] animate-pulse"></div>
-                      <span className="text-[9px] font-light text-[#00bffa] uppercase tracking-[0.3em] italic">RF Peak Performance</span>
+                      <span className="text-[9px] font-medium text-[#00bffa] uppercase tracking-widest">Otimizado</span>
                     </div>
-                    <span className="text-6xl md:text-7xl font-light text-white font-mono tracking-tighter drop-shadow-[0_0_15px_rgba(0,191,250,0.25)]">966 <span className="text-sm opacity-30 text-[#00bffa]">FPS</span></span>
+                    <span className="text-5xl md:text-6xl font-light text-white font-mono tracking-tighter drop-shadow-[0_0_15px_rgba(0,191,250,0.25)]">966 <span className="text-xs opacity-30 text-[#00bffa]">FPS</span></span>
                   </motion.div>
                 </div>
               </div>
 
-              {/* Animated Chart SVG */}
-              <div className="absolute inset-0 top-1/4 h-3/4">
+              {/* Animated Chart SVG (Perfectly Centered & Scaled) */}
+              <div className="absolute inset-0 top-[32%] h-[48%] pointer-events-none">
                 <svg className="w-full h-full overflow-visible" viewBox="0 0 400 200" preserveAspectRatio="none">
                   <defs>
                     <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
@@ -175,19 +176,19 @@ export const PerformanceComparison = () => {
                 </svg>
               </div>
 
-              {/* Bottom Info Panels */}
-              <div className="relative z-20 flex justify-between items-end border-t border-white/[0.05] pt-8">
-                <div className="flex gap-10">
+              {/* Bottom Info Panels (Mobile Responsive Stacking) */}
+              <div className="relative z-20 flex flex-col sm:flex-row justify-between items-start sm:items-end border-t border-white/[0.03] pt-6 gap-4 sm:gap-0 mt-auto">
+                <div className="flex gap-8">
                   <div className="flex flex-col">
-                    <span className="text-[8px] text-zinc-700 uppercase tracking-widest mb-1">Status</span>
-                    <span className="text-[10px] text-zinc-500 uppercase font-light">Verified</span>
+                    <span className="text-[8px] text-zinc-600 uppercase tracking-widest mb-1">Status</span>
+                    <span className="text-[10px] text-zinc-400 uppercase font-light">Verified</span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[8px] text-zinc-700 uppercase tracking-widest mb-1">Latency</span>
+                    <span className="text-[8px] text-zinc-600 uppercase tracking-widest mb-1">Redução Lag</span>
                     <span className="text-[10px] text-[#00bffa] uppercase font-light">-14.2ms</span>
                   </div>
                 </div>
-                <div className="text-[9px] text-zinc-800 uppercase tracking-[0.4em]">Hardware-Kernel Integration v4.0</div>
+                <div className="text-[9px] text-zinc-600 uppercase tracking-wider">Kernel Integration v4.0</div>
               </div>
             </div>
           </div>
