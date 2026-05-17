@@ -77,59 +77,37 @@ export const TechnicalTooltip = ({ term, children }) => {
       
       <AnimatePresence>
         {isOpen && (
-          isMobile ? (
-            // Mobile Bottom Sheet Modal Overlay
-            <div className="fixed inset-0 z-[100] flex items-end justify-center p-4 bg-black/60 backdrop-blur-[2px] pointer-events-auto">
-              <div className="absolute inset-0" onClick={() => setIsOpen(false)} />
-              <motion.span
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                exit={{ y: "100%" }}
-                transition={{ type: "spring", damping: 25, stiffness: 220 }}
-                className="relative w-full max-w-lg bg-zinc-950/98 border border-[#00bffa]/20 rounded-t-3xl p-6 pb-8 shadow-[0_-10px_40px_rgba(0,191,250,0.15)] z-50 text-left normal-case tracking-normal font-sans block"
+          <motion.span
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 5, scale: 0.95 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
+            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-[86vw] sm:w-72 p-5 rounded-2xl backdrop-blur-2xl bg-zinc-950/98 border border-[#00bffa]/15 shadow-[0_12px_40px_rgba(0,191,250,0.15)] z-50 text-left normal-case tracking-normal font-sans block pointer-events-auto"
+          >
+            {/* Botão de Fechar X no Mobile */}
+            {isMobile && (
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsOpen(false);
+                }}
+                className="absolute top-4 right-4 text-zinc-500 hover:text-white bg-white/5 hover:bg-white/10 p-1.5 rounded-full transition-colors flex items-center justify-center cursor-pointer"
               >
-                <span className="block w-12 h-1 bg-white/10 rounded-full mx-auto mb-5" />
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setIsOpen(false);
-                  }}
-                  className="absolute top-5 right-5 text-zinc-500 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-colors flex items-center justify-center cursor-pointer"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-                <span className="flex items-center gap-1.5 text-[10px] font-bold text-[#00bffa] uppercase tracking-widest mb-3">
-                  <HelpCircle className="w-3.5 h-3.5" /> Explicação Didática
-                </span>
-                <span className="block text-lg font-bold text-white mb-2 not-italic tracking-wide">
-                  {data.title}
-                </span>
-                <span className="block text-sm text-zinc-300 font-light leading-relaxed not-italic tracking-normal">
-                  {data.desc}
-                </span>
-              </motion.span>
-            </div>
-          ) : (
-            // Desktop Hover Popover
-            <motion.span
-              initial={{ opacity: 0, y: 10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 5, scale: 0.95 }}
-              transition={{ duration: 0.15, ease: "easeOut" }}
-              className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-72 p-5 rounded-2xl backdrop-blur-2xl bg-zinc-950/98 border border-[#00bffa]/15 shadow-[0_12px_40px_-5px_rgba(0,0,0,0.9)] z-50 text-left normal-case tracking-normal font-sans pointer-events-none sm:pointer-events-auto block"
-            >
-              <span className="flex items-center gap-1.5 text-[9px] font-bold text-[#00bffa] uppercase tracking-widest mb-2.5">
-                <HelpCircle className="w-3.5 h-3.5" /> Explicação Didática
-              </span>
-              <span className="block text-sm font-semibold text-white mb-1.5 not-italic tracking-wide">
-                {data.title}
-              </span>
-              <span className="block text-[12px] text-zinc-300 font-light leading-relaxed not-italic tracking-normal">
-                {data.desc}
-              </span>
-              <span className="absolute top-full left-1/2 -translate-x-1/2 -mt-[5px] border-[5px] border-transparent border-t-zinc-950 pointer-events-none"></span>
-            </motion.span>
-          )
+                <X className="w-3 h-3" />
+              </button>
+            )}
+
+            <span className="flex items-center gap-1.5 text-[9px] font-bold text-[#00bffa] uppercase tracking-widest mb-2.5">
+              <HelpCircle className="w-3.5 h-3.5" /> Explicação Didática
+            </span>
+            <span className="block text-sm font-semibold text-white mb-1.5 not-italic tracking-wide pr-6">
+              {data.title}
+            </span>
+            <span className="block text-[12px] text-zinc-300 font-light leading-relaxed not-italic tracking-normal">
+              {data.desc}
+            </span>
+            <span className="absolute top-full left-1/2 -translate-x-1/2 -mt-[5px] border-[5px] border-transparent border-t-zinc-950 pointer-events-none sm:block hidden"></span>
+          </motion.span>
         )}
       </AnimatePresence>
     </span>
@@ -248,11 +226,48 @@ export const HoverHelper = ({ centered = false }) => {
         </span>
       </div>
 
-      {/* Versão Mobile - Texto Instrucional de Toque */}
-      <div className={`flex md:hidden items-center gap-2.5 text-zinc-500 text-[9px] uppercase tracking-[0.14em] bg-white/[0.02] border border-white/5 rounded-full px-4.5 py-2 w-fit ${centered ? 'mx-auto mt-6' : 'mt-4'}`}>
-        <span className="w-1.5 h-1.5 rounded-full bg-[#00bffa] animate-pulse shadow-[0_0_6px_#00bffa]"></span>
-        <span className="text-zinc-400 font-light">
-          Toque no termo em <span className="text-[#00bffa] font-bold">ciano</span> para ver a explicação didática
+      {/* Versão Mobile - Dedo Apontando com Animação de Toque (Tap) */}
+      <div className={`flex md:hidden items-center gap-3 text-zinc-500 text-[9px] uppercase tracking-[0.14em] bg-[#00bffa]/[0.05] border border-[#00bffa]/20 rounded-full px-5 py-2.5 shadow-[0_0_15px_rgba(0,191,250,0.08)] w-fit ${centered ? 'mx-auto mt-6' : 'mt-4'}`}>
+        <motion.div
+          animate={{ 
+            scale: [1, 0.82, 1],
+            y: [0, 2, 0]
+          }}
+          transition={{ 
+            repeat: Infinity, 
+            duration: 1.8, 
+            ease: "easeInOut" 
+          }}
+          className="relative flex items-center justify-center w-5 h-5 text-[#00bffa] pointer-events-none"
+        >
+          {/* Circulo de Toque Neon (Ripple Effect) */}
+          <motion.span 
+            animate={{ scale: [0.6, 1.6, 0.6], opacity: [0.1, 0.8, 0.1] }}
+            transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+            className="absolute -top-1 w-5 h-5 rounded-full bg-[#00bffa]/30 border border-[#00bffa] shadow-[0_0_8px_#00bffa] blur-[1px]"
+          />
+          
+          {/* Mãozinha apontando/tocando */}
+          <svg 
+            width="16" 
+            height="16" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+            className="z-10 drop-shadow-[0_0_3px_rgba(0,191,250,0.6)]"
+          >
+            <path d="M10 11V4.5a1.5 1.5 0 0 1 3 0V11" />
+            <path d="M13 11a1.5 1.5 0 0 1 3 0v1.5" />
+            <path d="M16 12.5a1.5 1.5 0 0 1 3 0V14a5 5 0 0 1-10 0v-3.5" />
+            <path d="M7 10.5a1.5 1.5 0 0 1 3 0V11" />
+            <path d="M7 11.5H5a2 2 0 0 0-2 2v2a7 7 0 0 0 14 0v-1" />
+          </svg>
+        </motion.div>
+        <span className="font-semibold text-white tracking-wider">
+          Toque no termo em <span className="text-[#00bffa] font-bold tracking-widest uppercase">ciano</span> para a explicação
         </span>
       </div>
     </>
