@@ -76,8 +76,8 @@ export const PerformanceComparison = () => {
           <div className="relative">
             <div className="glass-card p-6 md:p-12 aspect-video relative overflow-hidden flex flex-col justify-between border-white/[0.03] bg-black/40">
               
-              {/* Technical Grid Crosshairs */}
-              <div className="absolute inset-0 p-8 flex flex-wrap justify-between pointer-events-none opacity-10">
+              {/* Technical Grid Crosshairs (Extremely Subtle) */}
+              <div className="absolute inset-0 p-8 flex flex-wrap justify-between pointer-events-none opacity-[0.03]">
                 {[...Array(12)].map((_, i) => (
                   <div key={i} className="w-2 h-2 border-l border-t border-white"></div>
                 ))}
@@ -86,21 +86,21 @@ export const PerformanceComparison = () => {
               {/* Ultra-Minimalist Labels */}
               <div className="flex justify-between items-start relative z-20">
                 <div className="flex flex-col gap-1">
-                  <span className="text-[10px] font-light text-zinc-600 uppercase tracking-[0.4em]">Hardware Base</span>
-                  <span className="text-3xl font-light text-zinc-500 font-mono tracking-tighter">680 <span className="text-xs opacity-50">FPS</span></span>
+                  <span className="text-[9px] font-light text-zinc-500 uppercase tracking-[0.3em]">Hardware Base</span>
+                  <span className="text-3xl font-light text-zinc-400 font-mono tracking-tighter">680 <span className="text-xs opacity-40">FPS</span></span>
                 </div>
                 <div className="flex flex-col gap-1 text-right">
                   <motion.div 
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 2.5 }}
+                    initial={{ opacity: 0, y: -5 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1 }}
                     className="flex flex-col gap-1"
                   >
                     <div className="flex items-center justify-end gap-2">
-                      <div className="w-2 h-2 rounded-full bg-[#00bffa] animate-pulse"></div>
-                      <span className="text-[10px] font-light text-[#00bffa] uppercase tracking-[0.4em] italic">RF Peak Performance</span>
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#00bffa] animate-pulse"></div>
+                      <span className="text-[9px] font-light text-[#00bffa] uppercase tracking-[0.3em] italic">RF Peak Performance</span>
                     </div>
-                    <span className="text-7xl font-light text-white font-mono tracking-tighter drop-shadow-[0_0_20px_rgba(0,191,250,0.3)]">966 <span className="text-sm opacity-30 text-[#00bffa]">FPS</span></span>
+                    <span className="text-6xl md:text-7xl font-light text-white font-mono tracking-tighter drop-shadow-[0_0_15px_rgba(0,191,250,0.25)]">966 <span className="text-sm opacity-30 text-[#00bffa]">FPS</span></span>
                   </motion.div>
                 </div>
               </div>
@@ -110,69 +110,67 @@ export const PerformanceComparison = () => {
                 <svg className="w-full h-full overflow-visible" viewBox="0 0 400 200" preserveAspectRatio="none">
                   <defs>
                     <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#00bffa" stopOpacity="0.15" />
+                      <stop offset="0%" stopColor="#00bffa" stopOpacity="0.08" />
                       <stop offset="100%" stopColor="#00bffa" stopOpacity="0" />
                     </linearGradient>
                     <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="4" result="blur" />
+                      <feGaussianBlur stdDeviation="2" result="blur" />
                       <feComposite in="SourceGraphic" in2="blur" operator="over" />
                     </filter>
                   </defs>
 
-                  {/* Wavy Base Line (Dashed) */}
-                  <motion.path 
-                    d="M 0 160 C 40 165, 100 155, 200 160 S 350 150, 400 165"
-                    fill="none"
-                    stroke="rgba(255,255,255,0.05)"
+                  {/* Clean straight Baseline (Dashed) */}
+                  <motion.line 
+                    x1="0" y1="160" x2="400" y2="160"
+                    stroke="rgba(255,255,255,0.06)"
                     strokeWidth="1"
                     strokeDasharray="4 4"
                     initial={{ pathLength: 0 }}
                     whileInView={{ pathLength: 1 }}
-                    transition={{ duration: 2 }}
+                    transition={{ duration: 1.5 }}
                   />
 
-                  {/* Path for the main line and the traveling pulse */}
+                  {/* Path for the elegant curve and traveling pulse */}
                   <path 
                     id="mainPath"
-                    d="M 0 160 C 40 140, 80 170, 120 130 S 160 150, 200 100 S 280 120, 320 60 S 380 40, 400 20"
+                    d="M 0 160 C 120 160, 240 30, 400 30"
                     fill="none"
                     stroke="transparent"
                   />
 
-                  {/* Gradient Fill */}
+                  {/* Gradient Fill (Sleek curve shadow) */}
                   <motion.path 
-                    d="M 0 160 C 40 140, 80 170, 120 130 S 160 150, 200 100 S 280 120, 320 60 S 380 40, 400 20 L 400 200 L 0 200 Z"
+                    d="M 0 160 C 120 160, 240 30, 400 30 L 400 200 L 0 200 Z"
                     fill="url(#chartGradient)"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    transition={{ duration: 2, delay: 2 }}
+                    transition={{ duration: 1.5, delay: 1.2 }}
                   />
 
-                  {/* Main Wavy Line with Neon */}
+                  {/* Main Laser Line with Subtle Glow */}
                   <motion.path 
-                    d="M 0 160 C 40 140, 80 170, 120 130 S 160 150, 200 100 S 280 120, 320 60 S 380 40, 400 20"
+                    d="M 0 160 C 120 160, 240 30, 400 30"
                     fill="none"
                     stroke="#00bffa"
-                    strokeWidth="2.5"
+                    strokeWidth="1.5"
                     filter="url(#neonGlow)"
                     initial={{ pathLength: 0 }}
                     whileInView={{ pathLength: 1 }}
-                    transition={{ duration: 3, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
+                    transition={{ duration: 2.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
                   />
 
-                  {/* Traveling Pulse Circle */}
-                  <motion.circle r="3" fill="#fff" filter="url(#neonGlow)">
-                    <animateMotion dur="4s" repeatCount="indefinite" path="M 0 160 C 40 140, 80 170, 120 130 S 160 150, 200 100 S 280 120, 320 60 S 380 40, 400 20" />
+                  {/* Traveling Pulse Circle (Laser Tip) */}
+                  <motion.circle r="2" fill="#fff" filter="url(#neonGlow)">
+                    <animateMotion dur="4.5s" repeatCount="indefinite" path="M 0 160 C 120 160, 240 30, 400 30" />
                   </motion.circle>
 
                   {/* Peak Marker Dot */}
                   <motion.circle 
-                    cx="400" cy="20" r="4" 
+                    cx="400" cy="30" r="3" 
                     fill="#00bffa" 
                     initial={{ scale: 0 }} 
                     whileInView={{ scale: 1 }} 
-                    transition={{ delay: 3.5 }}
-                    className="shadow-[0_0_20px_#00bffa]"
+                    transition={{ delay: 2.4 }}
                   />
                 </svg>
               </div>
