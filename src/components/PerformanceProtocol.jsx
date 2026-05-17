@@ -46,9 +46,15 @@ export const PerformanceProtocol = () => {
               </span>
             </h2>
           </div>
-          <p className="text-zinc-500 text-lg font-light max-w-sm italic md:mt-12">
-            {t.desc}
-          </p>
+          <div className="flex flex-col gap-4 md:mt-12">
+            <p className="text-zinc-500 text-lg font-light max-w-sm italic">
+              {t.desc}
+            </p>
+            <div className="hidden md:flex items-center gap-2 text-zinc-500 text-[9px] uppercase tracking-widest bg-white/[0.02] border border-white/5 rounded-full px-4 py-1.5 w-fit">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00bffa] animate-pulse"></span>
+              <span>Passe o mouse nos termos destacados em ciano</span>
+            </div>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">

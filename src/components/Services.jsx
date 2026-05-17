@@ -34,12 +34,18 @@ export const Services = () => {
   return (
     <section className="py-16 md:py-40 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-24">
-          <div className="text-[#00bffa] font-light text-[10px] uppercase tracking-[0.4em] mb-4">{t.tag}</div>
-          <h2 className="text-5xl md:text-7xl font-light tracking-tighter text-white mb-8 uppercase leading-tight">
-            {t.title} <br />
-            <span className="text-zinc-500 italic">{t.title_italic}</span>
-          </h2>
+        <div className="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <div>
+            <div className="text-[#00bffa] font-light text-[10px] uppercase tracking-[0.4em] mb-4">{t.tag}</div>
+            <h2 className="text-5xl md:text-7xl font-light tracking-tighter text-white uppercase leading-tight">
+              {t.title} <br />
+              <span className="text-zinc-500 italic">{t.title_italic}</span>
+            </h2>
+          </div>
+          <div className="hidden md:flex items-center gap-2 text-zinc-500 text-[9px] uppercase tracking-widest bg-white/[0.02] border border-white/5 rounded-full px-4 py-1.5 w-fit">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00bffa] animate-pulse"></span>
+            <span>Passe o mouse nos termos destacados em ciano</span>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

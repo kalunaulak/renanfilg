@@ -101,6 +101,10 @@ export const Pricing = () => {
           <p className="text-zinc-500 text-xl font-light max-w-3xl mx-auto italic leading-relaxed">
             {t.subtitle}
           </p>
+          <div className="hidden md:flex items-center justify-center gap-2 text-zinc-500 text-[9px] uppercase tracking-widest bg-white/[0.02] border border-white/5 rounded-full px-4 py-1.5 w-fit mx-auto mt-8">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00bffa] animate-pulse"></span>
+            <span>Passe o mouse nos termos destacados em ciano para ver a explicação didática</span>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
