@@ -32,6 +32,7 @@ const glossary = {
 export const TechnicalTooltip = ({ term, children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [coords, setCoords] = useState({ top: 0 });
   const cleanTerm = term.toLowerCase().replace(/\s/g, '').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   const data = glossary[cleanTerm];
 
@@ -67,6 +68,10 @@ export const TechnicalTooltip = ({ term, children }) => {
       onClick={(e) => {
         if (isMobile) {
           e.stopPropagation();
+          const rect = e.currentTarget.getBoundingClientRect();
+          // Garante limite superior de 160px para o tooltip não subir acima do topo do navegador
+          const safeTop = Math.max(160, rect.top);
+          setCoords({ top: safeTop });
           setIsOpen(!isOpen);
         }
       }}
@@ -77,37 +82,63 @@ export const TechnicalTooltip = ({ term, children }) => {
       
       <AnimatePresence>
         {isOpen && (
-          <motion.span
-            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 5, scale: 0.95 }}
-            transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-[86vw] sm:w-72 p-5 rounded-2xl backdrop-blur-2xl bg-zinc-950/98 border border-[#00bffa]/15 shadow-[0_12px_40px_rgba(0,191,250,0.15)] z-50 text-left normal-case tracking-normal font-sans block pointer-events-auto"
-          >
-            {/* Botão de Fechar X no Mobile */}
-            {isMobile && (
-              <button 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsOpen(false);
-                }}
-                className="absolute top-4 right-4 text-zinc-500 hover:text-white bg-white/5 hover:bg-white/10 p-1.5 rounded-full transition-colors flex items-center justify-center cursor-pointer"
+          isMobile ? (
+            // Mobile: Balão flutuante acima da palavra com margens laterais físicas perfeitas
+            <div className="fixed inset-0 z-[100] pointer-events-none">
+              {/* Clique fora para fechar */}
+              <div className="absolute inset-0 pointer-events-auto" onClick={() => setIsOpen(false)} />
+              
+              <motion.span
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 5, scale: 0.95 }}
+                transition={{ duration: 0.15, ease: "easeOut" }}
+                className="fixed left-4 right-4 p-5 rounded-2xl backdrop-blur-2xl bg-zinc-950/98 border border-[#00bffa]/20 shadow-[0_12px_40px_rgba(0,191,250,0.15)] text-left normal-case tracking-normal font-sans pointer-events-auto block -translate-y-full"
+                style={{ top: `${coords.top - 12}px` }}
               >
-                <X className="w-3 h-3" />
-              </button>
-            )}
+                {/* Botão de Fechar X no Mobile */}
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsOpen(false);
+                  }}
+                  className="absolute top-4 right-4 text-zinc-500 hover:text-white bg-white/5 hover:bg-white/10 p-1.5 rounded-full transition-colors flex items-center justify-center cursor-pointer"
+                >
+                  <X className="w-3 h-3" />
+                </button>
 
-            <span className="flex items-center gap-1.5 text-[9px] font-bold text-[#00bffa] uppercase tracking-widest mb-2.5">
-              <HelpCircle className="w-3.5 h-3.5" /> Explicação Didática
-            </span>
-            <span className="block text-sm font-semibold text-white mb-1.5 not-italic tracking-wide pr-6">
-              {data.title}
-            </span>
-            <span className="block text-[12px] text-zinc-300 font-light leading-relaxed not-italic tracking-normal">
-              {data.desc}
-            </span>
-            <span className="absolute top-full left-1/2 -translate-x-1/2 -mt-[5px] border-[5px] border-transparent border-t-zinc-950 pointer-events-none sm:block hidden"></span>
-          </motion.span>
+                <span className="flex items-center gap-1.5 text-[9px] font-bold text-[#00bffa] uppercase tracking-widest mb-2.5">
+                  <HelpCircle className="w-3.5 h-3.5" /> Explicação Didática
+                </span>
+                <span className="block text-sm font-semibold text-white mb-1.5 not-italic tracking-wide pr-6">
+                  {data.title}
+                </span>
+                <span className="block text-[12px] text-zinc-300 font-light leading-relaxed not-italic tracking-normal">
+                  {data.desc}
+                </span>
+              </motion.span>
+            </div>
+          ) : (
+            // Desktop: Popover padrão acima da palavra
+            <motion.span
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 5, scale: 0.95 }}
+              transition={{ duration: 0.15, ease: "easeOut" }}
+              className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-72 p-5 rounded-2xl backdrop-blur-2xl bg-zinc-950/98 border border-[#00bffa]/15 shadow-[0_12px_40px_-5px_rgba(0,0,0,0.9)] z-50 text-left normal-case tracking-normal font-sans pointer-events-none sm:pointer-events-auto block"
+            >
+              <span className="flex items-center gap-1.5 text-[9px] font-bold text-[#00bffa] uppercase tracking-widest mb-2.5">
+                <HelpCircle className="w-3.5 h-3.5" /> Explicação Didática
+              </span>
+              <span className="block text-sm font-semibold text-white mb-1.5 not-italic tracking-wide">
+                {data.title}
+              </span>
+              <span className="block text-[12px] text-zinc-300 font-light leading-relaxed not-italic tracking-normal">
+                {data.desc}
+              </span>
+              <span className="absolute top-full left-1/2 -translate-x-1/2 -mt-[5px] border-[5px] border-transparent border-t-zinc-950 pointer-events-none"></span>
+            </motion.span>
+          )
         )}
       </AnimatePresence>
     </span>
