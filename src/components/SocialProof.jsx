@@ -46,7 +46,7 @@ export const SocialProof = () => {
         { name: "BLACKOUTZ", handle: "@blackoutz", role: "PRO Fortnite Player & Champion", content: "The PC became incredibly smooth, latency dropped heavily and the FPS locked. Brutal difference in tournaments. Highly recommend!", image: blackoutzImg }
       ]
     }
-  }[language || 'pt'];
+  }[language?.startsWith('en') ? 'en' : 'pt'];
 
   useEffect(() => {
     if (scrollRef.current) {
