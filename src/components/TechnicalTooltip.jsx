@@ -289,13 +289,13 @@ export const HoverHelper = ({ centered = false }) => {
           {isEn ? (
             <>
               Tip: <span className="text-zinc-400 font-light lowercase">Hover over terms in </span>
-              <span className="text-[#00bffa] font-bold tracking-widest uppercase">cyan</span> 
+              <span className="text-[#00bffa] font-bold tracking-widest uppercase">blue</span> 
               <span className="text-zinc-400 font-light lowercase"> to see the didactic explanation</span>
             </>
           ) : (
             <>
               Dica: <span className="text-zinc-400 font-light lowercase">Passe o mouse nos termos em </span>
-              <span className="text-[#00bffa] font-bold tracking-widest uppercase">ciano</span> 
+              <span className="text-[#00bffa] font-bold tracking-widest uppercase">azul</span> 
               <span className="text-zinc-400 font-light lowercase"> para ver a explicação didática</span>
             </>
           )}
@@ -345,11 +345,11 @@ export const HoverHelper = ({ centered = false }) => {
         <span className="font-semibold text-white tracking-wider">
           {isEn ? (
             <>
-              Tap on terms in <span className="text-[#00bffa] font-bold tracking-widest uppercase">cyan</span> for the explanation
+              Tap on terms in <span className="text-[#00bffa] font-bold tracking-widest uppercase">blue</span> for the explanation
             </>
           ) : (
             <>
-              Toque no termo em <span className="text-[#00bffa] font-bold tracking-widest uppercase">ciano</span> para a explicação
+              Toque no termo em <span className="text-[#00bffa] font-bold tracking-widest uppercase">azul</span> para a explicação
             </>
           )}
         </span>
