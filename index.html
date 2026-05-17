@@ -8,7 +8,14 @@
     <title>Renan Filg | Extreme Hardware Tuning & FPS Boost</title>
     <meta name="description" content="A extração máxima do seu hardware. Otimização profunda de BIOS e kernel para quem exige FPS absoluto nos jogos e performance extrema." />
     
-    <!-- Open Graph / Discord / WhatsApp -->
+    <!-- Indexing & Canonical -->
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://renanfilg.vercel.app/" />
+    
+    <!-- Critical Asset Preloading for Instant Paint (LCP) -->
+    <link rel="preload" as="image" href="/logo.webp" type="image/webp" />
+    
+    <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://renanfilg.vercel.app/" />
     <meta property="og:title" content="Renan Filg | Extreme Hardware Tuning" />
@@ -23,12 +30,51 @@
     <meta property="twitter:image" content="https://renanfilg.vercel.app/hero.png" />
     
     <meta name="theme-color" content="#020202" />
-    <!-- Google Fonts: Raleway -->
+    
+    <!-- Fonts Preconnect Hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <!-- Fontshare: Clash Display -->
     <link href="https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap" rel="stylesheet">
+    
+    <!-- JSON-LD Structured Data Schema Markup (AIO & Google SEO) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Renan Filg | Extreme Hardware Tuning & FPS Boost",
+        "image": "https://renanfilg.vercel.app/logo.webp",
+        "url": "https://renanfilg.vercel.app/",
+        "priceRange": "$$",
+        "telephone": "",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "BR"
+        },
+        "sameAs": [
+          "https://www.instagram.com/renanfilg/"
+        ],
+        "description": "Serviço especializado de otimização de hardware extrema, BIOS Tuning, calibragem de Kernel e remoção de Input Lag para computadores gamer de alta performance.",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Otimização Standard",
+            "description": "Foco em jogos competitivos específicos com BIOS Tuning, remoção de Bloatwares, otimização de Windows e redução de Input Lag."
+          },
+          {
+            "@type": "Offer",
+            "name": "Otimização Pro",
+            "description": "Suíte completa de tuning de hardware e software com overclock, undervolt, manual de preservação de autonomia e suporte prioritário."
+          }
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "reviewCount": "150",
+          "bestRating": "5"
+        }
+      }
+    </script>
   </head>
   <body class="bg-black">
     <div id="root"></div>
