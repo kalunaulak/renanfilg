@@ -146,15 +146,15 @@ export const About = () => {
         </Link>
       </div>
 
-      {/* Hero Banner Panorâmico (Com sobreposição de 70% à direita e degradê de fusão lateral) */}
-      <div className="relative w-full h-[75vh] md:h-[85vh] flex flex-col justify-center overflow-hidden">
+      {/* Hero Banner Panorâmico (Completamente responsivo: fluxo livre no mobile, banner fixo no desktop) */}
+      <div className="relative w-full h-auto md:h-[85vh] flex flex-col justify-start md:justify-center overflow-hidden">
         
-        {/* Imagem de Fundo e Máscaras */}
-        <div className="absolute inset-0 z-0">
+        {/* Imagem de Fundo e Máscaras (Relativo no mobile, Absoluto no desktop) */}
+        <div className="relative md:absolute md:inset-0 z-0">
           <img 
             src="/upscaled renan e flakes.webp.webp" 
             alt="Renan Filgueiras e Flakes Power" 
-            className="w-full h-full object-cover object-top opacity-100 block"
+            className="w-full h-auto md:h-full md:object-cover md:object-top opacity-100 block"
           />
           
           {/* Sobreposição preta de 70% da metade para a direita no desktop */}
@@ -170,8 +170,8 @@ export const About = () => {
           <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#020202] to-transparent z-15"></div>
         </div>
 
-        {/* Título Principal (Sobreposto por cima da máscara de 70% à direita, ligeiramente deslocado para a esquerda no desktop) */}
-        <div className="relative z-20 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full flex justify-end">
+        {/* Título Principal (Sobreposto na base no mobile, ou à direita por cima da máscara no desktop) */}
+        <div className="relative z-20 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full flex justify-start md:justify-end pt-8 md:pt-0 -mt-16 md:mt-0">
           <motion.div 
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }} 
