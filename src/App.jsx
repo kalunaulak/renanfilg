@@ -12,26 +12,30 @@ import { CustomCursor } from './components/CustomCursor';
 import { Header } from './components/Header';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { LanguageSelector } from './components/LanguageSelector';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import logo from './assets/logo.webp';
 
-const LandingPage = () => (
-  <>
-    <Header />
-    <main className="relative z-10">
-      <Hero />
-      <div className="bg-black">
-        <SocialProof />
-        <PerformanceComparison />
-        <Services />
-        <PerformanceProtocol />
-        <Pricing />
-        <ScreeningForm />
-        <FAQ />
-      </div>
-    </main>
-    
-    <footer id="footer-social" className="py-16 md:py-32 px-6 md:px-20 border-t border-white/[0.05] bg-[#020202] relative z-10">
+const LandingPage = () => {
+  const [isScreeningOpen, setIsScreeningOpen] = useState(false);
+
+  return (
+    <>
+      <Header />
+      <main className="relative z-10">
+        <Hero />
+        <div className="bg-black">
+          <SocialProof />
+          <PerformanceComparison />
+          <Services />
+          <PerformanceProtocol />
+          <Pricing onOpenScreening={() => setIsScreeningOpen(true)} />
+          <FAQ />
+        </div>
+      </main>
+
+      <ScreeningForm isOpen={isScreeningOpen} onClose={() => setIsScreeningOpen(false)} />
+      
+      <footer id="footer-social" className="py-16 md:py-32 px-6 md:px-20 border-t border-white/[0.05] bg-[#020202] relative z-10">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-12 md:gap-32 mb-16 md:mb-32">
           <img src={logo} alt="Renan Filg" width={930} height={830} className="h-10 md:h-12 w-auto object-contain grayscale opacity-60 hover:opacity-100 transition-opacity" />
@@ -50,7 +54,8 @@ const LandingPage = () => (
       </div>
     </footer>
   </>
-);
+  );
+};
 
 const AppContent = () => {
   const { language, selectLanguage } = useLanguage();

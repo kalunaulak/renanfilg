@@ -50,7 +50,7 @@ export const Header = () => {
           </div>
 
           <div className="flex items-center gap-4 border-l border-white/10 pl-8">
-            <button onClick={(e) => { e.preventDefault(); document.getElementById('agendar')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-elite-primary !py-2.5 !px-6 !text-[10px] !rounded-xl">
+            <button onClick={(e) => { e.preventDefault(); document.getElementById('precos')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-elite-primary !py-2.5 !px-6 !text-[10px] !rounded-xl">
               {t.cta}
             </button>
 
@@ -67,7 +67,7 @@ export const Header = () => {
 
         {/* Mobile View - Apenas o CTA para manter o design clean e alto */}
         <div className="md:hidden flex items-center gap-4">
-           <button onClick={(e) => { e.preventDefault(); document.getElementById('agendar')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-elite-primary !py-3 !px-6 !text-[9px] !rounded-xl">
+           <button onClick={(e) => { e.preventDefault(); document.getElementById('precos')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-elite-primary !py-3 !px-6 !text-[9px] !rounded-xl">
               {t.cta}
             </button>
         </div>

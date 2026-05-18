@@ -5,7 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { OrganizationModal } from './OrganizationModal';
 import { parseGlossaryTerms, HoverHelper } from './TechnicalTooltip';
 
-export const Pricing = () => {
+export const Pricing = ({ onOpenScreening }) => {
   const { language } = useLanguage();
   const [isOrgModalOpen, setIsOrgModalOpen] = useState(false);
 
@@ -138,7 +138,7 @@ export const Pricing = () => {
 
               {item.highlight ? (
                 <button 
-                  onClick={(e) => { e.preventDefault(); document.getElementById('agendar')?.scrollIntoView({ behavior: 'smooth' }); }}
+                  onClick={(e) => { e.preventDefault(); onOpenScreening(); }}
                   className="btn-elite-primary text-center w-full"
                 >
                   {item.cta}

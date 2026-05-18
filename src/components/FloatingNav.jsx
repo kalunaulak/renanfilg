@@ -35,7 +35,7 @@ export const FloatingNav = () => {
         </Link>
       </div>
 
-      <button onClick={(e) => { e.preventDefault(); document.getElementById('agendar')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-elite-primary !py-2 !px-6 !text-[9px] !rounded-full whitespace-nowrap">
+      <button onClick={(e) => { e.preventDefault(); document.getElementById('precos')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-elite-primary !py-2 !px-6 !text-[9px] !rounded-full whitespace-nowrap">
         AGENDAR
       </button>
 
