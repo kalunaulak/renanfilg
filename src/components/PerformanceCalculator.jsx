@@ -435,7 +435,6 @@ export const PerformanceCalculator = () => {
   return (
     <section 
       className="py-16 md:py-36 px-6 md:px-8 border-t border-white/[0.03] bg-[#020202] relative overflow-hidden"
-      style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
     >
       {/* Laser backgrounds */}
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-[#00bffa]/[0.01] blur-[150px] pointer-events-none"></div>
@@ -488,9 +487,9 @@ export const PerformanceCalculator = () => {
                 
                 <div className="border-t border-red-500/20 pt-6 mt-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs font-light relative z-10">
                   <div className="text-red-300 italic">
-                    {t.typicalComparison} <span className="text-white font-bold font-mono tracking-tight">{typicalMax} FPS</span>
+                    {t.typicalComparison} <span className="text-white font-bold tracking-tight" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>{typicalMax} FPS</span>
                   </div>
-                  <div className="px-5 py-2.5 rounded-xl bg-red-500/35 border border-red-500/50 text-white font-bold tracking-wider font-mono shadow-[0_0_15px_rgba(239,68,68,0.3)]">
+                  <div className="px-5 py-2.5 rounded-xl bg-red-500/35 border border-red-500/50 text-white font-bold tracking-wider shadow-[0_0_15px_rgba(239,68,68,0.3)]" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
                     {t.lostFpsText} -{fpsLost} FPS
                   </div>
                 </div>
@@ -502,7 +501,7 @@ export const PerformanceCalculator = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mb-20">
           
           {/* Controls Box - Custom Searchable BIOS Terminals (5 cols) */}
-          <div className="lg:col-span-5 bg-[#050505] border border-white/[0.04] rounded-3xl p-6 md:p-8 relative flex flex-col justify-between">
+          <div className="lg:col-span-5 bg-[#050505] border border-white/[0.04] rounded-3xl p-6 md:p-8 relative flex flex-col justify-between" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
             
             <div className="space-y-6">
               {/* FPS Input */}
@@ -588,7 +587,7 @@ export const PerformanceCalculator = () => {
               {/* Header Info */}
               <div className="flex justify-between items-start relative z-10">
                 <span className="text-[8px] font-bold text-zinc-500 uppercase tracking-widest">{t.avgFPS}</span>
-                <span className="text-xs font-mono text-zinc-400">
+                <span className="text-xs text-zinc-400" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
                   {results.beforeFPS} FPS → <span className={`font-bold ${isDespairMode ? 'text-red-500' : 'text-[#00bffa]'}`}>{results.afterFPS} FPS</span>
                 </span>
               </div>
@@ -637,7 +636,7 @@ export const PerformanceCalculator = () => {
 
               <div className="flex justify-between items-start relative z-10">
                 <span className="text-[8px] font-bold text-zinc-500 uppercase tracking-widest">{t.low1}</span>
-                <span className="text-xs font-mono text-zinc-400">
+                <span className="text-xs text-zinc-400" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
                   {results.beforeLow} FPS → <span className={`font-bold ${isDespairMode ? 'text-red-500' : 'text-[#00bffa]'}`}>{results.afterLow} FPS</span>
                 </span>
               </div>
@@ -685,7 +684,7 @@ export const PerformanceCalculator = () => {
 
               <div className="flex justify-between items-start relative z-10">
                 <span className="text-[8px] font-bold text-zinc-500 uppercase tracking-widest">{t.inputLag}</span>
-                <span className="text-xs font-mono text-zinc-400">
+                <span className="text-xs text-zinc-400" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
                   {results.beforeLag}ms → <span className="font-bold text-green-400">{results.afterLag}ms</span>
                 </span>
               </div>
