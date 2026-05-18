@@ -25,9 +25,9 @@ export const About = () => {
       tag: "THE ALCHEMIST OF HARDWARE",
       title_first: "RENAN",
       title_last: "FILGUEIRAS",
-      subtitle: "O engenheiro de performance por trás dos setups dos maiores atletas de e-sports e criadores de conteúdo da América Latina.",
+      subtitle: "Eu sou o engenheiro de performance por trás dos setups dos maiores atletas de e-sports e criadores de conteúdo da América Latina.",
       
-      stat1_num: "+1.500",
+      stat1_num: "+3.500",
       stat1_label: "Setups Otimizados",
       stat2_num: "0.00ms",
       stat2_label: "Input Lag de Mouse",
@@ -37,29 +37,29 @@ export const About = () => {
       stat4_label: "Pro Players da Elite",
 
       card1_tag: "A Trajetória",
-      card1_title: "A busca obsessiva pelo milissegundo perfeito.",
-      card1_text: "Iniciado pela mesma dor que atinge milhares de gamers: a frustração com o stuttering. O que começou como estudos minuciosos sobre os registros internos do Windows evoluiu para um protocolo cirúrgico adotado pela elite dos e-sports. Para mim, 1ms de delay é inaceitável.",
+      card1_title: "A minha busca obsessiva pelo milissegundo perfeito.",
+      card1_text: "Tudo começou pela mesma dor que provavelmente te trouxe aqui: a frustração absoluta com engasgos no meio da partida. O que antes eram madrugadas estudando os registros internos do Windows, hoje se tornou o protocolo cirúrgico adotado pela elite dos e-sports. Eu não aceito perder por 1ms de delay. E você também não deveria.",
 
       card2_tag: "O Diferencial",
-      card2_title: "Calibração física real. Sem softwares mágicos.",
-      card2_text: "Enquanto a internet consome scripts que quebram o sistema, eu trabalho como um cirurgião de hardware. Calibramos os limites físicos da BIOS da sua placa-mãe. Ajustamos tensões (undervolt) para derrubar até 15ºC e apertamos os subtimings da memória RAM para que tudo rode em absoluta sincronia.",
+      card2_title: "Eu calibro o físico. Não uso 'boosters' mágicos.",
+      card2_text: "A internet está cheia de promessas falsas e scripts que destroem o seu sistema. Eu opero como um cirurgião diretamente na fonte: a BIOS da sua placa-mãe. Eu ajusto as tensões exatas (undervolt) para derrubar a temperatura em até 15ºC e aperto os subtimings da sua memória RAM manualmente, até atingir a sincronia perfeita que as fabricantes escondem de você.",
 
       card3_tag: "Segurança",
-      card3_title: "O máximo potencial. Zero degradação.",
-      card3_text: "Todo o processo é ancorado em testes de estresse rigorosos. Não utilizo overclocks brutos ou agressivos. O objetivo é a calibração saudável: despertar o potencial que a fabricante limitou de fábrica, reduzindo o calor e preservando a vida útil de peças que custam milhares de reais.",
+      card3_title: "Extraio o máximo do seu setup. Com risco zero.",
+      card3_text: "Eu sei o quanto seu hardware custou. Por isso, todo o meu processo é blindado por testes de estresse militares. Eu recuso overclocks agressivos que fritam o computador. Minha missão é uma calibração 100% saudável: liberar o poder absurdo que já é seu por direito, enquanto reduzo o aquecimento e estendo a vida útil do seu PC.",
 
-      cta_title: "Velocidade absoluta.",
-      cta_subtitle: "Jogue com a mesma fluidez, latência zero e taxa de quadros exigida pelos campeões mundiais.",
-      cta_btn: "AGENDAR OTIMIZAÇÃO"
+      cta_title: "Sua máquina está pronta para a velocidade absoluta?",
+      cta_subtitle: "Deixe o lag para os seus adversários. Jogue com a exata fluidez, latência zero e FPS cravado que os campeões mundiais exigem de mim.",
+      cta_btn: "AGENDAR OTIMIZAÇÃO AGORA"
     },
     en: {
       back: "Back",
       tag: "THE ALCHEMIST OF HARDWARE",
       title_first: "RENAN",
       title_last: "FILGUEIRAS",
-      subtitle: "The performance engineer behind the setups of the biggest esports athletes and content creators in Latin America.",
+      subtitle: "I am the performance engineer behind the setups of the biggest esports athletes and content creators in Latin America.",
       
-      stat1_num: "+1,500",
+      stat1_num: "+3,500",
       stat1_label: "Setups Optimized",
       stat2_num: "0.00ms",
       stat2_label: "Mouse Input Lag",
@@ -69,20 +69,20 @@ export const About = () => {
       stat4_label: "Elite Pro Players",
 
       card1_tag: "The Journey",
-      card1_title: "The obsessive quest for the perfect millisecond.",
-      card1_text: "Started by the same pain that hits thousands of gamers: the frustration with stuttering. What began as deep studies into Windows internal registries evolved into a surgical protocol adopted by the esports elite. To me, a 1ms delay is unacceptable.",
+      card1_title: "My obsessive quest for the perfect millisecond.",
+      card1_text: "It all started with the same pain that probably brought you here: the absolute frustration of mid-game stutters. What used to be late nights studying Windows registries has become the surgical protocol adopted by the esports elite. I refuse to lose a match over a 1ms delay. And you shouldn't either.",
 
       card2_tag: "The Difference",
-      card2_title: "Real physical tuning. No magic software.",
-      card2_text: "While the internet consumes scripts that break the system, I work like a hardware surgeon. We calibrate the physical limits of your motherboard's BIOS. We adjust voltages (undervolting) to drop up to 15ºC and tighten RAM subtimings so everything runs in absolute harmony.",
+      card2_title: "I tune the physical hardware. No magic 'boosters'.",
+      card2_text: "The internet is full of empty promises and scripts that destroy your OS. I operate like a surgeon directly at the source: your motherboard's BIOS. I adjust the exact voltages (undervolting) to drop temperatures by up to 15ºC and manually tighten your RAM subtimings until we reach the perfect sync that manufacturers hide from you.",
 
       card3_tag: "Safety",
-      card3_title: "Maximum potential. Zero degradation.",
-      card3_text: "The whole process is anchored in rigorous stress tests. I do not use brute or aggressive overclocks. The goal is healthy calibration: awakening the potential limited by manufacturers at the factory, reducing heat, and preserving the lifespan of highly expensive hardware.",
+      card3_title: "I extract your setup's maximum potential. With zero risk.",
+      card3_text: "I know how much your hardware cost. That's why my entire process is bulletproofed by military-grade stress tests. I refuse aggressive overclocks that fry components. My mission is 100% healthy calibration: unleashing the absurd power that is rightfully yours, while dropping heat and extending your PC's lifespan.",
 
-      cta_title: "Absolute Speed.",
-      cta_subtitle: "Play with the exact same fluidity, zero latency, and framerates demanded by world champions.",
-      cta_btn: "BOOK OPTIMIZATION"
+      cta_title: "Is your machine ready for absolute speed?",
+      cta_subtitle: "Leave the lag to your opponents. Play with the exact same fluidity, zero latency, and locked FPS that world champions demand from me.",
+      cta_btn: "BOOK OPTIMIZATION NOW"
     }
   }[isEn ? 'en' : 'pt'];
 
