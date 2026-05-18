@@ -27,8 +27,8 @@ const LandingPage = () => {
         <Hero />
         <div className="bg-black">
           <SocialProof />
-          <PerformanceComparison />
           <Services />
+          <PerformanceComparison />
           <PerformanceProtocol />
           <Pricing onOpenScreening={() => setIsScreeningOpen(true)} />
           <FAQ />

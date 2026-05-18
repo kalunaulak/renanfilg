@@ -36,6 +36,22 @@ const glossary = {
     tensoes: {
       title: "Tensões (Voltagem Elétrica)",
       desc: "A tensão (voltagem) é a força elétrica enviada aos chips. Calibrar as tensões corretas e remover os picos excessivos de fábrica (undervolt) elimina o superaquecimento, trazendo estabilidade absoluta e prolongando a integridade física do seu hardware."
+    },
+    cpu: {
+      title: "CPU (Processador)",
+      desc: "O cérebro principal do seu PC. Otimizá-lo garante que ele processe os quadros do jogo o mais rápido possível, eliminando gargalos que causam travadas."
+    },
+    gpu: {
+      title: "GPU (Placa de Vídeo)",
+      desc: "Responsável por desenhar os gráficos na tela. Calibrá-la extrai o máximo de taxa de quadros (FPS) sem deixar a placa superaquecer."
+    },
+    ram: {
+      title: "RAM (Memória de Acesso)",
+      desc: "A memória de curto prazo do PC. Apertar seus subtimings aumenta drasticamente a velocidade com que a CPU recebe dados, estabilizando os 1% Lows."
+    },
+    teamviewer: {
+      title: "TeamViewer (Acesso Remoto)",
+      desc: "Um programa profissional que permite que eu acesse e calibre seu computador à distância enquanto você assiste tudo ao vivo na sua tela, com total segurança."
     }
   },
   en: {
@@ -70,6 +86,22 @@ const glossary = {
     tensoes: {
       title: "Voltages (Electrical Tension)",
       desc: "Voltage is the electric pressure sent to your components. Tuning correct voltages and lowering excess factory voltage values (undervolting) reduces heat and thermal throttling, maximizing stability and hardware lifespan."
+    },
+    cpu: {
+      title: "CPU (Processor)",
+      desc: "The main brain of your PC. Optimizing it ensures it processes game frames as fast as possible, eliminating bottlenecks that cause stutters."
+    },
+    gpu: {
+      title: "GPU (Graphics Card)",
+      desc: "Responsible for drawing graphics on screen. Calibrating it extracts the maximum framerate (FPS) without letting the card overheat."
+    },
+    ram: {
+      title: "RAM (Random Access Memory)",
+      desc: "The short-term memory of the PC. Tightening its subtimings drastically increases the speed at which the processor receives data, stabilizing 1% Lows."
+    },
+    teamviewer: {
+      title: "TeamViewer (Secure Remote Access)",
+      desc: "A professional software that allows me to access and calibrate your computer remotely while you watch everything live on your screen, with total security."
     }
   }
 };
@@ -206,7 +238,11 @@ export const parseGlossaryTerms = (text) => {
     { pattern: /\b(Overclock)\b/gi, term: "overclock" },
     { pattern: /\b(Bloatwares|Bloat)\b/gi, term: "bloatwares" },
     { pattern: /\b(frequencias|frequências)\b/gi, term: "frequencias" },
-    { pattern: /\b(tensoes|tensões)\b/gi, term: "tensoes" }
+    { pattern: /\b(tensoes|tensões)\b/gi, term: "tensoes" },
+    { pattern: /\b(CPU)\b/g, term: "cpu" },
+    { pattern: /\b(GPU)\b/g, term: "gpu" },
+    { pattern: /\b(RAM)\b/g, term: "ram" },
+    { pattern: /\b(TeamViewer)\b/gi, term: "teamviewer" }
   ];
 
   let parts = [{ text: text, isReact: false }];

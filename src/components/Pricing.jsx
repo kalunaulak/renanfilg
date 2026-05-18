@@ -23,12 +23,14 @@ export const Pricing = ({ onOpenScreening }) => {
           badge: "Pagamento Único",
           cta: "Garantir Minha Vaga",
           features: [
-            "Deep BIOS Tuning & Undervolt",
+            "Overclock seguro de CPU, GPU e RAM",
+            "Undervolt (reduzir temperaturas)",
             "Windows Customizado (Zero Bloat)",
             "Redução Extrema de Input Lag",
-            "Análise de Hardware ao Vivo",
             "Suporte via TeamViewer",
-            "Protocolo de Cuidados Vitalícios"
+            "Análise e Diagnóstico do Hardware",
+            "Manual de Cuidados Recomendados",
+            "Recomendações de Upgrade de Peças"
           ]
         },
         {
@@ -62,12 +64,14 @@ export const Pricing = ({ onOpenScreening }) => {
           badge: "One-time Payment",
           cta: "Secure My Spot",
           features: [
-            "Deep BIOS Tuning & Undervolt",
+            "Safe CPU, GPU, and RAM Overclock",
+            "Undervolt (Temperature Reduction)",
             "Custom Windows (Zero Bloat)",
             "Extreme Input Lag Reduction",
-            "Live Hardware Analysis",
             "Support via TeamViewer",
-            "Lifetime Care Protocol"
+            "Hardware Analysis and Diagnostics",
+            "Recommended Care Manual",
+            "Hardware Upgrade Recommendations"
           ]
         },
         {

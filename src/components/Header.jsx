@@ -11,7 +11,7 @@ export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const t = {
-    pt: { home: 'Home', pricing: 'Preços', social: 'Social', members: 'MEMBROS', cta: 'AGENDAR AGORA', about: 'Quem Sou' },
+    pt: { home: 'Home', pricing: 'Preços', social: 'Social', members: 'MEMBROS', cta: 'AGENDAR AGORA', about: 'Sobre Mim' },
     en: { home: 'Home', pricing: 'Pricing', social: 'Social', members: 'MEMBERS', cta: 'BOOK NOW', about: 'About Me' }
   }[language || 'pt'];
 
