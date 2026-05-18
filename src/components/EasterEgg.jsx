@@ -153,7 +153,9 @@ export const EasterEgg = ({ onOpenScreening }) => {
 
   const handleSavePC = () => {
     handleReset();
-    onOpenScreening();
+    setTimeout(() => {
+      document.getElementById('precos')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   };
 
   return (
