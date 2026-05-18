@@ -10,6 +10,7 @@ import { GridBackground } from './components/GridBackground';
 import { FAQ } from './components/FAQ';
 import { CustomCursor } from './components/CustomCursor';
 import { Header } from './components/Header';
+import { EasterEgg } from './components/EasterEgg';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { LanguageSelector } from './components/LanguageSelector';
 import { useState, useEffect } from 'react';
@@ -34,6 +35,8 @@ const LandingPage = () => {
       </main>
 
       <ScreeningForm isOpen={isScreeningOpen} onClose={() => setIsScreeningOpen(false)} />
+
+      <EasterEgg />
       
       <footer id="footer-social" className="py-16 md:py-32 px-6 md:px-20 border-t border-white/[0.05] bg-[#020202] relative z-10">
       <div className="max-w-7xl mx-auto">

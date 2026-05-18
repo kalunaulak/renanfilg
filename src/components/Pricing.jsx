@@ -91,7 +91,7 @@ export const Pricing = ({ onOpenScreening }) => {
   }[language || 'pt'];
 
   return (
-    <section id="precos" className="py-16 md:py-32 px-6 md:px-8 bg-black relative">
+    <section id="precos" className="py-12 md:py-20 px-6 md:px-8 bg-black relative">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 md:mb-24">
           <h2 className="text-4xl md:text-7xl font-light tracking-tighter mb-8 text-white leading-none">
@@ -123,7 +123,7 @@ export const Pricing = ({ onOpenScreening }) => {
               <p className="text-zinc-500 font-light mb-10 italic">{item.desc}</p>
               
               <div className="mb-12 flex items-baseline">
-                <span className={`text-5xl md:text-6xl font-[Helvetica,Arial,sans-serif] font-medium tracking-tighter ${item.highlight ? 'text-[#00bffa]' : 'text-white'}`}>{item.price}</span>
+                <span className={`text-5xl md:text-6xl font-[Helvetica,Arial,sans-serif] font-light italic tracking-tighter ${item.highlight ? 'text-[#00bffa]' : 'text-white'}`}>{item.price}</span>
                 {item.badge && <span className="text-zinc-500 ml-3 font-light uppercase text-[10px] md:text-xs tracking-widest">{item.badge}</span>}
               </div>
 
