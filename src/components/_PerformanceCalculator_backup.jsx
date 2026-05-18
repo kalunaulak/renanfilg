@@ -28,18 +28,22 @@ const GPUS = {
   rtx4070ti: { name: 'NVIDIA RTX 4070 Ti', power: 8.8, isPremium: true },
   rtx4070super: { name: 'NVIDIA RTX 4070 Super', power: 8.4, isPremium: true },
   rtx4070: { name: 'NVIDIA RTX 4070', power: 8.0, isPremium: true },
-  rtx4060ti: { name: 'NVIDIA RTX 4060 Ti', power: 7.2, isPremium: false },
+  rtx4060tisuper: { name: 'NVIDIA RTX 4060 Ti 16GB', power: 7.4, isPremium: false },
+  rtx4060ti: { name: 'NVIDIA RTX 4060 Ti 8GB', power: 7.2, isPremium: false },
   rtx4060: { name: 'NVIDIA RTX 4060', power: 6.8, isPremium: false },
   // NVIDIA RTX 30 Series (Ampere)
   rtx3090ti: { name: 'NVIDIA RTX 3090 Ti', power: 8.6, isPremium: true },
   rtx3090: { name: 'NVIDIA RTX 3090', power: 8.4, isPremium: true },
   rtx3080ti: { name: 'NVIDIA RTX 3080 Ti', power: 8.2, isPremium: true },
-  rtx3080: { name: 'NVIDIA RTX 3080', power: 8.0, isPremium: true },
+  rtx3080_12gb: { name: 'NVIDIA RTX 3080 12GB', power: 8.2, isPremium: true },
+  rtx3080: { name: 'NVIDIA RTX 3080 10GB', power: 8.0, isPremium: true },
   rtx3070ti: { name: 'NVIDIA RTX 3070 Ti', power: 7.6, isPremium: false },
   rtx3070: { name: 'NVIDIA RTX 3070', power: 7.4, isPremium: false },
   rtx3060ti: { name: 'NVIDIA RTX 3060 Ti', power: 7.0, isPremium: false },
-  rtx3060: { name: 'NVIDIA RTX 3060', power: 6.4, isPremium: false },
-  rtx3050: { name: 'NVIDIA RTX 3050', power: 5.2, isPremium: false },
+  rtx3060: { name: 'NVIDIA RTX 3060 12GB', power: 6.4, isPremium: false },
+  rtx3060_8gb: { name: 'NVIDIA RTX 3060 8GB', power: 6.0, isPremium: false },
+  rtx3050: { name: 'NVIDIA RTX 3050 8GB', power: 5.2, isPremium: false },
+  rtx3050_6gb: { name: 'NVIDIA RTX 3050 6GB', power: 4.8, isPremium: false },
   // NVIDIA RTX 20 Series (Turing)
   rtx2080ti: { name: 'NVIDIA RTX 2080 Ti', power: 7.8, isPremium: true },
   rtx2080super: { name: 'NVIDIA RTX 2080 Super', power: 7.4, isPremium: false },
@@ -53,18 +57,24 @@ const GPUS = {
   gtx1660super: { name: 'NVIDIA GTX 1660 Super', power: 4.6, isPremium: false },
   gtx1660: { name: 'NVIDIA GTX 1660', power: 4.4, isPremium: false },
   gtx1650super: { name: 'NVIDIA GTX 1650 Super', power: 3.8, isPremium: false },
+  gtx1650gddr6: { name: 'NVIDIA GTX 1650 GDDR6', power: 3.6, isPremium: false },
   gtx1650: { name: 'NVIDIA GTX 1650', power: 3.4, isPremium: false },
   gtx1080ti: { name: 'NVIDIA GTX 1080 Ti', power: 6.8, isPremium: true },
   gtx1080: { name: 'NVIDIA GTX 1080', power: 6.0, isPremium: false },
   gtx1070ti: { name: 'NVIDIA GTX 1070 Ti', power: 5.6, isPremium: false },
   gtx1070: { name: 'NVIDIA GTX 1070', power: 5.2, isPremium: false },
-  gtx1060: { name: 'NVIDIA GTX 1060', power: 4.2, isPremium: false },
+  gtx1060: { name: 'NVIDIA GTX 1060 6GB', power: 4.2, isPremium: false },
+  gtx1060_3gb: { name: 'NVIDIA GTX 1060 3GB', power: 3.8, isPremium: false },
   gtx1050ti: { name: 'NVIDIA GTX 1050 Ti', power: 3.2, isPremium: false },
   gtx1050: { name: 'NVIDIA GTX 1050', power: 2.8, isPremium: false },
-  gtx980ti: { name: 'NVIDIA GTX 980 Ti', power: 4.6, isPremium: false },
+  gtx980ti: { name: 'NVIDIA GTX 980 Ti', power: 4.8, isPremium: false },
   gtx980: { name: 'NVIDIA GTX 980', power: 4.0, isPremium: false },
   gtx970: { name: 'NVIDIA GTX 970', power: 3.6, isPremium: false },
   gtx960: { name: 'NVIDIA GTX 960', power: 2.8, isPremium: false },
+  gtx950: { name: 'NVIDIA GTX 950', power: 2.4, isPremium: false },
+  gtx780ti: { name: 'NVIDIA GTX 780 Ti', power: 4.0, isPremium: false },
+  gtx770: { name: 'NVIDIA GTX 770', power: 2.6, isPremium: false },
+  gtx760: { name: 'NVIDIA GTX 760', power: 2.0, isPremium: false },
   gtx750ti: { name: 'NVIDIA GTX 750 Ti', power: 1.8, isPremium: false },
   // AMD Radeon RX 7000 Series (RDNA3)
   rx7900xtx: { name: 'AMD Radeon RX 7900 XTX', power: 9.4, isPremium: true },
@@ -72,7 +82,7 @@ const GPUS = {
   rx7900gre: { name: 'AMD Radeon RX 7900 GRE', power: 8.2, isPremium: true },
   rx7800xt: { name: 'AMD Radeon RX 7800 XT', power: 8.0, isPremium: true },
   rx7700xt: { name: 'AMD Radeon RX 7700 XT', power: 7.4, isPremium: false },
-  rx7600xt: { name: 'AMD Radeon RX 7600 XT', power: 6.6, isPremium: false },
+  rx7600xt: { name: 'AMD Radeon RX 7600 XT', power: 6.8, isPremium: false },
   rx7600: { name: 'AMD Radeon RX 7600', power: 6.2, isPremium: false },
   // AMD Radeon RX 6000 Series (RDNA2)
   rx6950xt: { name: 'AMD Radeon RX 6950 XT', power: 8.6, isPremium: true },
@@ -81,24 +91,38 @@ const GPUS = {
   rx6800: { name: 'AMD Radeon RX 6800', power: 7.4, isPremium: false },
   rx6750xt: { name: 'AMD Radeon RX 6750 XT', power: 7.2, isPremium: false },
   rx6700xt: { name: 'AMD Radeon RX 6700 XT', power: 7.0, isPremium: false },
+  rx6700: { name: 'AMD Radeon RX 6700', power: 6.8, isPremium: false },
   rx6650xt: { name: 'AMD Radeon RX 6650 XT', power: 6.4, isPremium: false },
   rx6600xt: { name: 'AMD Radeon RX 6600 XT', power: 6.2, isPremium: false },
   rx6600: { name: 'AMD Radeon RX 6600', power: 5.8, isPremium: false },
+  rx6500xt: { name: 'AMD Radeon RX 6500 XT', power: 3.2, isPremium: false },
+  rx6400: { name: 'AMD Radeon RX 6400', power: 2.6, isPremium: false },
   // AMD Radeon Legacy Series
   rx5700xt: { name: 'AMD Radeon RX 5700 XT', power: 5.8, isPremium: false },
   rx5700: { name: 'AMD Radeon RX 5700', power: 5.4, isPremium: false },
   rx5600xt: { name: 'AMD Radeon RX 5600 XT', power: 4.8, isPremium: false },
   rx5500xt: { name: 'AMD Radeon RX 5500 XT', power: 3.6, isPremium: false },
+  vega_vii: { name: 'AMD Radeon VII', power: 6.2, isPremium: true },
+  vega64: { name: 'AMD Radeon RX Vega 64', power: 5.0, isPremium: false },
+  vega56: { name: 'AMD Radeon RX Vega 56', power: 4.6, isPremium: false },
   rx590: { name: 'AMD Radeon RX 590', power: 3.8, isPremium: false },
   rx580: { name: 'AMD Radeon RX 580', power: 3.4, isPremium: false },
   rx570: { name: 'AMD Radeon RX 570', power: 3.0, isPremium: false },
+  rx560: { name: 'AMD Radeon RX 560', power: 2.4, isPremium: false },
   rx480: { name: 'AMD Radeon RX 480', power: 3.2, isPremium: false },
   rx470: { name: 'AMD Radeon RX 470', power: 2.8, isPremium: false },
-  vega64: { name: 'AMD Radeon RX Vega 64', power: 5.0, isPremium: false },
-  vega56: { name: 'AMD Radeon RX Vega 56', power: 4.6, isPremium: false }
+  rx460: { name: 'AMD Radeon RX 460', power: 2.2, isPremium: false },
+  r9_furyx: { name: 'AMD Radeon R9 Fury X', power: 4.8, isPremium: false },
+  r9_390x: { name: 'AMD Radeon R9 390X', power: 4.0, isPremium: false },
+  r9_290x: { name: 'AMD Radeon R9 290X', power: 3.8, isPremium: false }
 };
 
 const CPUS = {
+  // AMD Ryzen Zen 5 (9000 Series)
+  ryzen9_9950x: { name: 'AMD Ryzen 9 9950X', power: 9.8, isPremium: true, stabilityWeight: 1.65 },
+  ryzen9_9900x: { name: 'AMD Ryzen 9 9900X', power: 9.4, isPremium: true, stabilityWeight: 1.60 },
+  ryzen7_9700x: { name: 'AMD Ryzen 7 9700X', power: 8.8, isPremium: false, stabilityWeight: 1.50 },
+  ryzen5_9600x: { name: 'AMD Ryzen 5 9600X', power: 8.2, isPremium: false, stabilityWeight: 1.45 },
   // AMD Ryzen X3D (Extreme Gaming)
   ryzen7800x3d: { name: 'AMD Ryzen 7 7800X3D', power: 10, isPremium: true, stabilityWeight: 1.95 },
   ryzen7950x3d: { name: 'AMD Ryzen 9 7950X3D', power: 9.5, isPremium: true, stabilityWeight: 1.90 },
@@ -112,6 +136,7 @@ const CPUS = {
   ryzen7700: { name: 'AMD Ryzen 7 7700', power: 8.0, isPremium: false, stabilityWeight: 1.35 },
   ryzen57600x: { name: 'AMD Ryzen 5 7600X', power: 7.6, isPremium: false, stabilityWeight: 1.30 },
   ryzen57600: { name: 'AMD Ryzen 5 7600', power: 7.4, isPremium: false, stabilityWeight: 1.30 },
+  ryzen5_7500f: { name: 'AMD Ryzen 5 7500F', power: 7.5, isPremium: false, stabilityWeight: 1.30 },
   // AMD Ryzen 5000 Series (AM4 Zen3)
   ryzen95950x: { name: 'AMD Ryzen 9 5950X', power: 8.8, isPremium: true, stabilityWeight: 1.45 },
   ryzen95900x: { name: 'AMD Ryzen 9 5900X', power: 8.5, isPremium: true, stabilityWeight: 1.40 },
@@ -121,7 +146,8 @@ const CPUS = {
   ryzen55600: { name: 'AMD Ryzen 5 5600', power: 6.8, isPremium: false, stabilityWeight: 1.20 },
   ryzen55600g: { name: 'AMD Ryzen 5 5600G', power: 6.4, isPremium: false, stabilityWeight: 1.15 },
   ryzen55500: { name: 'AMD Ryzen 5 5500', power: 6.0, isPremium: false, stabilityWeight: 1.10 },
-  // AMD Ryzen Legacy (Zen2 / Zen+)
+  ryzen3_5300g: { name: 'AMD Ryzen 3 5300G', power: 4.8, isPremium: false, stabilityWeight: 1.05 },
+  // AMD Ryzen 3000 Series (Zen 2)
   ryzen93950x: { name: 'AMD Ryzen 9 3950X', power: 7.6, isPremium: false, stabilityWeight: 1.20 },
   ryzen93900x: { name: 'AMD Ryzen 9 3900X', power: 7.4, isPremium: false, stabilityWeight: 1.18 },
   ryzen73800x: { name: 'AMD Ryzen 7 3800X', power: 6.8, isPremium: false, stabilityWeight: 1.15 },
@@ -129,10 +155,22 @@ const CPUS = {
   ryzen53600x: { name: 'AMD Ryzen 5 3600X', power: 6.0, isPremium: false, stabilityWeight: 1.10 },
   ryzen53600: { name: 'AMD Ryzen 5 3600', power: 5.8, isPremium: false, stabilityWeight: 1.08 },
   ryzen53500x: { name: 'AMD Ryzen 5 3500X', power: 5.4, isPremium: false, stabilityWeight: 1.05 },
+  ryzen5_3400g: { name: 'AMD Ryzen 5 3400G', power: 4.4, isPremium: false, stabilityWeight: 1.02 },
+  ryzen3_3300x: { name: 'AMD Ryzen 3 3300X', power: 4.8, isPremium: false, stabilityWeight: 1.05 },
+  ryzen3_3100: { name: 'AMD Ryzen 3 3100', power: 4.2, isPremium: false, stabilityWeight: 1.02 },
+  // AMD Ryzen 2000 Series (Zen+)
   ryzen72700x: { name: 'AMD Ryzen 7 2700X', power: 5.2, isPremium: false, stabilityWeight: 1.06 },
   ryzen52600x: { name: 'AMD Ryzen 5 2600X', power: 4.8, isPremium: false, stabilityWeight: 1.05 },
   ryzen52600: { name: 'AMD Ryzen 5 2600', power: 4.6, isPremium: false, stabilityWeight: 1.04 },
+  ryzen5_2400g: { name: 'AMD Ryzen 5 2400G', power: 3.8, isPremium: false, stabilityWeight: 1.01 },
+  ryzen3_2200g: { name: 'AMD Ryzen 3 2200G', power: 3.0, isPremium: false, stabilityWeight: 1.00 },
+  // AMD Ryzen 1000 Series (Zen)
+  ryzen7_1800x: { name: 'AMD Ryzen 7 1800X', power: 4.8, isPremium: false, stabilityWeight: 1.04 },
+  ryzen7_1700x: { name: 'AMD Ryzen 7 1700X', power: 4.6, isPremium: false, stabilityWeight: 1.03 },
+  ryzen7_1700: { name: 'AMD Ryzen 7 1700', power: 4.4, isPremium: false, stabilityWeight: 1.02 },
+  ryzen5_1600x: { name: 'AMD Ryzen 5 1600X', power: 4.2, isPremium: false, stabilityWeight: 1.01 },
   ryzen51600: { name: 'AMD Ryzen 5 1600', power: 4.0, isPremium: false, stabilityWeight: 1.02 },
+  ryzen3_1200: { name: 'AMD Ryzen 3 1200', power: 2.8, isPremium: false, stabilityWeight: 0.98 },
   // Intel Core i9 (Extreme Enthusiast)
   intel14900ks: { name: 'Intel Core i9 14900KS', power: 10, isPremium: true, stabilityWeight: 1.75 },
   intel14900k: { name: 'Intel Core i9 14900K / KF', power: 9.8, isPremium: true, stabilityWeight: 1.70 },
@@ -153,19 +191,37 @@ const CPUS = {
   intel8700k: { name: 'Intel Core i7 8700K', power: 6.0, isPremium: false, stabilityWeight: 1.25 },
   intel7700k: { name: 'Intel Core i7 7700K', power: 5.0, isPremium: false, stabilityWeight: 1.15 },
   intel6700k: { name: 'Intel Core i7 6700K', power: 4.4, isPremium: false, stabilityWeight: 1.10 },
+  intel_i7_5960x: { name: 'Intel Core i7 5960X (Extreme)', power: 4.8, isPremium: false, stabilityWeight: 1.12 },
   intel4790k: { name: 'Intel Core i7 4790K (Haswell)', power: 3.8, isPremium: false, stabilityWeight: 1.05 },
+  intel_i7_4770k: { name: 'Intel Core i7 4770K (Haswell)', power: 3.6, isPremium: false, stabilityWeight: 1.02 },
+  intel_i7_3770k: { name: 'Intel Core i7 3770K (Ivy Bridge)', power: 3.2, isPremium: false, stabilityWeight: 0.98 },
   // Intel Core i5 (Performance Mainstream)
   intel14600k: { name: 'Intel Core i5 14600K / KF', power: 7.6, isPremium: false, stabilityWeight: 1.35 },
+  intel_i5_14400f: { name: 'Intel Core i5 14400F', power: 6.6, isPremium: false, stabilityWeight: 1.25 },
   intel13600k: { name: 'Intel Core i5 13600K / KF', power: 7.4, isPremium: false, stabilityWeight: 1.32 },
+  intel_i5_13400f: { name: 'Intel Core i5 13400F', power: 6.4, isPremium: false, stabilityWeight: 1.22 },
   intel12600k: { name: 'Intel Core i5 12600K / KF', power: 6.8, isPremium: false, stabilityWeight: 1.28 },
   intel12400f: { name: 'Intel Core i5 12400F', power: 6.2, isPremium: false, stabilityWeight: 1.20 },
+  intel_i3_12100f: { name: 'Intel Core i3 12100F', power: 4.2, isPremium: false, stabilityWeight: 1.05 },
   intel11400f: { name: 'Intel Core i5 11400F', power: 5.4, isPremium: false, stabilityWeight: 1.12 },
+  intel_i5_11600k: { name: 'Intel Core i5 11600K', power: 6.0, isPremium: false, stabilityWeight: 1.20 },
   intel10400f: { name: 'Intel Core i5 10400F', power: 5.0, isPremium: false, stabilityWeight: 1.08 },
+  intel_i3_10100f: { name: 'Intel Core i3 10100F', power: 3.8, isPremium: false, stabilityWeight: 1.02 },
   intel9400f: { name: 'Intel Core i5 9400F', power: 4.2, isPremium: false, stabilityWeight: 1.05 },
+  intel_i5_9600k: { name: 'Intel Core i5 9600K', power: 5.2, isPremium: false, stabilityWeight: 1.12 },
+  intel_i3_9100f: { name: 'Intel Core i3 9100F', power: 3.4, isPremium: false, stabilityWeight: 1.00 },
+  intel_i7_8086k: { name: 'Intel Core i7 8086K (Anniversary)', power: 6.2, isPremium: false, stabilityWeight: 1.25 },
+  intel_i5_8600k: { name: 'Intel Core i5 8600K', power: 4.8, isPremium: false, stabilityWeight: 1.10 },
   intel8400: { name: 'Intel Core i5 8400', power: 4.0, isPremium: false, stabilityWeight: 1.04 },
+  intel_i3_8100: { name: 'Intel Core i3 8100', power: 3.2, isPremium: false, stabilityWeight: 0.98 },
+  intel_i5_7600k: { name: 'Intel Core i5 7600K', power: 4.0, isPremium: false, stabilityWeight: 1.05 },
   intel7400: { name: 'Intel Core i5 7400', power: 3.2, isPremium: false, stabilityWeight: 1.02 },
+  intel_i3_7100: { name: 'Intel Core i3 7100', power: 2.8, isPremium: false, stabilityWeight: 0.96 },
+  intel_i5_6600k: { name: 'Intel Core i5 6600K', power: 3.6, isPremium: false, stabilityWeight: 1.02 },
   intel6400: { name: 'Intel Core i5 6400', power: 3.0, isPremium: false, stabilityWeight: 1.01 },
-  intel4690k: { name: 'Intel Core i5 4690K (Haswell)', power: 2.8, isPremium: false, stabilityWeight: 1.00 }
+  intel_i3_6100: { name: 'Intel Core i3 6100', power: 2.6, isPremium: false, stabilityWeight: 0.95 },
+  intel4690k: { name: 'Intel Core i5 4690K (Haswell)', power: 2.8, isPremium: false, stabilityWeight: 1.00 },
+  intel_i5_4460: { name: 'Intel Core i5 4460', power: 2.4, isPremium: false, stabilityWeight: 0.95 }
 };
 
 const RAM_OPTIONS = {
@@ -196,10 +252,12 @@ const SearchableSelect = ({ label, value, onChange, options, placeholder }) => {
 
   const selectedOption = options[value];
 
-  // Filtra as opções com base no texto digitado
-  const filteredOptions = Object.entries(options).filter(([key, val]) =>
-    val.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Filtra as opções com base no texto digitado e ordena alfabeticamente
+  const filteredOptions = Object.entries(options)
+    .filter(([key, val]) =>
+      val.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .sort((a, b) => a[1].name.localeCompare(b[1].name));
 
   return (
     <div className="space-y-3 relative" ref={dropdownRef}>
@@ -356,7 +414,7 @@ export const PerformanceCalculator = () => {
     const cpu = CPUS[selectedCPU];
     const ram = RAM_OPTIONS[selectedRAM];
 
-    const beforeFPS = Math.max(30, Math.min(1000, Number(currentFPS) || 140));
+    const beforeFPS = Math.max(30, Math.min(2000, Number(currentFPS) || 140));
     const hardwarePowerScore = (gpu.power + cpu.power) / 2;
     const calculatedTypicalMax = Math.round(game.typicalHighFPS * (hardwarePowerScore / 10) * ram.penalty);
     setTypicalMax(calculatedTypicalMax);
@@ -383,15 +441,15 @@ export const PerformanceCalculator = () => {
       afterFPS = Math.round(beforeFPS * fineTuneFactor * ram.penalty);
     }
 
-    // Teto de segurança absoluta para simulação até 1000
-    afterFPS = Math.min(1000, afterFPS);
+    // Teto de segurança absoluta para simulação até 2000
+    afterFPS = Math.min(2000, afterFPS);
 
     const lost = Math.max(0, afterFPS - beforeFPS);
     setFpsLost(lost);
 
     const beforeLow = Math.round(beforeFPS * 0.52 * ram.lowPenalty);
     const stabilityMultiplier = (afterFPS / beforeFPS) * (cpu.stabilityWeight / (ram.lowPenalty * 1.05));
-    const afterLow = Math.min(1000, Math.round(beforeLow * stabilityMultiplier));
+    const afterLow = Math.min(2000, Math.round(beforeLow * stabilityMultiplier));
 
     const systemOverheadBefore = (9.8 * (1.3 / (cpu.power / 6))) / ram.penalty;
     const beforeLag = parseFloat((1000 / beforeFPS + systemOverheadBefore).toFixed(1));
@@ -424,9 +482,10 @@ export const PerformanceCalculator = () => {
     window.open(`https://wa.me/5547991914050?text=${encodeURIComponent(message)}`, '_blank');
   };
 
-  // Escala dinâmica até 1000 FPS para evitar estourar o topo do osciloscópio
-  const peakY_FPS = Math.max(5, 90 - (results.afterFPS / 1200) * 85);
-  const peakY_Low = Math.max(5, 90 - (results.afterLow / 1200) * 85);
+  // Escala dinâmica adaptativa para evitar estourar o topo do osciloscópio
+  const maxDrawFPS = Math.max(1000, results.afterFPS, results.afterLow);
+  const peakY_FPS = Math.max(5, 90 - (results.afterFPS / (maxDrawFPS * 1.1)) * 85);
+  const peakY_Low = Math.max(5, 90 - (results.afterLow / (maxDrawFPS * 1.1)) * 85);
   
   const latencyReduction = results.beforeLag - results.afterLag;
   const latencyRatio = Math.min(0.8, latencyReduction / results.beforeLag);
@@ -526,9 +585,9 @@ export const PerformanceCalculator = () => {
                   <input 
                     type="number"
                     min="10"
-                    max="1000"
+                    max="2000"
                     value={currentFPS}
-                    onChange={(e) => setCurrentFPS(Math.min(1000, Math.max(1, Number(e.target.value) || 0)))}
+                    onChange={(e) => setCurrentFPS(Math.min(2000, Math.max(1, Number(e.target.value) || 0)))}
                     className="w-16 bg-black border border-white/[0.08] rounded-xl py-2 text-center text-xs font-semibold text-white focus:outline-none focus:border-[#00bffa]/40"
                   />
                 </div>
