@@ -154,7 +154,7 @@ export const About = () => {
           <img 
             src="/upscaled renan e flakes.webp.webp" 
             alt="Renan Filgueiras e Flakes Power" 
-            className="w-full h-full object-cover object-[center_30%] md:object-[center_35%] opacity-100 block"
+            className="w-full h-full object-cover object-top opacity-100 block"
           />
           
           {/* Sobreposição preta de 70% da metade para a direita no desktop */}
