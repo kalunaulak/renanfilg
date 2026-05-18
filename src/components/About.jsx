@@ -146,70 +146,72 @@ export const About = () => {
         </Link>
       </div>
 
-      {/* Hero Section: Editorial Split Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[90vh] lg:min-h-screen border-b border-white/5">
-        
-        {/* Coluna da Imagem (Esquerda) */}
-        <div className="lg:col-span-5 relative h-[50vh] lg:h-full order-2 lg:order-1 overflow-hidden">
-          {/* Degradês para fundir a imagem com o fundo preto */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-[#020202]/20 lg:to-[#020202] z-10"></div>
-          
+      {/* Hero Banner Panorâmico (Ideal para fotos horizontais) */}
+      <div className="relative w-full h-[60vh] md:h-[75vh] flex flex-col justify-end">
+        {/* Fundo da Imagem */}
+        <div className="absolute inset-0 z-0">
           <img 
             src="/upscaled renan e flakes.webp.webp" 
-            alt="Renan Filgueiras" 
-            className="w-full h-full object-cover object-top lg:object-center opacity-90 hover:opacity-100 transition-all duration-1000"
+            alt="Renan Filgueiras e Flakes Power" 
+            className="w-full h-full object-cover object-top opacity-80"
           />
-          
-          <div className="absolute bottom-8 left-8 z-20 hidden lg:block">
-            <div className="text-[9px] tracking-[0.5em] uppercase text-zinc-600 transform -rotate-90 origin-bottom-left absolute bottom-full left-0 whitespace-nowrap mb-8">
-              EST. 2024
-            </div>
-          </div>
+          {/* Máscara de Gradiente Inferior para misturar com o fundo da página */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/60 to-transparent"></div>
+          {/* Vinheta lateral */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#020202]/80 via-transparent to-[#020202]/80"></div>
         </div>
 
-        {/* Coluna de Conteúdo (Direita) */}
-        <div className="lg:col-span-7 flex flex-col justify-center px-8 md:px-16 lg:px-24 py-24 relative z-20 order-1 lg:order-2">
+        {/* Título Sobreposto */}
+        <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full pb-12">
           <motion.div 
-            initial={{ opacity: 0, x: 20 }} 
-            animate={{ opacity: 1, x: 0 }} 
+            initial={{ opacity: 0, y: 20 }} 
+            animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }} 
-            className="max-w-2xl"
           >
-            <span className="text-[9px] tracking-[0.4em] text-[#00bffa] uppercase block mb-12 font-light">
+            <span className="text-[9px] tracking-[0.4em] text-[#00bffa] uppercase block mb-6 font-light drop-shadow-md">
               {t.tag}
             </span>
             
-            <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-thin uppercase leading-[0.85] tracking-tighter mb-12">
+            <h1 className="text-5xl md:text-7xl lg:text-[6rem] font-thin uppercase leading-[0.9] tracking-tighter mb-6 drop-shadow-2xl">
               {t.title_first} <br/>
-              <span className="font-medium italic bg-gradient-to-b from-white to-zinc-500 bg-clip-text text-transparent">
+              <span className="font-medium italic bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent">
                 {t.title_last}
               </span>
             </h1>
-            
-            <p className="text-xl md:text-2xl text-zinc-400 font-light leading-relaxed tracking-tight font-[Raleway,sans-serif] mb-20 italic">
-              "{t.subtitle}"
-            </p>
-
-            {/* Métricas Puristas (Grid Minimalista) */}
-            <div className="grid grid-cols-2 gap-x-12 gap-y-16 pt-16 border-t border-white/10">
-              {[
-                { num: t.stat1_num, label: t.stat1_label },
-                { num: t.stat2_num, label: t.stat2_label },
-                { num: t.stat3_num, label: t.stat3_label },
-                { num: t.stat4_num, label: t.stat4_label }
-              ].map((stat, idx) => (
-                <div key={idx} className="flex flex-col group">
-                  <span className="text-4xl md:text-6xl font-[Helvetica,Arial,sans-serif] font-medium italic tracking-tighter mb-4 text-white group-hover:text-[#00bffa] transition-colors duration-500">
-                    {stat.num}
-                  </span>
-                  <span className="text-[9px] tracking-[0.2em] uppercase text-zinc-500 font-medium">
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
-            </div>
           </motion.div>
         </div>
+      </div>
+
+      {/* Seção de Métricas e Subtítulo */}
+      <div className="max-w-7xl mx-auto px-8 md:px-16 lg:px-24 relative z-20 -mt-4 border-b border-white/5 pb-24">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }} 
+        >
+          <p className="text-xl md:text-3xl text-zinc-300 font-light leading-relaxed tracking-tight font-[Raleway,sans-serif] mb-20 italic max-w-4xl">
+            "{t.subtitle}"
+          </p>
+
+          {/* Métricas Puristas (Grid Minimalista Horizontal) */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 pt-16 border-t border-white/10">
+            {[
+              { num: t.stat1_num, label: t.stat1_label },
+              { num: t.stat2_num, label: t.stat2_label },
+              { num: t.stat3_num, label: t.stat3_label },
+              { num: t.stat4_num, label: t.stat4_label }
+            ].map((stat, idx) => (
+              <div key={idx} className="flex flex-col group">
+                <span className="text-3xl md:text-5xl font-[Helvetica,Arial,sans-serif] font-medium italic tracking-tighter mb-3 text-white group-hover:text-[#00bffa] transition-colors duration-500">
+                  {stat.num}
+                </span>
+                <span className="text-[9px] tracking-[0.2em] uppercase text-zinc-500 font-medium">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
 
       {/* Blocos Textuais Editoriais (Sem bordas de cards, apenas linhas horizontais finas) */}
