@@ -36,7 +36,7 @@ const LandingPage = () => {
 
       <ScreeningForm isOpen={isScreeningOpen} onClose={() => setIsScreeningOpen(false)} />
 
-      <EasterEgg />
+      <EasterEgg onOpenScreening={() => setIsScreeningOpen(true)} />
       
       <footer id="footer-social" className="py-16 md:py-32 px-6 md:px-20 border-t border-white/[0.05] bg-[#020202] relative z-10">
       <div className="max-w-7xl mx-auto">
