@@ -193,7 +193,7 @@ export const About = () => {
       </div>
 
       {/* Seção de Métricas e Subtítulo */}
-      <div className="max-w-7xl mx-auto px-8 md:px-16 lg:px-24 relative z-20 -mt-4 border-b border-white/5 pb-24">
+      <div className="max-w-7xl mx-auto px-8 md:px-16 lg:px-24 relative z-20 pt-12 md:pt-0 -mt-4 border-b border-white/5 pb-24">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
           animate={{ opacity: 1, y: 0 }} 
