@@ -153,12 +153,12 @@ export const About = () => {
           <img 
             src="/upscaled renan e flakes.webp.webp" 
             alt="Renan Filgueiras e Flakes Power" 
-            className="w-full h-full object-cover object-top opacity-80"
+            className="w-full h-full object-cover object-top opacity-100"
           />
-          {/* Máscara de Gradiente Inferior para misturar com o fundo da página */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/60 to-transparent"></div>
-          {/* Vinheta lateral */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#020202]/80 via-transparent to-[#020202]/80"></div>
+          {/* Máscara de Gradiente Inferior reduzida */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/20 to-transparent"></div>
+          {/* Vinheta lateral mais leve */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#020202]/40 via-transparent to-[#020202]/40"></div>
         </div>
 
         {/* Título Sobreposto */}
