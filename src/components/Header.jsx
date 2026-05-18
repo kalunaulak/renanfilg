@@ -9,8 +9,8 @@ export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const t = {
-    pt: { home: 'Home', pricing: 'Preços', social: 'Social', members: 'MEMBROS', cta: 'AGENDAR AGORA' },
-    en: { home: 'Home', pricing: 'Pricing', social: 'Social', members: 'MEMBERS', cta: 'BOOK NOW' }
+    pt: { home: 'Home', pricing: 'Preços', social: 'Social', members: 'MEMBROS', cta: 'AGENDAR AGORA', about: 'Quem Sou' },
+    en: { home: 'Home', pricing: 'Pricing', social: 'Social', members: 'MEMBERS', cta: 'BOOK NOW', about: 'About Me' }
   }[language || 'pt'];
 
   const toggleLanguage = () => {
@@ -42,15 +42,31 @@ export const Header = () => {
         {/* Desktop Nav (Escondido no mobile para evitar o bug de amontoamento) */}
         <nav className="hidden md:flex items-center gap-12">
           <div className="flex items-center gap-8 text-[10px] font-light tracking-[0.3em] text-zinc-500 uppercase">
-            <a href="#" className="hover:text-white transition-colors">{t.home}</a>
-            <a href="#precos" className="hover:text-white transition-colors">{t.pricing}</a>
-            <a href="#footer-social" onClick={(e) => { e.preventDefault(); document.getElementById('footer-social')?.scrollIntoView({ behavior: 'smooth' }); }} className="hover:text-white transition-colors">
+            <Link to="/" className="hover:text-white transition-colors">{t.home}</Link>
+            <Link to="/sobre" className="hover:text-white transition-colors">{t.about}</Link>
+            <a href="/#precos" onClick={(e) => {
+              if (window.location.pathname === '/') {
+                e.preventDefault();
+                document.getElementById('precos')?.scrollIntoView({ behavior: 'smooth' });
+              }
+            }} className="hover:text-white transition-colors">{t.pricing}</a>
+            <a href="#footer-social" onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('footer-social')?.scrollIntoView({ behavior: 'smooth' });
+            }} className="hover:text-white transition-colors">
               {t.social}
             </a>
           </div>
 
           <div className="flex items-center gap-4 border-l border-white/10 pl-8">
-            <button onClick={(e) => { e.preventDefault(); document.getElementById('precos')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-elite-primary !py-2.5 !px-6 !text-[10px] !rounded-xl">
+            <button onClick={(e) => {
+              e.preventDefault();
+              if (window.location.pathname === '/') {
+                document.getElementById('precos')?.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                window.location.href = '/#precos';
+              }
+            }} className="btn-elite-primary !py-2.5 !px-6 !text-[10px] !rounded-xl">
               {t.cta}
             </button>
 
@@ -67,7 +83,14 @@ export const Header = () => {
 
         {/* Mobile View - Apenas o CTA para manter o design clean e alto */}
         <div className="md:hidden flex items-center gap-4">
-           <button onClick={(e) => { e.preventDefault(); document.getElementById('precos')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-elite-primary !py-3 !px-6 !text-[9px] !rounded-xl">
+           <button onClick={(e) => {
+             e.preventDefault();
+             if (window.location.pathname === '/') {
+               document.getElementById('precos')?.scrollIntoView({ behavior: 'smooth' });
+             } else {
+               window.location.href = '/#precos';
+             }
+           }} className="btn-elite-primary !py-3 !px-6 !text-[9px] !rounded-xl">
               {t.cta}
             </button>
         </div>

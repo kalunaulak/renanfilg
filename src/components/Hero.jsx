@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { GradientBars } from './GradientBars';
 import { ArrowRight } from 'lucide-react';
@@ -87,9 +88,9 @@ export const Hero = () => {
             {t.cta} 
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </button>
-          <button className="btn-elite-glass">
+          <Link to="/sobre" className="btn-elite-glass text-center">
             {t.more}
-          </button>
+          </Link>
         </div>
       </motion.div>
 

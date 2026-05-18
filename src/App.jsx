@@ -11,6 +11,7 @@ import { FAQ } from './components/FAQ';
 import { CustomCursor } from './components/CustomCursor';
 import { Header } from './components/Header';
 import { EasterEgg } from './components/EasterEgg';
+import { About } from './components/About';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { LanguageSelector } from './components/LanguageSelector';
 import { useState, useEffect } from 'react';
@@ -76,6 +77,7 @@ const AppContent = () => {
 
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/sobre" element={<About />} />
         </Routes>
       </div>
     </Router>
