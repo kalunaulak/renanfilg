@@ -4,11 +4,19 @@ import { ArrowRight, Info, ShieldAlert } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const GAMES = {
-  fortnite: { name: 'Fortnite', factor: 1.48, typicalHighFPS: 380 },
-  valorant: { name: 'Valorant', factor: 1.55, typicalHighFPS: 480 },
+  apex: { name: 'Apex Legends', factor: 1.45, typicalHighFPS: 240 },
+  assetto: { name: 'Assetto Corsa / Competizione', factor: 1.40, typicalHighFPS: 180 },
   cs2: { name: 'Counter-Strike 2', factor: 1.50, typicalHighFPS: 420 },
-  warzone: { name: 'CoD: Warzone', factor: 1.38, typicalHighFPS: 220 },
-  lol: { name: 'League of Legends', factor: 1.58, typicalHighFPS: 500 }
+  fortnite: { name: 'Fortnite', factor: 1.48, typicalHighFPS: 380 },
+  gta5: { name: 'GTA V / FiveM', factor: 1.42, typicalHighFPS: 160 },
+  iracing: { name: 'iRacing', factor: 1.45, typicalHighFPS: 200 },
+  lol: { name: 'League of Legends', factor: 1.58, typicalHighFPS: 500 },
+  overwatch2: { name: 'Overwatch 2', factor: 1.52, typicalHighFPS: 360 },
+  pubg: { name: 'PUBG: Battlegrounds', factor: 1.40, typicalHighFPS: 180 },
+  r6: { name: 'Rainbow Six Siege', factor: 1.55, typicalHighFPS: 340 },
+  rust: { name: 'Rust', factor: 1.35, typicalHighFPS: 140 },
+  valorant: { name: 'Valorant', factor: 1.55, typicalHighFPS: 480 },
+  warzone: { name: 'CoD: Warzone', factor: 1.38, typicalHighFPS: 220 }
 };
 
 const GPUS = {
@@ -204,9 +212,17 @@ export const PerformanceCalculator = () => {
     window.open(`https://wa.me/5547991914050?text=${encodeURIComponent(message)}`, '_blank');
   };
 
-  // Cálculo da curva do laser interativo baseado na porcentagem de boost real
-  // Quanto maior o boost, mais íngreme e dramática fica a curva verticalmente!
-  const peakY = Math.max(25, 160 - (results.percentBoost * 0.9));
+  // Cálculo individual das curvas em tempo real para os 3 osciloscópios
+  const peakY_FPS = Math.max(10, 80 - (results.percentBoost * 0.5));
+  
+  const lowPercentBoost = Math.round(((results.afterLow - results.beforeLow) / results.beforeLow) * 100);
+  const peakY_Low = Math.max(10, 80 - (lowPercentBoost * 0.45));
+  
+  // Para input lag, a curva deve ser DESCENDENTE (cair até a base ultra rápida)
+  // O original começa no alto (ex: y=25) e desce até o otimizado (ex: y=80)
+  const latencyReduction = results.beforeLag - results.afterLag;
+  const latencyRatio = Math.min(0.8, latencyReduction / results.beforeLag);
+  const peakY_Lag = Math.min(85, 20 + (latencyRatio * 75));
 
   return (
     <section 
@@ -274,10 +290,10 @@ export const PerformanceCalculator = () => {
           )}
         </AnimatePresence>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-stretch mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mb-20">
           
-          {/* Controls Box - Styled exactly like luxury BIOS Configurator */}
-          <div className="backdrop-blur-xl bg-white/[0.01] border border-white/[0.04] rounded-3xl p-6 md:p-10 relative flex flex-col justify-between">
+          {/* Controls Box - Styled exactly like luxury BIOS Configurator (5 cols) */}
+          <div className="lg:col-span-5 backdrop-blur-xl bg-white/[0.01] border border-white/[0.04] rounded-3xl p-6 md:p-8 relative flex flex-col justify-between">
             
             {/* Minimal Technical Crosshairs */}
             <div className="absolute inset-0 p-6 flex flex-wrap justify-between pointer-events-none opacity-[0.02]">
@@ -286,7 +302,7 @@ export const PerformanceCalculator = () => {
               ))}
             </div>
             
-            <div className="space-y-8">
+            <div className="space-y-6">
               {/* FPS Input */}
               <div className="space-y-3">
                 <div className="flex justify-between items-baseline">
@@ -296,7 +312,7 @@ export const PerformanceCalculator = () => {
                   <span className="text-[#00bffa] font-bold text-sm tracking-tight">{currentFPS} FPS</span>
                 </div>
                 
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-4">
                   <input 
                     type="range" 
                     min="30" 
@@ -312,7 +328,7 @@ export const PerformanceCalculator = () => {
                     max="999"
                     value={currentFPS}
                     onChange={(e) => setCurrentFPS(Math.min(999, Math.max(1, Number(e.target.value) || 0)))}
-                    className="w-20 bg-black/60 border border-white/[0.08] rounded-xl py-2 text-center text-xs font-semibold text-white focus:outline-none focus:border-[#00bffa]/40"
+                    className="w-16 bg-black/60 border border-white/[0.08] rounded-xl py-2 text-center text-xs font-semibold text-white focus:outline-none focus:border-[#00bffa]/40"
                   />
                 </div>
               </div>
@@ -325,10 +341,10 @@ export const PerformanceCalculator = () => {
                 <select 
                   value={selectedGame} 
                   onChange={(e) => setSelectedGame(e.target.value)}
-                  className="w-full bg-black/60 border border-white/[0.08] rounded-xl px-5 py-4 text-xs font-light text-zinc-300 focus:outline-none focus:border-[#00bffa]/40 transition-all cursor-pointer"
+                  className="w-full bg-black/60 border border-white/[0.08] rounded-xl px-5 py-3.5 text-xs font-light text-zinc-300 focus:outline-none focus:border-[#00bffa]/40 transition-all cursor-pointer font-sans"
                 >
                   {Object.entries(GAMES).map(([key, val]) => (
-                    <option key={key} value={key} className="bg-[#0c0c0c] text-zinc-300 py-3">{val.name}</option>
+                    <option key={key} value={key} className="bg-[#0c0c0c] text-zinc-300 py-3 font-sans">{val.name}</option>
                   ))}
                 </select>
               </div>
@@ -341,10 +357,10 @@ export const PerformanceCalculator = () => {
                 <select 
                   value={selectedGPU} 
                   onChange={(e) => setSelectedGPU(e.target.value)}
-                  className="w-full bg-black/60 border border-white/[0.08] rounded-xl px-5 py-4 text-xs font-light text-zinc-300 focus:outline-none focus:border-[#00bffa]/40 transition-all cursor-pointer"
+                  className="w-full bg-black/60 border border-white/[0.08] rounded-xl px-5 py-3.5 text-xs font-light text-zinc-300 focus:outline-none focus:border-[#00bffa]/40 transition-all cursor-pointer font-sans"
                 >
                   {Object.entries(GPUS).map(([key, val]) => (
-                    <option key={key} value={key} className="bg-[#0c0c0c] text-zinc-300 py-3">{val.name}</option>
+                    <option key={key} value={key} className="bg-[#0c0c0c] text-zinc-300 py-3 font-sans">{val.name}</option>
                   ))}
                 </select>
               </div>
@@ -357,10 +373,10 @@ export const PerformanceCalculator = () => {
                 <select 
                   value={selectedCPU} 
                   onChange={(e) => setSelectedCPU(e.target.value)}
-                  className="w-full bg-black/60 border border-white/[0.08] rounded-xl px-5 py-4 text-xs font-light text-zinc-300 focus:outline-none focus:border-[#00bffa]/40 transition-all cursor-pointer"
+                  className="w-full bg-black/60 border border-white/[0.08] rounded-xl px-5 py-3.5 text-xs font-light text-zinc-300 focus:outline-none focus:border-[#00bffa]/40 transition-all cursor-pointer font-sans"
                 >
                   {Object.entries(CPUS).map(([key, val]) => (
-                    <option key={key} value={key} className="bg-[#0c0c0c] text-zinc-300 py-3">{val.name}</option>
+                    <option key={key} value={key} className="bg-[#0c0c0c] text-zinc-300 py-3 font-sans">{val.name}</option>
                   ))}
                 </select>
               </div>
@@ -373,124 +389,162 @@ export const PerformanceCalculator = () => {
                 <select 
                   value={selectedRAM} 
                   onChange={(e) => setSelectedRAM(e.target.value)}
-                  className="w-full bg-black/60 border border-white/[0.08] rounded-xl px-5 py-4 text-xs font-light text-zinc-300 focus:outline-none focus:border-[#00bffa]/40 transition-all cursor-pointer"
+                  className="w-full bg-black/60 border border-white/[0.08] rounded-xl px-5 py-3.5 text-xs font-light text-zinc-300 focus:outline-none focus:border-[#00bffa]/40 transition-all cursor-pointer font-sans"
                 >
                   {Object.entries(RAM_OPTIONS).map(([key, val]) => (
-                    <option key={key} value={key} className="bg-[#0c0c0c] text-zinc-300 py-3">{val.name}</option>
+                    <option key={key} value={key} className="bg-[#0c0c0c] text-zinc-300 py-3 font-sans">{val.name}</option>
                   ))}
                 </select>
               </div>
             </div>
           </div>
 
-          {/* Results Box - Designed perfectly to match the Real Benchmarking Chart */}
-          <div className="backdrop-blur-xl bg-white/[0.02] border border-white/[0.05] rounded-3xl p-6 md:p-10 relative overflow-hidden flex flex-col justify-between min-h-[480px]">
+          {/* Results Box - redimensionado para 3 gráficos laser individuais (7 cols) */}
+          <div className="lg:col-span-7 flex flex-col gap-6">
             
-            {/* Technical Grid Crosshairs */}
-            <div className="absolute inset-0 p-8 flex flex-wrap justify-between pointer-events-none opacity-[0.02]">
-              {[...Array(12)].map((_, i) => (
-                <div key={i} className="w-2 h-2 border-l border-t border-white"></div>
-              ))}
-            </div>
+            {/* GRÁFICO 1: MÉDIA DE FPS */}
+            <div className="backdrop-blur-xl bg-white/[0.01] border border-white/[0.04] rounded-3xl p-5 relative overflow-hidden flex flex-col justify-between h-[155px]">
+              
+              {/* Technical corner marks */}
+              <div className="absolute inset-0 p-4 flex flex-wrap justify-between pointer-events-none opacity-[0.02]">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="w-1.5 h-1.5 border-l border-t border-white"></div>
+                ))}
+              </div>
 
-            {/* Minimalist Labels (Before vs After) */}
-            <div className="flex justify-between items-start relative z-20 gap-4">
-              <div className="flex flex-col">
-                <span className="text-[9px] font-medium text-zinc-500 uppercase tracking-widest">{t.statBeforeLabel}</span>
-                <span className="text-2xl md:text-3xl font-light text-zinc-400 font-mono tracking-tighter">
-                  {results.beforeFPS} <span className="text-[10px] opacity-40">FPS</span>
+              {/* Header Info */}
+              <div className="flex justify-between items-start relative z-10">
+                <span className="text-[8px] font-bold text-zinc-500 uppercase tracking-widest">{t.avgFPS}</span>
+                <span className="text-xs font-mono text-zinc-400">
+                  {results.beforeFPS} FPS → <span className={`font-bold ${isDespairMode ? 'text-red-500' : 'text-[#00bffa]'}`}>{results.afterFPS} FPS</span>
                 </span>
               </div>
+
+              {/* Dynamic SVG Laser Curve */}
+              <div className="absolute inset-0 top-[20%] h-[60%] pointer-events-none">
+                <svg className="w-full h-full overflow-visible" viewBox="0 0 400 100" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="fpsGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor={isDespairMode ? '#ef4444' : '#00bffa'} stopOpacity="0.04" />
+                      <stop offset="100%" stopColor={isDespairMode ? '#ef4444' : '#00bffa'} stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <line x1="0" y1="80" x2="400" y2="80" stroke="rgba(255,255,255,0.03)" strokeWidth="0.75" strokeDasharray="3 3" />
+                  <path d={`M 0 80 C 120 80, 240 ${peakY_FPS}, 400 ${peakY_FPS} L 400 100 L 0 100 Z`} fill="url(#fpsGradient)" />
+                  <motion.path 
+                    key={`${peakY_FPS}-fps`}
+                    d={`M 0 80 C 120 80, 240 ${peakY_FPS}, 400 ${peakY_FPS}`}
+                    fill="none"
+                    stroke={isDespairMode ? '#ef4444' : '#00bffa'}
+                    strokeWidth="1.5"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.6 }}
+                  />
+                  <circle cx="400" cy={peakY_FPS} r="2.5" fill={isDespairMode ? '#ef4444' : '#00bffa'} />
+                </svg>
+              </div>
+
+              <div className="relative z-10 text-[8px] text-zinc-600 uppercase tracking-wider font-mono">
+                FPS OSCILLOSCOPE MODULE // ACCELERATED
+              </div>
+            </div>
+
+            {/* GRÁFICO 2: ESTABILIDADE (1% LOW) */}
+            <div className="backdrop-blur-xl bg-white/[0.01] border border-white/[0.04] rounded-3xl p-5 relative overflow-hidden flex flex-col justify-between h-[155px]">
               
-              <div className="flex flex-col text-right">
-                <div className="flex items-center justify-end gap-1.5 mb-1">
-                  <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${isDespairMode ? 'bg-red-500' : 'bg-[#00bffa]'}`}></div>
-                  <span className={`text-[9px] font-medium uppercase tracking-widest ${isDespairMode ? 'text-red-500' : 'text-[#00bffa]'}`}>{t.statOptimizedLabel}</span>
-                </div>
-                <span className="text-5xl md:text-6xl font-light text-white font-mono tracking-tighter drop-shadow-[0_0_15px_rgba(0,191,250,0.25)]">
-                  {results.afterFPS} <span className={`text-xs opacity-30 ${isDespairMode ? 'text-red-400' : 'text-[#00bffa]'}`}>FPS</span>
+              <div className="absolute inset-0 p-4 flex flex-wrap justify-between pointer-events-none opacity-[0.02]">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="w-1.5 h-1.5 border-l border-t border-white"></div>
+                ))}
+              </div>
+
+              <div className="flex justify-between items-start relative z-10">
+                <span className="text-[8px] font-bold text-zinc-500 uppercase tracking-widest">{t.low1}</span>
+                <span className="text-xs font-mono text-zinc-400">
+                  {results.beforeLow} FPS → <span className="font-bold text-[#00bffa]">{results.afterLow} FPS</span>
                 </span>
               </div>
-            </div>
 
-            {/* Live Interactive Oscilloscope Laser Curve SVG */}
-            <div className="absolute inset-0 top-[22%] h-[40%] pointer-events-none">
-              <svg className="w-full h-full overflow-visible" viewBox="0 0 400 200" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="liveGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={isDespairMode ? '#ef4444' : '#00bffa'} stopOpacity="0.06" />
-                    <stop offset="100%" stopColor={isDespairMode ? '#ef4444' : '#00bffa'} stopOpacity="0" />
-                  </linearGradient>
-                  <filter id="neonGlowLive" x="-20%" y="-20%" width="140%" height="140%">
-                    <feGaussianBlur stdDeviation="2.5" result="blur" />
-                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                  </filter>
-                </defs>
-
-                {/* Dashed Baseline */}
-                <line 
-                  x1="0" y1="160" x2="400" y2="160"
-                  stroke="rgba(255,255,255,0.05)"
-                  strokeWidth="1"
-                  strokeDasharray="4 4"
-                />
-
-                {/* Live Curve Path shadow */}
-                <path 
-                  d={`M 0 160 C 120 160, 240 ${peakY}, 400 ${peakY} L 400 200 L 0 200 Z`}
-                  fill="url(#liveGradient)"
-                />
-
-                {/* Main Dynamic Curved Laser Line */}
-                <motion.path 
-                  key={`${peakY}-${isDespairMode}`}
-                  d={`M 0 160 C 120 160, 240 ${peakY}, 400 ${peakY}`}
-                  fill="none"
-                  stroke={isDespairMode ? '#ef4444' : '#00bffa'}
-                  strokeWidth="2"
-                  filter="url(#neonGlowLive)"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                />
-
-                {/* Laser Dot Peak Marker */}
-                <circle 
-                  cx="400" cy={peakY} r="3" 
-                  fill={isDespairMode ? '#ef4444' : '#00bffa'} 
-                />
-              </svg>
-            </div>
-
-            {/* Bottom Real-time Tech Specs */}
-            <div className="relative z-20 flex flex-col sm:flex-row justify-between items-start sm:items-end border-t border-white/[0.04] pt-6 gap-6 sm:gap-0 mt-auto">
-              <div className="flex gap-10">
-                <div className="flex flex-col">
-                  <span className="text-[8px] text-zinc-600 uppercase tracking-widest mb-1">{t.low1}</span>
-                  <span className={`text-sm font-mono font-medium ${isDespairMode ? 'text-red-400' : 'text-[#00bffa]'}`}>
-                    {results.beforeLow} FPS <span className="text-zinc-600 font-light text-[10px]">→</span> {results.afterLow} FPS
-                  </span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[8px] text-zinc-600 uppercase tracking-widest mb-1">{t.inputLag}</span>
-                  <span className="text-sm font-mono font-medium text-green-400">
-                    {results.beforeLag}ms <span className="text-zinc-600 font-light text-[10px]">→</span> {results.afterLag}ms
-                  </span>
-                </div>
+              <div className="absolute inset-0 top-[20%] h-[60%] pointer-events-none">
+                <svg className="w-full h-full overflow-visible" viewBox="0 0 400 100" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="lowGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#00bffa" stopOpacity="0.04" />
+                      <stop offset="100%" stopColor="#00bffa" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <line x1="0" y1="80" x2="400" y2="80" stroke="rgba(255,255,255,0.03)" strokeWidth="0.75" strokeDasharray="3 3" />
+                  <path d={`M 0 80 C 120 80, 240 ${peakY_Low}, 400 ${peakY_Low} L 400 100 L 0 100 Z`} fill="url(#lowGradient)" />
+                  <motion.path 
+                    key={`${peakY_Low}-low`}
+                    d={`M 0 80 C 120 80, 240 ${peakY_Low}, 400 ${peakY_Low}`}
+                    fill="none"
+                    stroke="#00bffa"
+                    strokeWidth="1.5"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.6 }}
+                  />
+                  <circle cx="400" cy={peakY_Low} r="2.5" fill="#00bffa" />
+                </svg>
               </div>
+
+              <div className="relative z-10 text-[8px] text-zinc-600 uppercase tracking-wider font-mono">
+                STABILITY OSCILLOSCOPE MODULE // FRAME STABILIZATION
+              </div>
+            </div>
+
+            {/* GRÁFICO 3: SYSTEM INPUT LAG (DESCENDENTE!) */}
+            <div className="backdrop-blur-xl bg-white/[0.01] border border-white/[0.04] rounded-3xl p-5 relative overflow-hidden flex flex-col justify-between h-[155px]">
               
-              <div className="flex items-center gap-3">
-                <span className="text-[8px] text-zinc-600 uppercase tracking-widest">Tuning Potential</span>
-                <div className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold ${isDespairMode ? 'bg-red-500/10 text-red-400 border border-red-500/20' : 'bg-[#00bffa]/10 text-[#00bffa] border border-[#00bffa]/20'}`}>
-                  +{results.percentBoost}%
-                </div>
+              <div className="absolute inset-0 p-4 flex flex-wrap justify-between pointer-events-none opacity-[0.02]">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="w-1.5 h-1.5 border-l border-t border-white"></div>
+                ))}
+              </div>
+
+              <div className="flex justify-between items-start relative z-10">
+                <span className="text-[8px] font-bold text-zinc-500 uppercase tracking-widest">{t.inputLag}</span>
+                <span className="text-xs font-mono text-zinc-400">
+                  {results.beforeLag}ms → <span className="font-bold text-green-400">{results.afterLag}ms</span>
+                </span>
+              </div>
+
+              {/* Descending Laser Curve SVG for Input Lag */}
+              <div className="absolute inset-0 top-[20%] h-[60%] pointer-events-none">
+                <svg className="w-full h-full overflow-visible" viewBox="0 0 400 100" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="lagGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#22c55e" stopOpacity="0.04" />
+                      <stop offset="100%" stopColor="#22c55e" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <line x1="0" y1="20" x2="400" y2="20" stroke="rgba(255,255,255,0.03)" strokeWidth="0.75" strokeDasharray="3 3" />
+                  <path d={`M 0 20 C 120 20, 240 ${peakY_Lag}, 400 ${peakY_Lag} L 400 100 L 0 100 Z`} fill="url(#lagGradient)" />
+                  <motion.path 
+                    key={`${peakY_Lag}-lag`}
+                    d={`M 0 20 C 120 20, 240 ${peakY_Lag}, 400 ${peakY_Lag}`}
+                    fill="none"
+                    stroke="#22c55e"
+                    strokeWidth="1.5"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.6 }}
+                  />
+                  <circle cx="400" cy={peakY_Lag} r="2.5" fill="#22c55e" />
+                </svg>
+              </div>
+
+              <div className="relative z-10 text-[8px] text-zinc-600 uppercase tracking-wider font-mono">
+                LATENCY SLIDE DEVIATION // DESCENT SPEED COMPLETED
               </div>
             </div>
 
-            {/* Custom styled booking action button */}
+            {/* Custom Action Trigger Panel */}
             <button 
               onClick={handleWhatsAppSimulation}
-              className={`w-full mt-10 !py-6 group text-xs font-bold tracking-[0.2em] relative z-10 flex justify-center items-center gap-2 rounded-xl transition-all ${isDespairMode ? 'bg-gradient-to-r from-red-700 to-red-500 hover:from-red-600 hover:to-red-400 text-white shadow-[0_0_30px_rgba(220,38,38,0.4)] border border-red-500/30 animate-pulse' : 'bg-white hover:bg-zinc-100 text-black hover:scale-[1.02] shadow-[0_0_30px_rgba(255,255,255,0.05)]'}`}
+              className={`w-full !py-6 group text-xs font-bold tracking-[0.2em] relative z-10 flex justify-center items-center gap-2 rounded-xl transition-all ${isDespairMode ? 'bg-gradient-to-r from-red-700 to-red-500 hover:from-red-600 hover:to-red-400 text-white shadow-[0_0_30px_rgba(220,38,38,0.4)] border border-red-500/30 animate-pulse font-sans' : 'bg-white hover:bg-zinc-100 text-black hover:scale-[1.02] shadow-[0_0_30px_rgba(255,255,255,0.05)] font-sans'}`}
             >
               {isDespairMode ? t.ctaDespair : t.cta} <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </button>
