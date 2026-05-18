@@ -22,67 +22,115 @@ export const About = () => {
   const t = {
     pt: {
       back: "Voltar",
-      tag: "THE ALCHEMIST OF HARDWARE",
+      tag: "ENGENHARIA DE PERFORMANCE",
       title_first: "RENAN",
       title_last: "FILGUEIRAS",
-      subtitle: "Eu sou o engenheiro de performance por trás dos setups dos maiores atletas de e-sports e criadores de conteúdo da América Latina.",
+      subtitle: "A engenharia exata por trás da latência zero nos setups da elite do e-sports latino-americano.",
       
       stat1_num: "+3.500",
-      stat1_label: "Setups Otimizados",
+      stat1_label: "Setups Calibrados",
       stat2_num: "0.00ms",
-      stat2_label: "Input Lag de Mouse",
+      stat2_label: "DPC Latency Alvo",
       stat3_num: "+35%",
-      stat3_label: "Estabilidade 1% Low",
+      stat3_label: "Estabilidade de Frame Time",
       stat4_num: "+100",
-      stat4_label: "Pro Players da Elite",
+      stat4_label: "Atletas de Alto Rendimento",
 
-      card1_tag: "A Trajetória",
-      card1_title: "A minha busca obsessiva pelo milissegundo perfeito.",
-      card1_text: "Tudo começou pela mesma dor que provavelmente te trouxe aqui: a frustração absoluta com engasgos no meio da partida. O que antes eram madrugadas estudando os registros internos do Windows, hoje se tornou o protocolo cirúrgico adotado pela elite dos e-sports. Eu não aceito perder por 1ms de delay. E você também não deveria.",
+      card1_tag: "A Metodologia",
+      card1_title: "A matemática exata por trás da latência zero.",
+      card1_text: "Não acredito em sorte ou 'boosters' milagrosos no competitivo. Acredito em DPC Latency nula, interrupções de hardware (IRQs) isoladas e estabilidade absoluta de frame time. Minha metodologia nasceu da engenharia reversa para entender o motivo de máquinas de altíssimo custo apresentarem 'micro-stutters' em torneios decisivos. O resultado é um protocolo lógico, cirúrgico e adotado pela elite dos e-sports.",
 
-      card2_tag: "O Diferencial",
-      card2_title: "Eu calibro o físico. Não uso 'boosters' mágicos.",
-      card2_text: "A internet está cheia de promessas falsas e scripts que destroem o seu sistema. Eu opero como um cirurgião diretamente na fonte: a BIOS da sua placa-mãe. Eu ajusto as tensões exatas (undervolt) para derrubar a temperatura em até 15ºC e aperto os subtimings da sua memória RAM manualmente, até atingir a sincronia perfeita que as fabricantes escondem de você.",
+      card2_tag: "Deep Calibration",
+      card2_title: "Além do software. Eu reescrevo as regras do seu hardware.",
+      card2_text: "A indústria opera com margens de segurança genéricas que sufocam a sua máquina. Meu trabalho não envolve 'scripts de internet' que corrompem o SO. Nós entramos na BIOS e aplicamos calibrações milimétricas: ajustamos a curva de tensão/frequência (V/F), otimizamos o Load-Line Calibration (LLC) contra Vdroop, e apertamos cirurgicamente os subtimings (tFAW, tREFI, tRFC) da sua memória RAM para extrair toda a banda do controlador (IMC).",
 
-      card3_tag: "Segurança",
-      card3_title: "Extraio o máximo do seu setup. Com risco zero.",
-      card3_text: "Eu sei o quanto seu hardware custou. Por isso, todo o meu processo é blindado por testes de estresse militares. Eu recuso overclocks agressivos que fritam o computador. Minha missão é uma calibração 100% saudável: liberar o poder absurdo que já é seu por direito, enquanto reduzo o aquecimento e estendo a vida útil do seu PC.",
+      card3_tag: "Integridade",
+      card3_title: "Performance extrema sem degradação térmica.",
+      card3_text: "Performance máxima não significa fritar seus componentes. Meu protocolo de estresse utiliza métricas industriais para garantir estabilidade 24/7 sem qualquer erro de WHEA. A verdadeira calibração reduz a carga térmica das VRMs, mitigando o Thermal Throttling, o que permite extrair um ganho brutal de performance enquanto o seu setup roda até 15ºC mais frio.",
 
-      cta_title: "Sua máquina está pronta para a velocidade absoluta?",
-      cta_subtitle: "Deixe o lag para os seus adversários. Jogue com a exata fluidez, latência zero e FPS cravado que os campeões mundiais exigem de mim.",
-      cta_btn: "AGENDAR OTIMIZAÇÃO AGORA"
+      roadmap_title: "A Linha do Tempo",
+      roadmap: [
+        {
+          year: "2018",
+          title: "Engenharia Reversa",
+          desc: "O início da pesquisa sobre gargalos do kernel do Windows e manipulação de registros para mitigação de micro-stutters."
+        },
+        {
+          year: "2020",
+          title: "Protocolo de BIOS",
+          desc: "Transição do software para o hardware. Início dos testes de estresse industriais e otimização de subtimings de RAM e V/F Curve."
+        },
+        {
+          year: "2022",
+          title: "A Elite dos E-sports",
+          desc: "Adoção oficial da nossa metodologia de calibração por atletas competitivos Tier 1 (LOUD, Furia) e influenciadores de peso."
+        },
+        {
+          year: "2024",
+          title: "Autoridade Consolidada",
+          desc: "Ultrapassamos a marca de 3.500 setups cirurgicamente calibrados, consolidando a RF como o padrão ouro em performance."
+        }
+      ],
+
+      cta_title: "Performance não se presume. Se mede.",
+      cta_subtitle: "Assuma o controle real sobre o seu hardware. Latência mínima, FPS estável e resposta imediata.",
+      cta_btn: "AGENDAR CALIBRAÇÃO AGORA"
     },
     en: {
       back: "Back",
-      tag: "THE ALCHEMIST OF HARDWARE",
+      tag: "PERFORMANCE ENGINEERING",
       title_first: "RENAN",
       title_last: "FILGUEIRAS",
-      subtitle: "I am the performance engineer behind the setups of the biggest esports athletes and content creators in Latin America.",
+      subtitle: "The precise engineering behind zero latency in the setups of Latin America's esports elite.",
       
       stat1_num: "+3,500",
-      stat1_label: "Setups Optimized",
+      stat1_label: "Setups Calibrated",
       stat2_num: "0.00ms",
-      stat2_label: "Mouse Input Lag",
+      stat2_label: "Target DPC Latency",
       stat3_num: "+35%",
-      stat3_label: "1% Low Stability",
+      stat3_label: "Frame Time Stability",
       stat4_num: "+100",
-      stat4_label: "Elite Pro Players",
+      stat4_label: "High-Performance Athletes",
 
-      card1_tag: "The Journey",
-      card1_title: "My obsessive quest for the perfect millisecond.",
-      card1_text: "It all started with the same pain that probably brought you here: the absolute frustration of mid-game stutters. What used to be late nights studying Windows registries has become the surgical protocol adopted by the esports elite. I refuse to lose a match over a 1ms delay. And you shouldn't either.",
+      card1_tag: "The Methodology",
+      card1_title: "The exact math behind zero latency.",
+      card1_text: "I don't believe in luck or miracle 'boosters' in competitive gaming. I believe in zero DPC Latency, isolated hardware interrupts (IRQs), and absolute frame time stability. My methodology was born from reverse engineering to understand why extremely expensive machines still suffer from micro-stutters in decisive tournaments. The result is a logical, surgical protocol adopted by the esports elite.",
 
-      card2_tag: "The Difference",
-      card2_title: "I tune the physical hardware. No magic 'boosters'.",
-      card2_text: "The internet is full of empty promises and scripts that destroy your OS. I operate like a surgeon directly at the source: your motherboard's BIOS. I adjust the exact voltages (undervolting) to drop temperatures by up to 15ºC and manually tighten your RAM subtimings until we reach the perfect sync that manufacturers hide from you.",
+      card2_tag: "Deep Calibration",
+      card2_title: "Beyond software. I rewrite your hardware's rules.",
+      card2_text: "The industry operates with generic safety margins that choke your machine. My work doesn't involve 'internet scripts' that corrupt the OS. We dive into the BIOS and apply millimeter calibrations: adjusting the voltage/frequency (V/F) curve, optimizing Load-Line Calibration (LLC) against Vdroop, and surgically tightening RAM subtimings (tFAW, tREFI, tRFC) to unleash the full bandwidth of the memory controller (IMC).",
 
-      card3_tag: "Safety",
-      card3_title: "I extract your setup's maximum potential. With zero risk.",
-      card3_text: "I know how much your hardware cost. That's why my entire process is bulletproofed by military-grade stress tests. I refuse aggressive overclocks that fry components. My mission is 100% healthy calibration: unleashing the absurd power that is rightfully yours, while dropping heat and extending your PC's lifespan.",
+      card3_tag: "Integrity",
+      card3_title: "Extreme performance without thermal degradation.",
+      card3_text: "Maximum performance does not mean frying your components. My stress protocol uses industrial metrics to guarantee 24/7 stability with zero WHEA errors. True calibration reduces the thermal load on VRMs, mitigating Thermal Throttling, allowing us to extract massive performance gains while your setup runs up to 15ºC cooler.",
 
-      cta_title: "Is your machine ready for absolute speed?",
-      cta_subtitle: "Leave the lag to your opponents. Play with the exact same fluidity, zero latency, and locked FPS that world champions demand from me.",
-      cta_btn: "BOOK OPTIMIZATION NOW"
+      roadmap_title: "The Timeline",
+      roadmap: [
+        {
+          year: "2018",
+          title: "Reverse Engineering",
+          desc: "The beginning of the research on Windows kernel bottlenecks and registry manipulation for micro-stutter mitigation."
+        },
+        {
+          year: "2020",
+          title: "BIOS Protocol",
+          desc: "Transition from software to physical hardware. Start of industrial stress testing, RAM subtiming optimization, and V/F Curve tuning."
+        },
+        {
+          year: "2022",
+          title: "The Esports Elite",
+          desc: "Official adoption of our calibration methodology by Tier 1 competitive athletes (LOUD, Furia) and major influencers."
+        },
+        {
+          year: "2024",
+          title: "Consolidated Authority",
+          desc: "We surpassed the milestone of 3,500 surgically calibrated setups, cementing RF as the gold standard in performance."
+        }
+      ],
+
+      cta_title: "Performance is not assumed. It's measured.",
+      cta_subtitle: "Take real control over your hardware. Minimum latency, rock-solid FPS, and immediate response.",
+      cta_btn: "BOOK CALIBRATION NOW"
     }
   }[isEn ? 'en' : 'pt'];
 
@@ -192,6 +240,46 @@ export const About = () => {
         {/* Linha final para fechar o bloco */}
         <div className="border-t border-white/5"></div>
 
+      </div>
+
+      {/* Interface de Roadmap / Linha do Tempo */}
+      <div className="max-w-4xl mx-auto px-8 md:px-16 pt-24 pb-16">
+        <div className="mb-16">
+          <span className="text-[10px] tracking-[0.3em] uppercase text-zinc-600 block mb-4">
+            {t.roadmap_title}
+          </span>
+          <h2 className="text-3xl md:text-5xl font-light tracking-tighter uppercase text-white leading-tight">
+            Evolução <span className="text-[#00bffa] italic font-medium">Técnica</span>
+          </h2>
+        </div>
+
+        <div className="relative border-l border-white/10 ml-4 md:ml-8 space-y-16">
+          {t.roadmap.map((item, idx) => (
+            <motion.div 
+              key={idx}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: idx * 0.1 }}
+              className="relative pl-12 md:pl-16 group"
+            >
+              {/* Timeline Dot Neon */}
+              <div className="absolute w-3 h-3 bg-[#020202] border border-[#00bffa]/50 rounded-full -left-[6.5px] top-2 group-hover:bg-[#00bffa] group-hover:border-[#00bffa] group-hover:shadow-[0_0_15px_rgba(0,191,250,0.6)] transition-all duration-300"></div>
+              
+              <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6 mb-4">
+                <span className="text-2xl md:text-4xl font-[Helvetica,Arial,sans-serif] font-medium italic text-white/20 group-hover:text-white/40 transition-colors">
+                  {item.year}
+                </span>
+                <h3 className="text-xl md:text-2xl font-light uppercase tracking-tight text-white group-hover:text-[#00bffa] transition-colors">
+                  {item.title}
+                </h3>
+              </div>
+              <p className="text-zinc-400 text-sm md:text-base font-light font-[Raleway,sans-serif] leading-relaxed max-w-xl">
+                {item.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
       </div>
 
       {/* CTA Section Minimalista */}
