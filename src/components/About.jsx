@@ -146,11 +146,22 @@ export const About = () => {
         </Link>
       </div>
 
-      {/* Header Premium (Texto separado da imagem para não cobrir rostos) */}
-      <div className="relative w-full bg-[#020202] pt-32 md:pt-40 flex flex-col items-center">
+      {/* Hero Banner Panorâmico (Proporção 100% preservada, sem recortes, texto embaixo) */}
+      <div className="relative w-full bg-[#020202]">
         
-        {/* Título Principal */}
-        <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full mb-12">
+        {/* Imagem de Fundo (De ponta a ponta, altura automática para não cortar nada) */}
+        <div className="relative w-full">
+          <img 
+            src="/upscaled renan e flakes.webp.webp" 
+            alt="Renan Filgueiras e Flakes Power" 
+            className="w-full h-auto opacity-100 block"
+          />
+          {/* Degradê na base para unir com a parte preta do texto */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 md:h-48 bg-gradient-to-t from-[#020202] to-transparent"></div>
+        </div>
+
+        {/* Título Principal (Abaixo da foto) */}
+        <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full pt-8 pb-12 -mt-16 md:-mt-24">
           <motion.div 
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }} 
@@ -166,24 +177,6 @@ export const About = () => {
                 {t.title_last}
               </span>
             </h1>
-          </motion.div>
-        </div>
-
-        {/* Quadro Fotográfico (Fluxo normal da página = 0 cortes na imagem) */}
-        <div className="relative w-full max-w-7xl mx-auto px-8 md:px-16 lg:px-24">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }} 
-            className="relative rounded-[1.5rem] md:rounded-[2rem] overflow-hidden border border-white/5 shadow-[0_0_50px_rgba(0,0,0,0.5)]"
-          >
-            <img 
-              src="/upscaled renan e flakes.webp.webp" 
-              alt="Renan Filgueiras e Flakes Power" 
-              className="w-full h-auto max-h-[85vh] object-cover object-center opacity-100 block"
-            />
-            {/* Overlay sutil para brilho nas bordas */}
-            <div className="absolute inset-0 rounded-[1.5rem] md:rounded-[2rem] ring-1 ring-inset ring-white/10 pointer-events-none"></div>
           </motion.div>
         </div>
       </div>
