@@ -40,7 +40,7 @@ export const CustomCursor = () => {
     : 'radial-gradient(circle, rgba(0, 191, 250, 0.25) 0%, rgba(0, 94, 234, 0.08) 40%, transparent 75%)';
 
   return (
-    <div className="hidden md:block fixed inset-0 pointer-events-none z-[999999] overflow-hidden">
+    <div className="hidden md:block fixed inset-0 pointer-events-none z-[99999999] overflow-hidden">
       {/* Smaller, more intense Ambient Light "Aura" */}
       <motion.div
         className="absolute top-0 left-0 w-[300px] h-[300px] rounded-full pointer-events-none"
