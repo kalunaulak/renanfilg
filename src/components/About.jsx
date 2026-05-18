@@ -170,13 +170,13 @@ export const About = () => {
           <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#020202] to-transparent z-15"></div>
         </div>
 
-        {/* Título Principal (Sobreposto por cima da máscara de 70% à direita no desktop) */}
+        {/* Título Principal (Sobreposto por cima da máscara de 70% à direita, ligeiramente deslocado para a esquerda no desktop) */}
         <div className="relative z-20 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full flex justify-end">
           <motion.div 
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }} 
-            className="w-full md:w-[48%] lg:w-[42%] text-left"
+            className="w-full md:w-[48%] lg:w-[42%] text-left md:-translate-x-8 lg:-translate-x-16"
           >
             <span className="text-[9px] tracking-[0.4em] text-[#00bffa] uppercase block mb-6 font-light drop-shadow-md">
               {t.tag}
