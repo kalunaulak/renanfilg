@@ -171,7 +171,7 @@ export const About = () => {
         </div>
 
         {/* Título Principal (Sobreposto na base no mobile, ou à direita por cima da máscara no desktop) */}
-        <div className="relative z-20 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full flex justify-start md:justify-end pt-8 md:pt-0 -mt-16 md:mt-0">
+        <div className="relative z-20 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full flex justify-start md:justify-end pt-8 pb-12 md:pb-0 md:pt-0 -mt-16 md:mt-0">
           <motion.div 
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }} 
@@ -182,7 +182,7 @@ export const About = () => {
               {t.tag}
             </span>
             
-            <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-thin uppercase leading-[0.9] tracking-tighter drop-shadow-2xl">
+            <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-thin uppercase leading-none md:leading-[0.9] tracking-tighter drop-shadow-2xl">
               {t.title_first} <br/>
               <span className="font-medium italic bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent">
                 {t.title_last}
