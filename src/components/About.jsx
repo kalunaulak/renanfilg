@@ -110,7 +110,7 @@ export const About = () => {
           <img 
             src={renanImg} 
             alt="Renan Filgueiras" 
-            className="w-full h-full object-cover object-top lg:object-center grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-1000"
+            className="w-full h-full object-cover object-top lg:object-center opacity-90 hover:opacity-100 transition-all duration-1000"
           />
           
           <div className="absolute bottom-8 left-8 z-20 hidden lg:block">
@@ -152,7 +152,7 @@ export const About = () => {
                 { num: t.stat4_num, label: t.stat4_label }
               ].map((stat, idx) => (
                 <div key={idx} className="flex flex-col group">
-                  <span className="text-4xl md:text-6xl font-[Helvetica,Arial,sans-serif] font-bold italic tracking-tighter mb-4 text-white group-hover:text-[#00bffa] transition-colors duration-500">
+                  <span className="text-4xl md:text-6xl font-[Helvetica,Arial,sans-serif] font-medium italic tracking-tighter mb-4 text-white group-hover:text-[#00bffa] transition-colors duration-500">
                     {stat.num}
                   </span>
                   <span className="text-[9px] tracking-[0.2em] uppercase text-zinc-500 font-medium">
@@ -209,7 +209,7 @@ export const About = () => {
         
         <a 
           href="/#precos" 
-          className="inline-flex items-center gap-4 px-12 py-5 bg-white text-black hover:bg-zinc-200 transition-colors text-[10px] tracking-[0.4em] uppercase font-bold rounded-full"
+          className="inline-flex items-center gap-4 px-12 py-5 bg-white text-black hover:bg-zinc-200 transition-colors text-[10px] tracking-[0.4em] uppercase font-medium rounded-full"
         >
           {t.cta_btn} <ArrowRight size={14} />
         </a>
