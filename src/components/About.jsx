@@ -146,23 +146,23 @@ export const About = () => {
         </Link>
       </div>
 
-      {/* Hero Banner Panorâmico (Ideal para fotos horizontais) */}
-      <div className="relative w-full h-[60vh] md:h-[75vh] flex flex-col justify-end">
+      {/* Hero Banner Panorâmico (Focado em mostrar a base da imagem) */}
+      <div className="relative w-full h-[70vh] md:h-[85vh] flex flex-col justify-start pt-32 md:pt-40">
         {/* Fundo da Imagem */}
         <div className="absolute inset-0 z-0">
           <img 
             src="/upscaled renan e flakes.webp.webp" 
             alt="Renan Filgueiras e Flakes Power" 
-            className="w-full h-full object-cover object-top opacity-100"
+            className="w-full h-full object-cover object-[center_80%] md:object-bottom opacity-100"
           />
-          {/* Máscara de Gradiente Inferior reduzida */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/20 to-transparent"></div>
-          {/* Vinheta lateral mais leve */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#020202]/40 via-transparent to-[#020202]/40"></div>
+          {/* Gradiente superior para dar leitura ao título (invertido) */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#020202]/80 via-[#020202]/20 to-transparent"></div>
+          {/* Máscara inferior MUITO fina, apenas para criar transição com o fundo preto da próxima div */}
+          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#020202] to-transparent"></div>
         </div>
 
-        {/* Título Sobreposto */}
-        <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full pb-12">
+        {/* Título Sobreposto (Movido para o topo) */}
+        <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full">
           <motion.div 
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }} 
