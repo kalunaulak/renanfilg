@@ -146,23 +146,11 @@ export const About = () => {
         </Link>
       </div>
 
-      {/* Hero Banner Panorâmico (Focado em mostrar a base da imagem) */}
-      <div className="relative w-full h-[70vh] md:h-[85vh] flex flex-col justify-start pt-32 md:pt-40">
-        {/* Fundo da Imagem */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="/upscaled renan e flakes.webp.webp" 
-            alt="Renan Filgueiras e Flakes Power" 
-            className="w-full h-full object-cover object-[center_80%] md:object-bottom opacity-100"
-          />
-          {/* Gradiente superior para dar leitura ao título (invertido) */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#020202]/80 via-[#020202]/20 to-transparent"></div>
-          {/* Máscara inferior MUITO fina, apenas para criar transição com o fundo preto da próxima div */}
-          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#020202] to-transparent"></div>
-        </div>
-
-        {/* Título Sobreposto (Movido para o topo) */}
-        <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full">
+      {/* Header Premium (Texto separado da imagem para não cobrir rostos) */}
+      <div className="relative w-full bg-[#020202] pt-32 md:pt-40 flex flex-col items-center">
+        
+        {/* Título Principal */}
+        <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full mb-12">
           <motion.div 
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }} 
@@ -172,12 +160,30 @@ export const About = () => {
               {t.tag}
             </span>
             
-            <h1 className="text-5xl md:text-7xl lg:text-[6rem] font-thin uppercase leading-[0.9] tracking-tighter mb-6 drop-shadow-2xl">
+            <h1 className="text-5xl md:text-7xl lg:text-[6rem] font-thin uppercase leading-[0.9] tracking-tighter drop-shadow-2xl">
               {t.title_first} <br/>
               <span className="font-medium italic bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent">
                 {t.title_last}
               </span>
             </h1>
+          </motion.div>
+        </div>
+
+        {/* Quadro Fotográfico (Fluxo normal da página = 0 cortes na imagem) */}
+        <div className="relative w-full max-w-7xl mx-auto px-8 md:px-16 lg:px-24">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }} 
+            className="relative rounded-[1.5rem] md:rounded-[2rem] overflow-hidden border border-white/5 shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+          >
+            <img 
+              src="/upscaled renan e flakes.webp.webp" 
+              alt="Renan Filgueiras e Flakes Power" 
+              className="w-full h-auto max-h-[85vh] object-cover object-center opacity-100 block"
+            />
+            {/* Overlay sutil para brilho nas bordas */}
+            <div className="absolute inset-0 rounded-[1.5rem] md:rounded-[2rem] ring-1 ring-inset ring-white/10 pointer-events-none"></div>
           </motion.div>
         </div>
       </div>
