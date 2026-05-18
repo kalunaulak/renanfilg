@@ -44,7 +44,7 @@ export const Header = () => {
           <div className="flex items-center gap-8 text-[10px] font-light tracking-[0.3em] text-zinc-500 uppercase">
             <a href="#" className="hover:text-white transition-colors">{t.home}</a>
             <a href="#precos" className="hover:text-white transition-colors">{t.pricing}</a>
-            <a href="https://instagram.com/renanfilg" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+            <a href="#footer-social" onClick={(e) => { e.preventDefault(); document.getElementById('footer-social')?.scrollIntoView({ behavior: 'smooth' }); }} className="hover:text-white transition-colors">
               {t.social}
             </a>
           </div>

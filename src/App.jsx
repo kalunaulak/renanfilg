@@ -31,7 +31,7 @@ const LandingPage = () => (
       </div>
     </main>
     
-    <footer className="py-16 md:py-32 px-6 md:px-20 border-t border-white/[0.05] bg-[#020202] relative z-10">
+    <footer id="footer-social" className="py-16 md:py-32 px-6 md:px-20 border-t border-white/[0.05] bg-[#020202] relative z-10">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-12 md:gap-32 mb-16 md:mb-32">
           <img src={logo} alt="Renan Filg" width={930} height={830} className="h-10 md:h-12 w-auto object-contain grayscale opacity-60 hover:opacity-100 transition-opacity" />

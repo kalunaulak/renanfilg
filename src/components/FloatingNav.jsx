@@ -24,7 +24,7 @@ export const FloatingNav = () => {
           <DollarSign size={12} className="md:hidden" />
           <span className="hidden md:block">Preços</span>
         </a>
-        <a href="https://instagram.com/renanfilg" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2">
+        <a href="#footer-social" onClick={(e) => { e.preventDefault(); document.getElementById('footer-social')?.scrollIntoView({ behavior: 'smooth' }); }} className="hover:text-white transition-colors flex items-center gap-2">
           <Instagram size={12} className="md:hidden" />
           <span className="hidden md:block">Social</span>
         </a>

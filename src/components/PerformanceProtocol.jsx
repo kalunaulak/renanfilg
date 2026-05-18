@@ -13,8 +13,8 @@ export const PerformanceProtocol = () => {
       title_part2: 'OTIMIZAÇÃO',
       desc: 'Transparência total. Você assiste e autoriza tudo remotamente.',
       steps: [
-        { title: "PREPARO DO PENDRIVE E ATUALIZAÇÃO DE BIOS.", desc: "Envio um vídeo gravado por mim orientando a como deixar o pendrive pronto para o dia agendado.", icon: Terminal },
-        { title: "Raio-X e Diagnóstico do PC.", desc: "Escaneio seu computador de ponta a ponta. Identifico se ele está esquentando muito ou se tem peças trabalhando sobrecarregadas.", icon: Search },
+        { title: "PREPARO DO PENDRIVE.", desc: "Durante o agendamento, é enviado um vídeo gravado por mim orientando a como preparar o pendrive com a instalação de meu Windows customizado. Utilizaremos ele no dia agendado!", icon: Terminal },
+        { title: "ANÁLISE E DIAGNÓSTICO DO PC.", desc: "Escaneio seu computador de ponta a ponta. Identifico se ele está esquentando muito ou se alguma peça está trabalhando sobrecarregada, para resolvermos no próximo passo 👉", icon: Search },
         { title: "CONFIGURAÇÕES DA PLACA-MÃE (BIOS)", desc: "Altero as configurações físicas de frequências, tensões e latências de suas peças, de forma 100% segura para extrair a máxima velocidade além de reduzir sua temperatura.", icon: Zap },
         { title: "INSTALAÇÃO DO WINDOWS OTIMIZADO.", desc: "Formato seu computador para um sistema limpo, modificado por mim. Sem lixos ou bloatwares, para garantir o máximo de FPS e o mínimo de atraso de entrada.", icon: Cpu }
       ]

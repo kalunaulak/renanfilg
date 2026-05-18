@@ -28,7 +28,7 @@ export const PerformanceComparison = () => {
     }
   }[language || 'pt'];
   return (
-    <section className="py-16 md:py-40 px-6 md:px-8 relative overflow-hidden">
+    <section className="py-12 md:py-24 px-6 md:px-8 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
           <div>

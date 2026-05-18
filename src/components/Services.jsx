@@ -9,8 +9,8 @@ export const Services = () => {
   const t = {
     pt: {
       tag: 'Engenharia de Performance',
-      title: 'RESULTADOS',
-      title_italic: 'CIRÚRGICOS.',
+      title: 'O QUE É A',
+      title_italic: 'OTIMIZAÇÃO?',
       services: [
         { 
           title: "Overclock Saudável", 
@@ -40,8 +40,8 @@ export const Services = () => {
     },
     en: {
       tag: 'Performance Engineering',
-      title: 'SURGICAL',
-      title_italic: 'RESULTS.',
+      title: 'WHAT IS',
+      title_italic: 'OPTIMIZATION?',
       services: [
         { 
           title: "Healthy Overclock", 
@@ -72,7 +72,7 @@ export const Services = () => {
   }[language || 'pt'];
 
   return (
-    <section className="py-16 md:py-40 px-6 md:px-12">
+    <section className="py-12 md:py-24 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div>
@@ -98,7 +98,7 @@ export const Services = () => {
                 <item.icon size={20} className="text-zinc-400 group-hover:text-[#00bffa] transition-colors" />
               </div>
               <div className="inline-block px-3 py-1 rounded-full bg-white/[0.03] border border-white/5 text-[8px] font-light text-zinc-500 uppercase tracking-widest mb-4 group-hover:border-[#00bffa]/20 transition-colors">{item.badge}</div>
-              <h3 className="text-2xl font-light text-white mb-6 tracking-tight italic uppercase">{parseGlossaryTerms(item.title)}</h3>
+              <h3 className="text-2xl font-light text-white mb-6 tracking-tight italic uppercase">{item.title}</h3>
               <p className="text-zinc-400 text-base md:text-sm leading-relaxed font-light">{parseGlossaryTerms(item.desc)}</p>
             </motion.div>
           ))}

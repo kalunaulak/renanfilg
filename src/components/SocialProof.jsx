@@ -78,7 +78,7 @@ export const SocialProof = () => {
   }, [isDragging, isHovered, contentWidth, x]);
 
   return (
-    <section className="py-16 md:py-32 bg-black overflow-hidden border-y border-white/[0.03]">
+    <section className="py-12 md:py-20 bg-black overflow-hidden border-y border-white/[0.03]">
       <div className="max-w-7xl mx-auto px-8 md:px-12 mb-20 text-center">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#00bffa]/20 bg-[#00bffa]/5 mb-8">
           <span className="text-[10px] tracking-[0.3em] text-[#00bffa] uppercase font-light italic">{t.tag}</span>
