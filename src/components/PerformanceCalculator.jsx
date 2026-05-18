@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Info, ShieldAlert } from 'lucide-react';
+import { ArrowRight, Info, ShieldAlert, Search } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const GAMES = {
@@ -20,42 +20,152 @@ const GAMES = {
 };
 
 const GPUS = {
+  // NVIDIA RTX 40 Series (Ada Lovelace)
   rtx4090: { name: 'NVIDIA RTX 4090', power: 10, isPremium: true },
-  rtx4080: { name: 'NVIDIA RTX 4080 / 4080 Super', power: 9.5, isPremium: true },
-  rtx4070: { name: 'NVIDIA RTX 4070 / 4070 Ti / Super', power: 8.8, isPremium: true },
-  rtx3090: { name: 'NVIDIA RTX 3090 / 3090 Ti', power: 8.5, isPremium: true },
-  rtx3080: { name: 'NVIDIA RTX 3080 / 3080 Ti', power: 8.0, isPremium: true },
-  rtx4060: { name: 'NVIDIA RTX 4060 / 4060 Ti', power: 7.2, isPremium: false },
-  rtx3070: { name: 'NVIDIA RTX 3070 / 3070 Ti', power: 7.5, isPremium: false },
-  rtx3060: { name: 'NVIDIA RTX 3060 / 3060 Ti', power: 6.5, isPremium: false },
-  rtx2080: { name: 'NVIDIA RTX 2080 / Ti / Super', power: 6.8, isPremium: false },
-  rtx2070: { name: 'NVIDIA RTX 2070 / Super', power: 6.0, isPremium: false },
-  rtx2060: { name: 'NVIDIA RTX 2060 / Super', power: 5.0, isPremium: false },
-  gtx1660: { name: 'NVIDIA GTX 1660 / Super / Ti', power: 4.0, isPremium: false },
-  gtx1650: { name: 'NVIDIA GTX 1650 / 1060 / 1070', power: 3.2, isPremium: false },
-  rx7900: { name: 'AMD RX 7900 XTX / XT', power: 9.2, isPremium: true },
-  rx7800: { name: 'AMD RX 7800 XT / 7700 XT', power: 8.0, isPremium: true },
-  rx6900: { name: 'AMD RX 6900 XT / 6800 XT', power: 8.2, isPremium: true },
-  rx6700: { name: 'AMD RX 6700 XT / 6600 XT', power: 6.2, isPremium: false }
+  rtx4080super: { name: 'NVIDIA RTX 4080 Super', power: 9.6, isPremium: true },
+  rtx4080: { name: 'NVIDIA RTX 4080', power: 9.4, isPremium: true },
+  rtx4070tisuper: { name: 'NVIDIA RTX 4070 Ti Super', power: 9.0, isPremium: true },
+  rtx4070ti: { name: 'NVIDIA RTX 4070 Ti', power: 8.8, isPremium: true },
+  rtx4070super: { name: 'NVIDIA RTX 4070 Super', power: 8.4, isPremium: true },
+  rtx4070: { name: 'NVIDIA RTX 4070', power: 8.0, isPremium: true },
+  rtx4060ti: { name: 'NVIDIA RTX 4060 Ti', power: 7.2, isPremium: false },
+  rtx4060: { name: 'NVIDIA RTX 4060', power: 6.8, isPremium: false },
+  // NVIDIA RTX 30 Series (Ampere)
+  rtx3090ti: { name: 'NVIDIA RTX 3090 Ti', power: 8.6, isPremium: true },
+  rtx3090: { name: 'NVIDIA RTX 3090', power: 8.4, isPremium: true },
+  rtx3080ti: { name: 'NVIDIA RTX 3080 Ti', power: 8.2, isPremium: true },
+  rtx3080: { name: 'NVIDIA RTX 3080', power: 8.0, isPremium: true },
+  rtx3070ti: { name: 'NVIDIA RTX 3070 Ti', power: 7.6, isPremium: false },
+  rtx3070: { name: 'NVIDIA RTX 3070', power: 7.4, isPremium: false },
+  rtx3060ti: { name: 'NVIDIA RTX 3060 Ti', power: 7.0, isPremium: false },
+  rtx3060: { name: 'NVIDIA RTX 3060', power: 6.4, isPremium: false },
+  rtx3050: { name: 'NVIDIA RTX 3050', power: 5.2, isPremium: false },
+  // NVIDIA RTX 20 Series (Turing)
+  rtx2080ti: { name: 'NVIDIA RTX 2080 Ti', power: 7.8, isPremium: true },
+  rtx2080super: { name: 'NVIDIA RTX 2080 Super', power: 7.4, isPremium: false },
+  rtx2080: { name: 'NVIDIA RTX 2080', power: 7.2, isPremium: false },
+  rtx2070super: { name: 'NVIDIA RTX 2070 Super', power: 6.8, isPremium: false },
+  rtx2070: { name: 'NVIDIA RTX 2070', power: 6.4, isPremium: false },
+  rtx2060super: { name: 'NVIDIA RTX 2060 Super', power: 6.0, isPremium: false },
+  rtx2060: { name: 'NVIDIA RTX 2060', power: 5.6, isPremium: false },
+  // NVIDIA GTX Series
+  gtx1660ti: { name: 'NVIDIA GTX 1660 Ti', power: 4.8, isPremium: false },
+  gtx1660super: { name: 'NVIDIA GTX 1660 Super', power: 4.6, isPremium: false },
+  gtx1660: { name: 'NVIDIA GTX 1660', power: 4.4, isPremium: false },
+  gtx1650super: { name: 'NVIDIA GTX 1650 Super', power: 3.8, isPremium: false },
+  gtx1650: { name: 'NVIDIA GTX 1650', power: 3.4, isPremium: false },
+  gtx1080ti: { name: 'NVIDIA GTX 1080 Ti', power: 6.8, isPremium: true },
+  gtx1080: { name: 'NVIDIA GTX 1080', power: 6.0, isPremium: false },
+  gtx1070ti: { name: 'NVIDIA GTX 1070 Ti', power: 5.6, isPremium: false },
+  gtx1070: { name: 'NVIDIA GTX 1070', power: 5.2, isPremium: false },
+  gtx1060: { name: 'NVIDIA GTX 1060', power: 4.2, isPremium: false },
+  gtx1050ti: { name: 'NVIDIA GTX 1050 Ti', power: 3.2, isPremium: false },
+  gtx1050: { name: 'NVIDIA GTX 1050', power: 2.8, isPremium: false },
+  gtx980ti: { name: 'NVIDIA GTX 980 Ti', power: 4.6, isPremium: false },
+  gtx980: { name: 'NVIDIA GTX 980', power: 4.0, isPremium: false },
+  gtx970: { name: 'NVIDIA GTX 970', power: 3.6, isPremium: false },
+  gtx960: { name: 'NVIDIA GTX 960', power: 2.8, isPremium: false },
+  gtx750ti: { name: 'NVIDIA GTX 750 Ti', power: 1.8, isPremium: false },
+  // AMD Radeon RX 7000 Series (RDNA3)
+  rx7900xtx: { name: 'AMD Radeon RX 7900 XTX', power: 9.4, isPremium: true },
+  rx7900xt: { name: 'AMD Radeon RX 7900 XT', power: 9.0, isPremium: true },
+  rx7900gre: { name: 'AMD Radeon RX 7900 GRE', power: 8.2, isPremium: true },
+  rx7800xt: { name: 'AMD Radeon RX 7800 XT', power: 8.0, isPremium: true },
+  rx7700xt: { name: 'AMD Radeon RX 7700 XT', power: 7.4, isPremium: false },
+  rx7600xt: { name: 'AMD Radeon RX 7600 XT', power: 6.6, isPremium: false },
+  rx7600: { name: 'AMD Radeon RX 7600', power: 6.2, isPremium: false },
+  // AMD Radeon RX 6000 Series (RDNA2)
+  rx6950xt: { name: 'AMD Radeon RX 6950 XT', power: 8.6, isPremium: true },
+  rx6900xt: { name: 'AMD Radeon RX 6900 XT', power: 8.4, isPremium: true },
+  rx6800xt: { name: 'AMD Radeon RX 6800 XT', power: 8.0, isPremium: true },
+  rx6800: { name: 'AMD Radeon RX 6800', power: 7.4, isPremium: false },
+  rx6750xt: { name: 'AMD Radeon RX 6750 XT', power: 7.2, isPremium: false },
+  rx6700xt: { name: 'AMD Radeon RX 6700 XT', power: 7.0, isPremium: false },
+  rx6650xt: { name: 'AMD Radeon RX 6650 XT', power: 6.4, isPremium: false },
+  rx6600xt: { name: 'AMD Radeon RX 6600 XT', power: 6.2, isPremium: false },
+  rx6600: { name: 'AMD Radeon RX 6600', power: 5.8, isPremium: false },
+  // AMD Radeon Legacy Series
+  rx5700xt: { name: 'AMD Radeon RX 5700 XT', power: 5.8, isPremium: false },
+  rx5700: { name: 'AMD Radeon RX 5700', power: 5.4, isPremium: false },
+  rx5600xt: { name: 'AMD Radeon RX 5600 XT', power: 4.8, isPremium: false },
+  rx5500xt: { name: 'AMD Radeon RX 5500 XT', power: 3.6, isPremium: false },
+  rx590: { name: 'AMD Radeon RX 590', power: 3.8, isPremium: false },
+  rx580: { name: 'AMD Radeon RX 580', power: 3.4, isPremium: false },
+  rx570: { name: 'AMD Radeon RX 570', power: 3.0, isPremium: false },
+  rx480: { name: 'AMD Radeon RX 480', power: 3.2, isPremium: false },
+  rx470: { name: 'AMD Radeon RX 470', power: 2.8, isPremium: false },
+  vega64: { name: 'AMD Radeon RX Vega 64', power: 5.0, isPremium: false },
+  vega56: { name: 'AMD Radeon RX Vega 56', power: 4.6, isPremium: false }
 };
 
 const CPUS = {
+  // AMD Ryzen X3D (Extreme Gaming)
   ryzen7800x3d: { name: 'AMD Ryzen 7 7800X3D', power: 10, isPremium: true, stabilityWeight: 1.95 },
+  ryzen7950x3d: { name: 'AMD Ryzen 9 7950X3D', power: 9.5, isPremium: true, stabilityWeight: 1.90 },
+  ryzen7900x3d: { name: 'AMD Ryzen 9 7900X3D', power: 9.0, isPremium: true, stabilityWeight: 1.85 },
   ryzen5800x3d: { name: 'AMD Ryzen 7 5800X3D', power: 8.8, isPremium: true, stabilityWeight: 1.85 },
-  ryzen97950x3d: { name: 'AMD Ryzen 9 7950X3D', power: 9.5, isPremium: true, stabilityWeight: 1.90 },
-  intel14900k: { name: 'Intel Core i9 14900K / KS', power: 9.8, isPremium: true, stabilityWeight: 1.70 },
-  intel13900k: { name: 'Intel Core i9 13900K / KS', power: 9.4, isPremium: true, stabilityWeight: 1.65 },
-  intel12900k: { name: 'Intel Core i9 12900K', power: 8.2, isPremium: true, stabilityWeight: 1.55 },
-  intel14700k: { name: 'Intel Core i7 14700K', power: 8.8, isPremium: true, stabilityWeight: 1.60 },
-  intel13700k: { name: 'Intel Core i7 13700K', power: 8.4, isPremium: true, stabilityWeight: 1.55 },
-  intel12700k: { name: 'Intel Core i7 12700K', power: 7.8, isPremium: true, stabilityWeight: 1.45 },
-  ryzen97900x: { name: 'AMD Ryzen 9 7900X / 5900X', power: 8.0, isPremium: true, stabilityWeight: 1.40 },
-  ryzen77700x: { name: 'AMD Ryzen 7 7700X / 5700X', power: 7.5, isPremium: false, stabilityWeight: 1.35 },
-  intel14600k: { name: 'Intel Core i5 14600K / 13600K', power: 7.2, isPremium: false, stabilityWeight: 1.30 },
-  intel12400f: { name: 'Intel Core i5 12400F / 13400F', power: 5.5, isPremium: false, stabilityWeight: 1.15 },
-  intel10400f: { name: 'Intel Core i5 10400F / 11400F', power: 4.2, isPremium: false, stabilityWeight: 1.08 },
-  ryzen7600x: { name: 'AMD Ryzen 5 7600X / 5600X', power: 6.0, isPremium: false, stabilityWeight: 1.20 },
-  ryzen3600: { name: 'AMD Ryzen 5 3600 / 4600G', power: 4.0, isPremium: false, stabilityWeight: 1.05 }
+  ryzen5700x3d: { name: 'AMD Ryzen 7 5700X3D', power: 8.4, isPremium: true, stabilityWeight: 1.80 },
+  // AMD Ryzen 7000 Series (AM5 Zen4)
+  ryzen7950x: { name: 'AMD Ryzen 9 7950X', power: 9.2, isPremium: true, stabilityWeight: 1.50 },
+  ryzen7900x: { name: 'AMD Ryzen 9 7900X', power: 8.8, isPremium: true, stabilityWeight: 1.45 },
+  ryzen7700x: { name: 'AMD Ryzen 7 7700X', power: 8.2, isPremium: false, stabilityWeight: 1.35 },
+  ryzen7700: { name: 'AMD Ryzen 7 7700', power: 8.0, isPremium: false, stabilityWeight: 1.35 },
+  ryzen57600x: { name: 'AMD Ryzen 5 7600X', power: 7.6, isPremium: false, stabilityWeight: 1.30 },
+  ryzen57600: { name: 'AMD Ryzen 5 7600', power: 7.4, isPremium: false, stabilityWeight: 1.30 },
+  // AMD Ryzen 5000 Series (AM4 Zen3)
+  ryzen95950x: { name: 'AMD Ryzen 9 5950X', power: 8.8, isPremium: true, stabilityWeight: 1.45 },
+  ryzen95900x: { name: 'AMD Ryzen 9 5900X', power: 8.5, isPremium: true, stabilityWeight: 1.40 },
+  ryzen75800x: { name: 'AMD Ryzen 7 5800X', power: 7.8, isPremium: false, stabilityWeight: 1.30 },
+  ryzen75700x: { name: 'AMD Ryzen 7 5700X', power: 7.6, isPremium: false, stabilityWeight: 1.25 },
+  ryzen55600x: { name: 'AMD Ryzen 5 5600X', power: 7.0, isPremium: false, stabilityWeight: 1.25 },
+  ryzen55600: { name: 'AMD Ryzen 5 5600', power: 6.8, isPremium: false, stabilityWeight: 1.20 },
+  ryzen55600g: { name: 'AMD Ryzen 5 5600G', power: 6.4, isPremium: false, stabilityWeight: 1.15 },
+  ryzen55500: { name: 'AMD Ryzen 5 5500', power: 6.0, isPremium: false, stabilityWeight: 1.10 },
+  // AMD Ryzen Legacy (Zen2 / Zen+)
+  ryzen93950x: { name: 'AMD Ryzen 9 3950X', power: 7.6, isPremium: false, stabilityWeight: 1.20 },
+  ryzen93900x: { name: 'AMD Ryzen 9 3900X', power: 7.4, isPremium: false, stabilityWeight: 1.18 },
+  ryzen73800x: { name: 'AMD Ryzen 7 3800X', power: 6.8, isPremium: false, stabilityWeight: 1.15 },
+  ryzen73700x: { name: 'AMD Ryzen 7 3700X', power: 6.6, isPremium: false, stabilityWeight: 1.12 },
+  ryzen53600x: { name: 'AMD Ryzen 5 3600X', power: 6.0, isPremium: false, stabilityWeight: 1.10 },
+  ryzen53600: { name: 'AMD Ryzen 5 3600', power: 5.8, isPremium: false, stabilityWeight: 1.08 },
+  ryzen53500x: { name: 'AMD Ryzen 5 3500X', power: 5.4, isPremium: false, stabilityWeight: 1.05 },
+  ryzen72700x: { name: 'AMD Ryzen 7 2700X', power: 5.2, isPremium: false, stabilityWeight: 1.06 },
+  ryzen52600x: { name: 'AMD Ryzen 5 2600X', power: 4.8, isPremium: false, stabilityWeight: 1.05 },
+  ryzen52600: { name: 'AMD Ryzen 5 2600', power: 4.6, isPremium: false, stabilityWeight: 1.04 },
+  ryzen51600: { name: 'AMD Ryzen 5 1600', power: 4.0, isPremium: false, stabilityWeight: 1.02 },
+  // Intel Core i9 (Extreme Enthusiast)
+  intel14900ks: { name: 'Intel Core i9 14900KS', power: 10, isPremium: true, stabilityWeight: 1.75 },
+  intel14900k: { name: 'Intel Core i9 14900K / KF', power: 9.8, isPremium: true, stabilityWeight: 1.70 },
+  intel13900ks: { name: 'Intel Core i9 13900KS', power: 9.6, isPremium: true, stabilityWeight: 1.68 },
+  intel13900k: { name: 'Intel Core i9 13900K / KF', power: 9.4, isPremium: true, stabilityWeight: 1.65 },
+  intel12900ks: { name: 'Intel Core i9 12900KS', power: 8.8, isPremium: true, stabilityWeight: 1.58 },
+  intel12900k: { name: 'Intel Core i9 12900K / KF', power: 8.4, isPremium: true, stabilityWeight: 1.55 },
+  intel11900k: { name: 'Intel Core i9 11900K / KF', power: 7.2, isPremium: false, stabilityWeight: 1.40 },
+  intel10900k: { name: 'Intel Core i9 10900K / KF', power: 7.6, isPremium: false, stabilityWeight: 1.42 },
+  intel9900k: { name: 'Intel Core i9 9900K / KS', power: 7.2, isPremium: false, stabilityWeight: 1.38 },
+  // Intel Core i7 (High-End Gaming)
+  intel14700k: { name: 'Intel Core i7 14700K / KF', power: 8.8, isPremium: true, stabilityWeight: 1.60 },
+  intel13700k: { name: 'Intel Core i7 13700K / KF', power: 8.4, isPremium: true, stabilityWeight: 1.55 },
+  intel12700k: { name: 'Intel Core i7 12700K / KF', power: 7.8, isPremium: true, stabilityWeight: 1.45 },
+  intel11700k: { name: 'Intel Core i7 11700K / KF', power: 6.8, isPremium: false, stabilityWeight: 1.32 },
+  intel10700k: { name: 'Intel Core i7 10700K / KF', power: 7.0, isPremium: false, stabilityWeight: 1.35 },
+  intel9700k: { name: 'Intel Core i7 9700K / KF', power: 6.4, isPremium: false, stabilityWeight: 1.28 },
+  intel8700k: { name: 'Intel Core i7 8700K', power: 6.0, isPremium: false, stabilityWeight: 1.25 },
+  intel7700k: { name: 'Intel Core i7 7700K', power: 5.0, isPremium: false, stabilityWeight: 1.15 },
+  intel6700k: { name: 'Intel Core i7 6700K', power: 4.4, isPremium: false, stabilityWeight: 1.10 },
+  intel4790k: { name: 'Intel Core i7 4790K (Haswell)', power: 3.8, isPremium: false, stabilityWeight: 1.05 },
+  // Intel Core i5 (Performance Mainstream)
+  intel14600k: { name: 'Intel Core i5 14600K / KF', power: 7.6, isPremium: false, stabilityWeight: 1.35 },
+  intel13600k: { name: 'Intel Core i5 13600K / KF', power: 7.4, isPremium: false, stabilityWeight: 1.32 },
+  intel12600k: { name: 'Intel Core i5 12600K / KF', power: 6.8, isPremium: false, stabilityWeight: 1.28 },
+  intel12400f: { name: 'Intel Core i5 12400F', power: 6.2, isPremium: false, stabilityWeight: 1.20 },
+  intel11400f: { name: 'Intel Core i5 11400F', power: 5.4, isPremium: false, stabilityWeight: 1.12 },
+  intel10400f: { name: 'Intel Core i5 10400F', power: 5.0, isPremium: false, stabilityWeight: 1.08 },
+  intel9400f: { name: 'Intel Core i5 9400F', power: 4.2, isPremium: false, stabilityWeight: 1.05 },
+  intel8400: { name: 'Intel Core i5 8400', power: 4.0, isPremium: false, stabilityWeight: 1.04 },
+  intel7400: { name: 'Intel Core i5 7400', power: 3.2, isPremium: false, stabilityWeight: 1.02 },
+  intel6400: { name: 'Intel Core i5 6400', power: 3.0, isPremium: false, stabilityWeight: 1.01 },
+  intel4690k: { name: 'Intel Core i5 4690K (Haswell)', power: 2.8, isPremium: false, stabilityWeight: 1.00 }
 };
 
 const RAM_OPTIONS = {
@@ -65,6 +175,105 @@ const RAM_OPTIONS = {
   ram32_single: { name: '32 GB RAM (Single Channel / Lenta)', penalty: 0.85, lowPenalty: 0.70 },
   ram32_dual: { name: '32 GB RAM (Dual Channel High-Speed)', penalty: 1.00, lowPenalty: 1.00 },
   ram64_plus: { name: '64 GB or more (Dual/Quad Channel)', penalty: 1.00, lowPenalty: 1.05 }
+};
+
+// Componente Customizado Searchable Autocomplete Select
+const SearchableSelect = ({ label, value, onChange, options, placeholder }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const dropdownRef = useRef(null);
+
+  // Fecha ao clicar fora
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const selectedOption = options[value];
+
+  // Filtra as opções com base no texto digitado
+  const filteredOptions = Object.entries(options).filter(([key, val]) =>
+    val.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  return (
+    <div className="space-y-3 relative" ref={dropdownRef}>
+      <label className="text-[9px] font-semibold text-zinc-500 uppercase tracking-widest px-1">
+        {label}
+      </label>
+
+      {/* Botão do Seletor */}
+      <div
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full bg-black border border-white/[0.08] rounded-xl px-5 py-3.5 text-xs font-light text-zinc-300 hover:border-white/20 transition-all cursor-pointer flex justify-between items-center relative z-20"
+      >
+        <span>{selectedOption ? selectedOption.name : placeholder}</span>
+        <span className="text-[9px] text-[#00bffa] font-mono tracking-widest">[ SELECIONAR ]</span>
+      </div>
+
+      {/* Painel Autocomplete Suspenso */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 5 }}
+            className="absolute left-0 right-0 mt-2 bg-[#050505] border border-white/[0.1] rounded-2xl p-4 shadow-[0_10px_50px_rgba(0,0,0,0.9)] z-50 max-h-[320px] flex flex-col gap-3"
+          >
+            {/* Campo de Busca */}
+            <div className="relative flex items-center">
+              <input
+                type="text"
+                autoFocus
+                placeholder="Digite para filtrar... (ex: 4080, 7800X3D...)"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-black border border-white/[0.08] rounded-xl pl-9 pr-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#00bffa]/40"
+              />
+              <Search className="w-3.5 h-3.5 text-zinc-500 absolute left-3" />
+            </div>
+
+            {/* Lista com barra de rolagem */}
+            <div className="overflow-y-auto flex-1 divide-y divide-white/[0.02] pr-1 scrollbar-thin">
+              {filteredOptions.length > 0 ? (
+                filteredOptions.map(([key, val]) => (
+                  <div
+                    key={key}
+                    onClick={() => {
+                      onChange(key);
+                      setIsOpen(false);
+                      setSearchQuery('');
+                    }}
+                    className={`px-3 py-3 text-xs font-light cursor-pointer transition-all flex justify-between items-center ${
+                      key === value 
+                        ? 'text-[#00bffa] bg-white/[0.02] font-medium' 
+                        : 'text-zinc-400 hover:text-white hover:bg-white/[0.01]'
+                    }`}
+                  >
+                    <span>{val.name}</span>
+                    {val.isPremium && (
+                      <span className="text-[8px] border border-amber-500/20 bg-amber-500/5 text-amber-500 px-1.5 py-0.5 rounded font-mono uppercase tracking-wider scale-90">
+                        PREMIUM
+                      </span>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <div className="text-zinc-600 text-xs italic py-6 text-center">
+                  Nenhum componente correspondente.
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
 };
 
 export const PerformanceCalculator = () => {
@@ -217,7 +426,6 @@ export const PerformanceCalculator = () => {
 
   // Escala dinâmica até 1000 FPS para evitar estourar o topo do osciloscópio
   const peakY_FPS = Math.max(5, 90 - (results.afterFPS / 1200) * 85);
-  
   const peakY_Low = Math.max(5, 90 - (results.afterLow / 1200) * 85);
   
   const latencyReduction = results.beforeLag - results.afterLag;
@@ -226,7 +434,7 @@ export const PerformanceCalculator = () => {
 
   return (
     <section 
-      className="py-16 md:py-36 px-6 md:px-8 border-t border-white/[0.03] bg-[#020202] relative overflow-hidden animate-fade-in"
+      className="py-16 md:py-36 px-6 md:px-8 border-t border-white/[0.03] bg-[#020202] relative overflow-hidden"
       style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
     >
       {/* Laser backgrounds */}
@@ -256,7 +464,7 @@ export const PerformanceCalculator = () => {
               initial={{ height: 0, opacity: 0, scale: 0.95 }}
               animate={{ height: 'auto', opacity: 1, scale: 1 }}
               exit={{ height: 0, opacity: 0, scale: 0.95 }}
-              className="max-w-7xl mx-auto overflow-hidden"
+              className="max-w-7xl mx-auto overflow-hidden animate-pulse"
             >
               <div className="border border-red-500/40 bg-red-950/15 rounded-3xl p-6 md:p-10 flex flex-col gap-6 relative shadow-[0_0_80px_rgba(239,68,68,0.18)] mb-12 overflow-hidden border-l-4">
                 
@@ -293,7 +501,7 @@ export const PerformanceCalculator = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mb-20">
           
-          {/* Controls Box - Styled exactly like hardware tuning BIOS console (5 cols) */}
+          {/* Controls Box - Custom Searchable BIOS Terminals (5 cols) */}
           <div className="lg:col-span-5 bg-[#050505] border border-white/[0.04] rounded-3xl p-6 md:p-8 relative flex flex-col justify-between">
             
             <div className="space-y-6">
@@ -327,69 +535,41 @@ export const PerformanceCalculator = () => {
                 </div>
               </div>
 
-              {/* Game Selector */}
-              <div className="space-y-3">
-                <label className="text-[9px] font-semibold text-zinc-500 uppercase tracking-widest">
-                  {t.selectGame}
-                </label>
-                <select 
-                  value={selectedGame} 
-                  onChange={(e) => setSelectedGame(e.target.value)}
-                  className="w-full bg-black border border-white/[0.08] rounded-xl px-5 py-3.5 text-xs font-light text-zinc-300 focus:outline-none focus:border-[#00bffa]/40 transition-all cursor-pointer font-sans"
-                >
-                  {Object.entries(GAMES).map(([key, val]) => (
-                    <option key={key} value={key} className="bg-[#0c0c0c] text-zinc-300 py-3 font-sans">{val.name}</option>
-                  ))}
-                </select>
-              </div>
+              {/* Autocomplete Game Selector */}
+              <SearchableSelect 
+                label={t.selectGame}
+                value={selectedGame}
+                onChange={setSelectedGame}
+                options={GAMES}
+                placeholder="Selecione o Jogo..."
+              />
 
-              {/* GPU Selector */}
-              <div className="space-y-3">
-                <label className="text-[9px] font-semibold text-zinc-500 uppercase tracking-widest">
-                  {t.selectGPU}
-                </label>
-                <select 
-                  value={selectedGPU} 
-                  onChange={(e) => setSelectedGPU(e.target.value)}
-                  className="w-full bg-black border border-white/[0.08] rounded-xl px-5 py-3.5 text-xs font-light text-zinc-300 focus:outline-none focus:border-[#00bffa]/40 transition-all cursor-pointer font-sans"
-                >
-                  {Object.entries(GPUS).map(([key, val]) => (
-                    <option key={key} value={key} className="bg-[#0c0c0c] text-zinc-300 py-3 font-sans">{val.name}</option>
-                  ))}
-                </select>
-              </div>
+              {/* Autocomplete GPU Selector */}
+              <SearchableSelect 
+                label={t.selectGPU}
+                value={selectedGPU}
+                onChange={setSelectedGPU}
+                options={GPUS}
+                placeholder="Digite para buscar GPU..."
+              />
 
-              {/* CPU Selector */}
-              <div className="space-y-3">
-                <label className="text-[9px] font-semibold text-zinc-500 uppercase tracking-widest">
-                  {t.selectCPU}
-                </label>
-                <select 
-                  value={selectedCPU} 
-                  onChange={(e) => setSelectedCPU(e.target.value)}
-                  className="w-full bg-black border border-white/[0.08] rounded-xl px-5 py-3.5 text-xs font-light text-zinc-300 focus:outline-none focus:border-[#00bffa]/40 transition-all cursor-pointer font-sans"
-                >
-                  {Object.entries(CPUS).map(([key, val]) => (
-                    <option key={key} value={key} className="bg-[#0c0c0c] text-zinc-300 py-3 font-sans">{val.name}</option>
-                  ))}
-                </select>
-              </div>
+              {/* Autocomplete CPU Selector */}
+              <SearchableSelect 
+                label={t.selectCPU}
+                value={selectedCPU}
+                onChange={setSelectedCPU}
+                options={CPUS}
+                placeholder="Digite para buscar CPU..."
+              />
 
-              {/* RAM Selector */}
-              <div className="space-y-3">
-                <label className="text-[9px] font-semibold text-zinc-500 uppercase tracking-widest">
-                  {t.selectRAM}
-                </label>
-                <select 
-                  value={selectedRAM} 
-                  onChange={(e) => setSelectedRAM(e.target.value)}
-                  className="w-full bg-black border border-white/[0.08] rounded-xl px-5 py-3.5 text-xs font-light text-zinc-300 focus:outline-none focus:border-[#00bffa]/40 transition-all cursor-pointer font-sans"
-                >
-                  {Object.entries(RAM_OPTIONS).map(([key, val]) => (
-                    <option key={key} value={key} className="bg-[#0c0c0c] text-zinc-300 py-3 font-sans">{val.name}</option>
-                  ))}
-                </select>
-              </div>
+              {/* Autocomplete RAM Selector */}
+              <SearchableSelect 
+                label={t.selectRAM}
+                value={selectedRAM}
+                onChange={setSelectedRAM}
+                options={RAM_OPTIONS}
+                placeholder="Selecione Memória RAM..."
+              />
             </div>
           </div>
 
@@ -399,7 +579,6 @@ export const PerformanceCalculator = () => {
             {/* GRÁFICO 1: MÉDIA DE FPS */}
             <div className="bg-[#050505] border border-white/[0.04] rounded-3xl p-5 relative overflow-hidden flex flex-col justify-between h-[155px]">
               
-              {/* Technical corner crosshairs */}
               <div className="absolute inset-0 p-4 flex flex-wrap justify-between pointer-events-none opacity-[0.02]">
                 {[...Array(4)].map((_, i) => (
                   <div key={i} className="w-1.5 h-1.5 border-l border-t border-white"></div>
@@ -495,7 +674,7 @@ export const PerformanceCalculator = () => {
               </div>
             </div>
 
-            {/* GRÁFICO 3: SYSTEM INPUT LAG (DESCENDENTE!) */}
+            {/* GRÁFICO 3: SYSTEM INPUT LAG */}
             <div className="bg-[#050505] border border-white/[0.04] rounded-3xl p-5 relative overflow-hidden flex flex-col justify-between h-[155px]">
               
               <div className="absolute inset-0 p-4 flex flex-wrap justify-between pointer-events-none opacity-[0.02]">
