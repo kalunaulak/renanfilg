@@ -139,21 +139,16 @@ export const PerformanceCalculator = () => {
     setIsBottleneckDetected(isBottleneck);
 
     // Ajuste dinâmico de Coeficiente de Boost (Gargalo Chocado)
-    // Se houver gargalo crítico detetado (peças excelentes + FPS baixo), o ganho explode!
-    // Porque há muita margem de otimização de RAM Sub-timings e BIOS
     let dynamicBoostFactor = game.factor; // ex: 1.48
     
     if (isBottleneck) {
-      // O ganho aumenta dramaticamente! Pode ir de +48% para até +88% dependendo do nível de gargalo!
       const bottleneckSeverity = Math.min(1.5, typicalMaxForSetup / beforeFPS);
       dynamicBoostFactor = game.factor * (1 + (bottleneckSeverity - 1) * 0.45);
     } else {
-      // Ganho padrão do hardware já bem equilibrado
       const bottleneckRatio = gpu.power / cpu.power;
       dynamicBoostFactor = game.factor * (1 + Math.max(-0.06, Math.min(0.08, (bottleneckRatio - 1) * 0.15)));
     }
 
-    // Teto de segurança para evitar FPS absurdo impossível fisicamente
     const afterFPS = Math.round(beforeFPS * dynamicBoostFactor);
     
     // 1% Low (estabilidade)
@@ -193,7 +188,10 @@ export const PerformanceCalculator = () => {
   };
 
   return (
-    <section className="py-16 md:py-32 px-6 md:px-8 border-t border-white/[0.03] bg-gradient-to-b from-[#020202] via-[#050505] to-[#020202] relative overflow-hidden">
+    <section 
+      className="py-16 md:py-32 px-6 md:px-8 border-t border-white/[0.03] bg-gradient-to-b from-[#020202] via-[#050505] to-[#020202] relative overflow-hidden"
+      style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
+    >
       {/* Background neon ambient lights */}
       <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-[#00bffa]/[0.02] blur-[120px] pointer-events-none"></div>
       <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-[#005eea]/[0.02] blur-[120px] pointer-events-none"></div>
@@ -225,7 +223,7 @@ export const PerformanceCalculator = () => {
                   <AlertTriangle className="w-6 h-6 animate-bounce" />
                 </div>
                 <div>
-                  <h4 className="text-red-500 text-sm font-bold tracking-widest uppercase mb-2 font-sans">{t.bottleneckAlert}</h4>
+                  <h4 className="text-red-500 text-sm font-bold tracking-widest uppercase mb-2">{t.bottleneckAlert}</h4>
                   <p className="text-zinc-400 text-xs md:text-sm font-light italic leading-relaxed">{t.bottleneckDesc}</p>
                 </div>
               </div>
@@ -246,7 +244,7 @@ export const PerformanceCalculator = () => {
                   <label className="text-[9px] font-semibold text-zinc-500 uppercase tracking-widest flex items-center gap-2">
                     <Sliders className="w-3.5 h-3.5 text-[#00bffa]" /> {t.fpsInputLabel}
                   </label>
-                  <span className="text-[#00bffa] font-mono font-bold text-sm">{currentFPS} FPS</span>
+                  <span className="text-[#00bffa] font-bold text-sm">{currentFPS} FPS</span>
                 </div>
                 
                 <div className="flex items-center gap-4">
@@ -265,7 +263,7 @@ export const PerformanceCalculator = () => {
                     max="999"
                     value={currentFPS}
                     onChange={(e) => setCurrentFPS(Math.min(999, Math.max(1, Number(e.target.value) || 0)))}
-                    className="w-16 bg-zinc-950 border border-white/10 rounded-lg py-1.5 text-center text-xs font-mono text-white focus:outline-none focus:border-[#00bffa]/40"
+                    className="w-16 bg-zinc-950 border border-white/10 rounded-lg py-1.5 text-center text-xs text-white focus:outline-none focus:border-[#00bffa]/40"
                   />
                 </div>
               </div>
@@ -278,10 +276,10 @@ export const PerformanceCalculator = () => {
                 <select 
                   value={selectedGame} 
                   onChange={(e) => setSelectedGame(e.target.value)}
-                  className="w-full bg-zinc-950 border border-white/10 rounded-xl px-4 py-4 text-xs font-semibold text-white focus:outline-none focus:border-[#00bffa]/40 focus:bg-zinc-900 transition-all font-sans cursor-pointer"
+                  className="w-full bg-zinc-950 border border-white/10 rounded-xl px-4 py-4 text-xs font-semibold text-white focus:outline-none focus:border-[#00bffa]/40 focus:bg-zinc-900 transition-all cursor-pointer"
                 >
                   {Object.entries(GAMES).map(([key, val]) => (
-                    <option key={key} value={key} className="bg-zinc-950 text-white font-sans font-normal py-2">{val.name}</option>
+                    <option key={key} value={key} className="bg-zinc-950 text-white font-normal py-2">{val.name}</option>
                   ))}
                 </select>
               </div>
@@ -294,10 +292,10 @@ export const PerformanceCalculator = () => {
                 <select 
                   value={selectedGPU} 
                   onChange={(e) => setSelectedGPU(e.target.value)}
-                  className="w-full bg-zinc-950 border border-white/10 rounded-xl px-4 py-4 text-xs font-semibold text-white focus:outline-none focus:border-[#00bffa]/40 focus:bg-zinc-900 transition-all font-sans cursor-pointer"
+                  className="w-full bg-zinc-950 border border-white/10 rounded-xl px-4 py-4 text-xs font-semibold text-white focus:outline-none focus:border-[#00bffa]/40 focus:bg-zinc-900 transition-all cursor-pointer"
                 >
                   {Object.entries(GPUS).map(([key, val]) => (
-                    <option key={key} value={key} className="bg-zinc-950 text-white font-sans font-normal py-2">{val.name}</option>
+                    <option key={key} value={key} className="bg-zinc-950 text-white font-normal py-2">{val.name}</option>
                   ))}
                 </select>
               </div>
@@ -310,10 +308,10 @@ export const PerformanceCalculator = () => {
                 <select 
                   value={selectedCPU} 
                   onChange={(e) => setSelectedCPU(e.target.value)}
-                  className="w-full bg-zinc-950 border border-white/10 rounded-xl px-4 py-4 text-xs font-semibold text-white focus:outline-none focus:border-[#00bffa]/40 focus:bg-zinc-900 transition-all font-sans cursor-pointer"
+                  className="w-full bg-zinc-950 border border-white/10 rounded-xl px-4 py-4 text-xs font-semibold text-white focus:outline-none focus:border-[#00bffa]/40 focus:bg-zinc-900 transition-all cursor-pointer"
                 >
                   {Object.entries(CPUS).map(([key, val]) => (
-                    <option key={key} value={key} className="bg-zinc-950 text-white font-sans font-normal py-2">{val.name}</option>
+                    <option key={key} value={key} className="bg-zinc-950 text-white font-normal py-2">{val.name}</option>
                   ))}
                 </select>
               </div>
@@ -335,12 +333,12 @@ export const PerformanceCalculator = () => {
                   <div className="text-[10px] font-light text-zinc-400 mt-1">Estabilidade Geral Aprimorada</div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-sm font-semibold text-zinc-400 font-mono">BOOST</span>
+                  <span className="text-sm font-semibold text-zinc-400">BOOST</span>
                   <motion.div
                     key={results.percentBoost}
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className={`px-4 py-2 rounded-xl text-black font-mono font-bold text-lg ${isBottleneckDetected ? 'bg-gradient-to-r from-red-500 to-amber-500 shadow-[0_0_20px_rgba(239,68,68,0.3)]' : 'bg-gradient-to-r from-[#00bffa] to-[#005eea] shadow-[0_0_20px_rgba(0,191,250,0.3)]'}`}
+                    className={`px-4 py-2 rounded-xl text-black font-bold text-lg ${isBottleneckDetected ? 'bg-gradient-to-r from-red-500 to-amber-500 shadow-[0_0_20px_rgba(239,68,68,0.3)]' : 'bg-gradient-to-r from-[#00bffa] to-[#005eea] shadow-[0_0_20px_rgba(0,191,250,0.3)]'}`}
                   >
                     +{results.percentBoost}%
                   </motion.div>
@@ -352,7 +350,7 @@ export const PerformanceCalculator = () => {
                 <div className="flex justify-between items-baseline">
                   <span className="text-xs font-light text-zinc-400 uppercase tracking-widest">{t.avgFPS}</span>
                   <span className="text-zinc-500 text-xs font-light">
-                    <span className="font-mono">{results.beforeFPS} FPS</span> → <span className="font-mono text-white font-bold drop-shadow-[0_0_10px_rgba(255,255,255,0.15)]">{results.afterFPS} FPS</span>
+                    <span>{results.beforeFPS} FPS</span> → <span className="text-white font-bold drop-shadow-[0_0_10px_rgba(255,255,255,0.15)]">{results.afterFPS} FPS</span>
                   </span>
                 </div>
                 <div className="h-2 w-full bg-white/[0.03] rounded-full overflow-hidden relative">
@@ -371,7 +369,7 @@ export const PerformanceCalculator = () => {
                 <div className="flex justify-between items-baseline">
                   <span className="text-xs font-light text-zinc-400 uppercase tracking-widest">{t.low1}</span>
                   <span className="text-zinc-500 text-xs font-light">
-                    <span className="font-mono">{results.beforeLow} FPS</span> → <span className="font-mono text-[#00bffa] font-bold drop-shadow-[0_0_10px_rgba(0,191,250,0.2)]">{results.afterLow} FPS</span>
+                    <span>{results.beforeLow} FPS</span> → <span className="text-[#00bffa] font-bold drop-shadow-[0_0_10px_rgba(0,191,250,0.2)]">{results.afterLow} FPS</span>
                   </span>
                 </div>
                 <div className="h-2 w-full bg-white/[0.03] rounded-full overflow-hidden relative">
@@ -390,7 +388,7 @@ export const PerformanceCalculator = () => {
               <div className="space-y-3">
                 <div className="flex justify-between items-baseline">
                   <span className="text-xs font-light text-zinc-400 uppercase tracking-widest">{t.inputLag}</span>
-                  <span className="text-zinc-500 text-xs font-light font-mono">
+                  <span className="text-zinc-500 text-xs font-light">
                     {results.beforeLag}ms → <span className="text-green-400 font-bold drop-shadow-[0_0_10px_rgba(74,222,128,0.2)]">{results.afterLag}ms</span>
                   </span>
                 </div>
@@ -425,7 +423,7 @@ export const PerformanceCalculator = () => {
               <Info className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-white text-xs font-bold tracking-widest uppercase mb-3 font-sans">{t.disclaimerTitle}</h4>
+              <h4 className="text-white text-xs font-bold tracking-widest uppercase mb-3">{t.disclaimerTitle}</h4>
               <p className="text-zinc-500 text-xs md:text-sm font-light italic leading-relaxed">{t.disclaimerText}</p>
             </div>
           </div>
