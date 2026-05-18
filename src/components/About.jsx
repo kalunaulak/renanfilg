@@ -156,12 +156,12 @@ export const About = () => {
             alt="Renan Filgueiras e Flakes Power" 
             className="w-full h-auto opacity-100 block"
           />
-          {/* Degradê na base para unir com a parte preta do texto */}
-          <div className="absolute bottom-0 left-0 right-0 h-32 md:h-48 bg-gradient-to-t from-[#020202] to-transparent"></div>
+          {/* Degradê na base para unir com a parte preta do texto. Mais alto no desktop */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 md:h-72 lg:h-96 bg-gradient-to-t from-[#020202] via-[#020202]/80 to-transparent"></div>
         </div>
 
-        {/* Título Principal (Abaixo da foto) */}
-        <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full pt-8 pb-12 -mt-16 md:-mt-24">
+        {/* Título Principal (Abaixo da foto no mobile, mas sobreposto à base da foto no desktop) */}
+        <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full pt-8 pb-12 -mt-16 md:-mt-56 lg:-mt-72">
           <motion.div 
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }} 
