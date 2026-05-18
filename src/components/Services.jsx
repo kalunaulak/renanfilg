@@ -12,10 +12,30 @@ export const Services = () => {
       title: 'RESULTADOS',
       title_italic: 'CIRÚRGICOS.',
       services: [
-        { title: "Calibração de Peças", desc: "Eu vou até a raiz do seu computador. Ajusto as configurações de fábrica para o processador rodar frio e estável.", icon: Cpu, badge: "Deep Tuning" },
-        { title: "Windows Sem Lixo", desc: "Instalação de um Windows otimizado direto da Microsoft. Sem programas inúteis travando a máquina.", icon: Terminal, badge: "Resposta Rápida" },
-        { title: "Atendimento 1 a 1", desc: "Procedimento de 3h comigo no seu computador (acesso remoto seguro) com raio-X completo.", icon: Zap, badge: "Remoto Seguro" },
-        { title: "Manual de Preservação", desc: "Você recebe um manual de cuidados práticos essenciais para manter a máquina voando sozinho, garantindo total autonomia. Sem mensalidades.", icon: Shield, badge: "Autonomia" }
+        { 
+          title: "Overclock Saudável", 
+          desc: "Via chamada de vídeo, vamos até a BIOS (firmware) de sua placa-mãe. Irei AUMENTAR a performance de seu computador subindo as frequências e REDUZIR as temperaturas das peças abaixando as tensões.", 
+          icon: Cpu, 
+          badge: "Deep Tuning" 
+        },
+        { 
+          title: "Inputlag Zero", 
+          desc: "Instalação de um Windows 100% otimizado a partir do original da Microsoft. Sem programas e serviços inúteis travando seu PC. Você possui acesso VITALÍCIO a suas futuras versões, podendo formatar novamente sozinho quando e quantas vezes quiser.", 
+          icon: Terminal, 
+          badge: "Resposta Rápida" 
+        },
+        { 
+          title: "Atendimento Remoto", 
+          desc: "O procedimento dura em média de 1h a 2h, de forma totalmente remota. Eu daqui, e você daí, podendo ver e interferir em tudo o que é feito.", 
+          icon: Zap, 
+          badge: "Para o seu conforto" 
+        },
+        { 
+          title: "Depois, faça você mesmo!", 
+          desc: "Você recebe um manual de cuidados práticos essenciais para manter a máquina voando sozinho, incluindo links de drivers de vídeo modificados e suas futuras atualizações. Total autonomia, sem mensalidades.", 
+          icon: Shield, 
+          badge: "Autonomia" 
+        }
       ]
     },
     en: {
@@ -23,10 +43,30 @@ export const Services = () => {
       title: 'SURGICAL',
       title_italic: 'RESULTS.',
       services: [
-        { title: "Hardware Tuning", desc: "I go to the root of your computer. I adjust factory settings so the processor runs cool and stable.", icon: Cpu, badge: "Deep Tuning" },
-        { title: "Clean Windows", desc: "Installation of an optimized Windows directly from Microsoft. No useless background apps slowing you down.", icon: Terminal, badge: "Quick Response" },
-        { title: "1-on-1 Consulting", desc: "3-hour safe remote session with me for a complete X-ray and setup of your PC.", icon: Zap, badge: "Safe Remote" },
-        { title: "Preservation Guide", desc: "You receive a complete manual of essential care guidelines to maintain peak performance on your own, ensuring total autonomy. No monthly fees.", icon: Shield, badge: "Autonomy" }
+        { 
+          title: "Healthy Overclock", 
+          desc: "Via video call, we go straight to your motherboard's BIOS (firmware). I will INCREASE your computer's performance by raising frequencies and REDUCE temperatures by lowering voltages.", 
+          icon: Cpu, 
+          badge: "Deep Tuning" 
+        },
+        { 
+          title: "Zero Inputlag", 
+          desc: "Installation of a 100% optimized Windows directly from official Microsoft sources. No useless background apps and services lagging your PC. Lifetime access to future versions, format on your own whenever you want.", 
+          icon: Terminal, 
+          badge: "Quick Response" 
+        },
+        { 
+          title: "Remote Assistance", 
+          desc: "The entire process takes 1h to 2h on average, fully remote. I work from here, you watch from there, able to see and interact with everything being done.", 
+          icon: Zap, 
+          badge: "For your comfort" 
+        },
+        { 
+          title: "DIY Maintenance Guide", 
+          desc: "You receive a practical manual of essential care guidelines to keep your system flying solo, including custom video drivers and future update links. Total autonomy, no monthly fees.", 
+          icon: Shield, 
+          badge: "Autonomy" 
+        }
       ]
     }
   }[language || 'pt'];

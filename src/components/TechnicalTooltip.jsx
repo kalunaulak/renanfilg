@@ -28,6 +28,14 @@ const glossary = {
     bloatwares: {
       title: "Bloatwares (Lixos do Windows)",
       desc: "Programas e serviços ocultos que vêm pré-instalados de fábrica com o Windows padrão (rastreadores, widgets inúteis, etc.). Eles roubam memória RAM e esforço do processador em segundo plano."
+    },
+    frequencias: {
+      title: "Frequências (Clock / Velocidade)",
+      desc: "A frequência (medida em GHz ou MHz) indica a velocidade de ciclos de cálculo que as peças executam por segundo. Aumentar as frequências controladamente (overclock) acelera o raciocínio físico das peças, impulsionando diretamente a taxa de FPS."
+    },
+    tensoes: {
+      title: "Tensões (Voltagem Elétrica)",
+      desc: "A tensão (voltagem) é a força elétrica enviada aos chips. Calibrar as tensões corretas e remover os picos excessivos de fábrica (undervolt) elimina o superaquecimento, trazendo estabilidade absoluta e prolongando a integridade física do seu hardware."
     }
   },
   en: {
@@ -54,6 +62,14 @@ const glossary = {
     bloatwares: {
       title: "Bloatwares (Windows Bloat)",
       desc: "Hidden programs and background tracking services pre-installed with standard Windows (telemetry, useless widgets). They steal RAM and processor power silently in the background."
+    },
+    frequencias: {
+      title: "Frequencies (Clock Speed)",
+      desc: "Frequency (measured in GHz or MHz) is the speed at which a chip executes computing cycles. Safely increasing frequencies allows components to calculate faster, directly raising your FPS."
+    },
+    tensoes: {
+      title: "Voltages (Electrical Tension)",
+      desc: "Voltage is the electric pressure sent to your components. Tuning correct voltages and lowering excess factory voltage values (undervolting) reduces heat and thermal throttling, maximizing stability and hardware lifespan."
     }
   }
 };
@@ -188,7 +204,9 @@ export const parseGlossaryTerms = (text) => {
     { pattern: /\b(Kernel)\b/gi, term: "kernel" },
     { pattern: /\b(Input Lag|atraso de entrada)\b/gi, term: "inputlag" },
     { pattern: /\b(Overclock)\b/gi, term: "overclock" },
-    { pattern: /\b(Bloatwares|Bloat)\b/gi, term: "bloatwares" }
+    { pattern: /\b(Bloatwares|Bloat)\b/gi, term: "bloatwares" },
+    { pattern: /\b(frequencias|frequências)\b/gi, term: "frequencias" },
+    { pattern: /\b(tensoes|tensões)\b/gi, term: "tensoes" }
   ];
 
   let parts = [{ text: text, isReact: false }];
