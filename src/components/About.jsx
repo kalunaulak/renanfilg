@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import renanImg from '../assets/renan_profile.png';
 
 export const About = () => {
   const { language } = useLanguage();
@@ -156,7 +155,7 @@ export const About = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-[#020202]/20 lg:to-[#020202] z-10"></div>
           
           <img 
-            src={renanImg} 
+            src="/upscaled renan e flakes.webp.webp" 
             alt="Renan Filgueiras" 
             className="w-full h-full object-cover object-top lg:object-center opacity-90 hover:opacity-100 transition-all duration-1000"
           />
