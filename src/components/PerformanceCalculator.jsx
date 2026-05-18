@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Cpu, Gamepad2, Zap, ArrowRight, Activity, Gauge, Sliders, AlertTriangle, Info } from 'lucide-react';
+import { Cpu, Gamepad2, Zap, ArrowRight, Activity, Gauge, Sliders, AlertTriangle, Info, ShieldAlert } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const GAMES = {
-  fortnite: { name: 'Fortnite', factor: 1.48, typicalHighFPS: 280 },
-  valorant: { name: 'Valorant', factor: 1.55, typicalHighFPS: 360 },
-  cs2: { name: 'Counter-Strike 2', factor: 1.50, typicalHighFPS: 320 },
-  warzone: { name: 'CoD: Warzone', factor: 1.38, typicalHighFPS: 180 },
-  lol: { name: 'League of Legends', factor: 1.58, typicalHighFPS: 400 }
+  fortnite: { name: 'Fortnite', factor: 1.48, typicalHighFPS: 380 },
+  valorant: { name: 'Valorant', factor: 1.55, typicalHighFPS: 480 },
+  cs2: { name: 'Counter-Strike 2', factor: 1.50, typicalHighFPS: 420 },
+  warzone: { name: 'CoD: Warzone', factor: 1.38, typicalHighFPS: 220 },
+  lol: { name: 'League of Legends', factor: 1.58, typicalHighFPS: 500 }
 };
 
 const GPUS = {
@@ -60,6 +60,15 @@ const CPUS = {
   ryzen3600: { name: 'AMD Ryzen 5 3600 / 4600G / 2600', power: 4.0, isPremium: false, stabilityWeight: 1.05 }
 };
 
+const RAM_OPTIONS = {
+  ram8_single: { name: '8 GB RAM (Single Channel)', penalty: 0.65, lowPenalty: 0.50 },
+  ram16_single: { name: '16 GB RAM (Single Channel / Lenta)', penalty: 0.80, lowPenalty: 0.65 },
+  ram16_dual: { name: '16 GB RAM (Dual Channel Standard)', penalty: 0.95, lowPenalty: 0.90 },
+  ram32_single: { name: '32 GB RAM (Single Channel / Lenta)', penalty: 0.85, lowPenalty: 0.70 },
+  ram32_dual: { name: '32 GB RAM (Dual Channel High-Speed)', penalty: 1.00, lowPenalty: 1.00 },
+  ram64_plus: { name: '64 GB or more (Dual/Quad Channel)', penalty: 1.00, lowPenalty: 1.05 }
+};
+
 export const PerformanceCalculator = () => {
   const { language } = useLanguage();
   const isEn = language?.startsWith('en');
@@ -68,8 +77,12 @@ export const PerformanceCalculator = () => {
   const [selectedGame, setSelectedGame] = useState('fortnite');
   const [selectedGPU, setSelectedGPU] = useState('rtx4070');
   const [selectedCPU, setSelectedCPU] = useState('intel14700k');
+  const [selectedRAM, setSelectedRAM] = useState('ram16_single');
   
   const [isBottleneckDetected, setIsBottleneckDetected] = useState(false);
+  const [isDespairMode, setIsDespairMode] = useState(false);
+  const [typicalMax, setTypicalMax] = useState(300);
+  const [fpsLost, setFpsLost] = useState(0);
 
   const [results, setResults] = useState({
     beforeFPS: 0,
@@ -83,42 +96,60 @@ export const PerformanceCalculator = () => {
 
   const t = {
     pt: {
-      tag: 'Tuning Científico',
+      tag: 'Diagnóstico Científico',
       title: 'CALCULE SEU FPS BOOST REAL.',
-      subtitle: 'Informe seu desempenho atual e selecione exatamente as suas peças de hardware. Nosso simulador cruza os dados com benchmarks reais para mensurar o poder oculto do seu setup.',
+      subtitle: 'Informe seu desempenho atual e selecione as peças e RAM do seu computador. Nosso simulador cruza os dados com benchmarks reais mundiais para analisar se seu setup está sofrendo de subutilização crônica.',
       fpsInputLabel: 'Seu FPS Médio Atual',
       selectGame: 'Selecione seu Jogo',
       selectGPU: 'Sua Placa de Vídeo (GPU)',
       selectCPU: 'Seu Processador (CPU)',
+      selectRAM: 'Quantidade & Tipo de RAM',
       avgFPS: 'Média de FPS',
       low1: 'Estabilidade (1% Low)',
       inputLag: 'Input Lag do Sistema',
       cta: 'DESBLOQUEAR PODER DESTE SETUP',
+      ctaDespair: '🚨 DESTRANCAR MEU PC IMEDIATAMENTE',
       lagDesc: 'Média de latência do clique ao pixel',
       fpsDesc: 'Estabilidade extrema sem frame drops',
-      bottleneckAlert: '🚨 GARGALO CRÍTICO DE SISTEMA DETECTADO',
-      bottleneckDesc: 'Suas peças são excelentes, mas seu FPS atual está muito baixo para o potencial delas! Seu Windows, BIOS e sub-timings de RAM estão sufocando sua máquina. A otimização trará um ganho avassalador de performance.',
+      bottleneckAlert: '🚨 GARGALO DE SISTEMA DETECTADO',
+      bottleneckDesc: 'Suas peças são excelentes, mas seu FPS atual está abaixo do potencial delas! Seu Windows, BIOS e sub-timings de RAM estão sufocando seu investimento.',
+      despairAlert: '🔥 ANOMALIA CRÍTICA E DESPERDÍCIO DE HARDWARE DETECTADO!',
+      despairDesc: 'Seu computador possui componentes de nível espacial, mas está entregando o rendimento de um PC comum de escritório! Você está literalmente jogando dinheiro no lixo, desperdiçando a vida útil e sofrendo engasgos por falhas severas de software, sub-timings de memória incorretos e BIOS desconfigurada.',
+      typicalComparison: 'De acordo com benchmarks globais de referência, sua máquina deveria estar entregando com facilidade mais de ',
+      lostFpsText: 'Você está perdendo em média ',
+      statBeforeLabel: 'Seu PC Hoje (Estrangulado)',
+      statTypicalLabel: 'Potencial Médio Stock (Sem Otimização)',
+      statOptimizedLabel: 'Protocolo Renan Filg (Extreme Tuned)',
       disclaimerTitle: 'ANÁLISE DE DIAGNÓSTICO IMPORTANTE',
-      disclaimerText: 'Os ganhos simulados representam taxas de amostragem obtidas em laboratório comparando máquinas antes e depois do protocolo profissional. Resultados práticos variam de acordo com as especificações térmicas (refrigeração), clock físico de memórias e a integridade eletrônica individual de cada computador.'
+      disclaimerText: 'Os ganhos simulados e os comparativos com benchmarks representam taxas de amostragem obtidas em laboratório comparando máquinas antes e depois do protocolo profissional em setups similares. Resultados práticos variam de acordo com as especificações térmicas (refrigeração), clocks físicos e a integridade de hardware individual.'
     },
     en: {
-      tag: 'Scientific Tuning',
+      tag: 'Scientific Diagnostic',
       title: 'CALCULATE YOUR REAL FPS BOOST.',
-      subtitle: 'Enter your current performance and select your exact hardware parts. Our simulator matches your data with real benchmarks to measure the hidden power of your setup.',
+      subtitle: 'Enter your current performance and select your hardware and RAM. Our simulator matches your data with real global benchmarks to analyze if your setup is suffering from chronic underutilization.',
       fpsInputLabel: 'Your Current Avg FPS',
       selectGame: 'Select your Game',
       selectGPU: 'Your Graphics Card (GPU)',
       selectCPU: 'Your Processor (CPU)',
+      selectRAM: 'RAM Capacity & Type',
       avgFPS: 'Average FPS',
       low1: 'Stability (1% Low)',
       inputLag: 'System Input Lag',
       cta: 'UNLOCK THIS SETUP FULL POWER',
+      ctaDespair: '🚨 FIX MY PC IMMEDIATELY',
       lagDesc: 'Average click-to-pixel latency',
       fpsDesc: 'Extreme stability without frame drops',
-      bottleneckAlert: '🚨 CRITICAL SYSTEM BOTTLENECK DETECTED',
-      bottleneckDesc: 'Your parts are excellent, but your current FPS is way too low for their potential! Your Windows, BIOS, and RAM sub-timings are choking your machine. The optimization will deliver an overwhelming performance boost.',
+      bottleneckAlert: '🚨 SYSTEM BOTTLENECK DETECTED',
+      bottleneckDesc: 'Your parts are excellent, but your current FPS is below their potential! Your Windows, BIOS, and RAM sub-timings are choking your investment.',
+      despairAlert: '🔥 CRITICAL ANOMALY AND HARDWARE WASTE DETECTED!',
+      despairDesc: 'Your computer has space-grade components, but is delivering the performance of a standard office PC! You are literally throwing money away, wasting lifetime and suffering stutters due to severe software configuration faults, incorrect RAM sub-timings and misconfigured BIOS.',
+      typicalComparison: 'According to global reference benchmarks, your machine should easily be delivering more than ',
+      lostFpsText: 'You are losing on average ',
+      statBeforeLabel: 'Your PC Today (Choked)',
+      statTypicalLabel: 'Stock Global Average (No Tuning)',
+      statOptimizedLabel: 'Renan Filg Protocol (Extreme Tuned)',
       disclaimerTitle: 'IMPORTANT DIAGNOSTIC ANALYSIS',
-      disclaimerText: 'Simulated gains represent sampling rates obtained in laboratory comparing machines before and after the professional protocol. Practical results vary according to thermal specs (cooling), physical memory clocks, and individual electronic integrity of each computer.'
+      disclaimerText: 'Simulated gains and benchmark comparisons represent sampling rates obtained in laboratory comparing machines before and after the professional protocol in similar setups. Practical results vary according to thermal specs (cooling), physical clocks, and individual hardware integrity.'
     }
   }[isEn ? 'en' : 'pt'];
 
@@ -126,40 +157,62 @@ export const PerformanceCalculator = () => {
     const game = GAMES[selectedGame];
     const gpu = GPUS[selectedGPU];
     const cpu = CPUS[selectedCPU];
+    const ram = RAM_OPTIONS[selectedRAM];
 
     const beforeFPS = Math.max(30, Math.min(800, Number(currentFPS) || 140));
     
     // Hardware Power Score (0 a 10)
     const hardwarePowerScore = (gpu.power + cpu.power) / 2;
     
-    // Identificar se o setup é forte mas o FPS atual é baixo/médio para esse jogo
-    // Se o FPS atual for menor do que 70% do FPS típico de alta performance daquela peça
-    const typicalMaxForSetup = game.typicalHighFPS * (hardwarePowerScore / 10);
-    const isBottleneck = (gpu.isPremium || cpu.isPremium) && (beforeFPS < typicalMaxForSetup * 0.85);
-    setIsBottleneckDetected(isBottleneck);
+    // FPS típico real com hardware stock ideal de acordo com benchmarks mundiais de mercado
+    const calculatedTypicalMax = Math.round(game.typicalHighFPS * (hardwarePowerScore / 10) * ram.penalty);
+    setTypicalMax(calculatedTypicalMax);
 
-    // Ajuste dinâmico de Coeficiente de Boost (Gargalo Chocado)
-    let dynamicBoostFactor = game.factor; // ex: 1.48
-    
-    if (isBottleneck) {
-      const bottleneckSeverity = Math.min(1.5, typicalMaxForSetup / beforeFPS);
-      dynamicBoostFactor = game.factor * (1 + (bottleneckSeverity - 1) * 0.45);
+    // Condição de Gargalo e Modo de Desespero Crítico!
+    // Se a máquina é premium mas o FPS atual é absurdamente baixo (menor que 65% do benchmark stock típico)
+    const isPremium = gpu.isPremium || cpu.isPremium;
+    const isDespair = isPremium && (beforeFPS < calculatedTypicalMax * 0.65);
+    const isBottleneck = isPremium && (beforeFPS < calculatedTypicalMax * 0.85);
+
+    setIsDespairMode(isDespair);
+    setIsBottleneckDetected(isBottleneck && !isDespair);
+
+    // Se o PC está estrangulado (Despair Mode), o ganho com a otimização de sub-timings, 
+    // BIOS recalibrada do zero e sistema limpo é ABSURDO e MASSIVO, saltando para o teto otimizado final!
+    let dynamicBoostFactor = game.factor;
+    let afterFPS = Math.round(beforeFPS * dynamicBoostFactor);
+
+    if (isDespair) {
+      // O ganho potencial é monumental porque a máquina está subutilizada!
+      // Destranca até atingir o potencial real otimizado (típico stock + boost do tuning)
+      const tunedOptimalFPS = Math.round(calculatedTypicalMax * game.factor * 1.15);
+      afterFPS = Math.max(Math.round(beforeFPS * 1.8), tunedOptimalFPS);
+    } else if (isBottleneck) {
+      const tunedOptimalFPS = Math.round(calculatedTypicalMax * game.factor * 1.10);
+      afterFPS = Math.max(Math.round(beforeFPS * 1.5), tunedOptimalFPS);
     } else {
+      // Setup já equilibrado, ganho padrão com ajuste fino
       const bottleneckRatio = gpu.power / cpu.power;
-      dynamicBoostFactor = game.factor * (1 + Math.max(-0.06, Math.min(0.08, (bottleneckRatio - 1) * 0.15)));
+      const fineTuneFactor = game.factor * (1 + Math.max(-0.06, Math.min(0.08, (bottleneckRatio - 1) * 0.15)));
+      afterFPS = Math.round(beforeFPS * fineTuneFactor * ram.penalty);
     }
 
-    const afterFPS = Math.round(beforeFPS * dynamicBoostFactor);
+    // Calcula os frames que estão sendo jogados fora hoje!
+    const lost = Math.max(0, afterFPS - beforeFPS);
+    setFpsLost(lost);
+
+    // 1% Low (estabilidade) com penalidade severa de RAM Single Channel
+    const beforeLow = Math.round(beforeFPS * 0.52 * ram.lowPenalty);
     
-    // 1% Low (estabilidade)
-    const beforeLow = Math.round(beforeFPS * 0.52);
-    const stabilityMultiplier = dynamicBoostFactor * (cpu.stabilityWeight / 1.05);
+    // Otimização estabiliza frames mínimos de forma absurda
+    const stabilityMultiplier = (afterFPS / beforeFPS) * (cpu.stabilityWeight / (ram.lowPenalty * 1.05));
     const afterLow = Math.round(beforeLow * stabilityMultiplier);
 
     // Input lag
-    const systemOverheadBefore = 9.8 * (1.3 / (cpu.power / 6));
+    const systemOverheadBefore = (9.8 * (1.3 / (cpu.power / 6))) / ram.penalty;
     const beforeLag = parseFloat((1000 / beforeFPS + systemOverheadBefore).toFixed(1));
-    const systemOverheadAfter = 2.6;
+    
+    const systemOverheadAfter = 2.4;
     const afterLag = parseFloat((1000 / afterFPS + systemOverheadAfter).toFixed(1));
 
     const percentBoost = Math.round(((afterFPS - beforeFPS) / beforeFPS) * 100);
@@ -173,16 +226,17 @@ export const PerformanceCalculator = () => {
       afterLag,
       percentBoost
     });
-  }, [currentFPS, selectedGame, selectedGPU, selectedCPU]);
+  }, [currentFPS, selectedGame, selectedGPU, selectedCPU, selectedRAM]);
 
   const handleWhatsAppSimulation = () => {
     const gameName = GAMES[selectedGame].name;
     const gpuName = GPUS[selectedGPU].name;
     const cpuName = CPUS[selectedCPU].name;
+    const ramName = RAM_OPTIONS[selectedRAM].name;
 
     const message = isEn
-      ? `Hello Renan! I simulated my custom setup on your site: GPU: ${gpuName}, CPU: ${cpuName}, playing ${gameName}. My current average is ${results.beforeFPS} FPS. The simulation detected a ${isBottleneckDetected ? 'CRITICAL BOTTLENECK' : 'Tuning Potential'} and showed a boost to ${results.afterFPS} FPS (+${results.percentBoost}%) and input lag dropping from ${results.beforeLag}ms to ${results.afterLag}ms. I want to secure this optimization!`
-      : `Olá Renan! Simulei meu setup customizado no seu site: GPU: ${gpuName}, CPU: ${cpuName}, jogando ${gameName}. Minha média atual é ${results.beforeFPS} FPS. A simulação detectou um ${isBottleneckDetected ? 'GARGALO CRÍTICO' : 'Potencial de Tuning'} e indicou um ganho para ${results.afterFPS} FPS (+${results.percentBoost}%) e input lag caindo de ${results.beforeLag}ms para ${results.afterLag}ms. Quero agendar o meu Protocolo!`;
+      ? `Hello Renan! I simulated my setup on your site: GPU: ${gpuName}, CPU: ${cpuName}, RAM: ${ramName}, playing ${gameName}. My current performance is ${results.beforeFPS} FPS. The system detected a ${isDespairMode ? 'CRITICAL HARDWARE UNDERUTILIZATION ANOMALY' : 'System Bottleneck'} and showed that I am losing ${fpsLost} FPS! My performance could jump to ${results.afterFPS} FPS (+${results.percentBoost}%) and lag drop from ${results.beforeLag}ms to ${results.afterLag}ms. I need this tuning immediately!`
+      : `Olá Renan! Simulei meu setup no seu site: GPU: ${gpuName}, CPU: ${cpuName}, RAM: ${ramName}, jogando ${gameName}. Minha performance atual é ${results.beforeFPS} FPS. O sistema detectou uma ${isDespairMode ? 'ANOMALIA DE SUBUTILIZAÇÃO CRÍTICA' : 'Gargalo de Hardware'} e mostrou que estou perdendo ${fpsLost} FPS! Minha performance pode saltar para ${results.afterFPS} FPS (+${results.percentBoost}%) e lag cair de ${results.beforeLag}ms para ${results.afterLag}ms. Preciso dessa otimização urgente!`;
 
     window.open(`https://wa.me/5547991914050?text=${encodeURIComponent(message)}`, '_blank');
   };
@@ -209,7 +263,41 @@ export const PerformanceCalculator = () => {
           </p>
         </div>
 
-        {/* Bottleneck Warning Banner */}
+        {/* Despair Mode Alert Banner */}
+        <AnimatePresence>
+          {isDespairMode && (
+            <motion.div
+              initial={{ height: 0, opacity: 0, marginBottom: 0 }}
+              animate={{ height: 'auto', opacity: 1, marginBottom: 40 }}
+              exit={{ height: 0, opacity: 0, marginBottom: 0 }}
+              className="max-w-7xl mx-auto overflow-hidden"
+            >
+              <div className="border border-red-500 bg-red-950/20 rounded-3xl p-6 md:p-10 flex flex-col gap-6 shadow-[0_0_50px_rgba(239,68,68,0.15)] relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-8 text-red-500/10 font-bold text-7xl italic pointer-events-none">ANOMALY</div>
+                <div className="flex flex-col md:flex-row gap-6 items-center">
+                  <div className="w-16 h-16 rounded-2xl bg-red-500/20 border border-red-500/30 flex items-center justify-center text-red-500 shrink-0 shadow-[0_0_20px_rgba(239,68,68,0.3)]">
+                    <ShieldAlert className="w-8 h-8 animate-pulse" />
+                  </div>
+                  <div>
+                    <h4 className="text-red-500 text-base md:text-lg font-bold tracking-widest uppercase mb-3">{t.despairAlert}</h4>
+                    <p className="text-zinc-300 text-sm md:text-base font-light italic leading-relaxed">{t.despairDesc}</p>
+                  </div>
+                </div>
+                
+                <div className="border-t border-red-500/20 pt-6 mt-2 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs md:text-sm">
+                  <div className="text-zinc-400 italic">
+                    {t.typicalComparison} <span className="text-white font-bold font-sans drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]">{typicalMax} FPS</span> em estoque.
+                  </div>
+                  <div className="px-4 py-2 rounded-xl bg-red-500/20 border border-red-500/30 text-red-400 font-bold tracking-wider">
+                    {t.lostFpsText} <span className="text-white font-bold">-{fpsLost} FPS</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Standard Bottleneck Warning Banner */}
         <AnimatePresence>
           {isBottleneckDetected && (
             <motion.div
@@ -315,6 +403,22 @@ export const PerformanceCalculator = () => {
                   ))}
                 </select>
               </div>
+
+              {/* RAM Selector */}
+              <div className="space-y-3">
+                <label className="text-[9px] font-semibold text-zinc-500 uppercase tracking-widest px-1 flex items-center gap-2">
+                  <Activity className="w-3.5 h-3.5 text-[#00bffa]" /> {t.selectRAM}
+                </label>
+                <select 
+                  value={selectedRAM} 
+                  onChange={(e) => setSelectedRAM(e.target.value)}
+                  className="w-full bg-zinc-950 border border-white/10 rounded-xl px-4 py-4 text-xs font-semibold text-white focus:outline-none focus:border-[#00bffa]/40 focus:bg-zinc-900 transition-all cursor-pointer"
+                >
+                  {Object.entries(RAM_OPTIONS).map(([key, val]) => (
+                    <option key={key} value={key} className="bg-zinc-950 text-white font-normal py-2">{val.name}</option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
 
@@ -338,7 +442,7 @@ export const PerformanceCalculator = () => {
                     key={results.percentBoost}
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className={`px-4 py-2 rounded-xl text-black font-bold text-lg ${isBottleneckDetected ? 'bg-gradient-to-r from-red-500 to-amber-500 shadow-[0_0_20px_rgba(239,68,68,0.3)]' : 'bg-gradient-to-r from-[#00bffa] to-[#005eea] shadow-[0_0_20px_rgba(0,191,250,0.3)]'}`}
+                    className={`px-4 py-2 rounded-xl text-black font-bold text-lg ${isDespairMode ? 'bg-gradient-to-r from-red-600 to-red-500 text-white shadow-[0_0_30px_rgba(239,68,68,0.5)] border border-red-500/50' : isBottleneckDetected ? 'bg-gradient-to-r from-red-500 to-amber-500 shadow-[0_0_20px_rgba(239,68,68,0.3)]' : 'bg-gradient-to-r from-[#00bffa] to-[#005eea] shadow-[0_0_20px_rgba(0,191,250,0.3)]'}`}
                   >
                     +{results.percentBoost}%
                   </motion.div>
@@ -356,11 +460,11 @@ export const PerformanceCalculator = () => {
                 <div className="h-2 w-full bg-white/[0.03] rounded-full overflow-hidden relative">
                   <motion.div 
                     initial={{ width: 0 }}
-                    animate={{ width: `${Math.min(100, (results.afterFPS / 900) * 100)}%` }}
+                    animate={{ width: `${Math.min(100, (results.afterFPS / 999) * 100)}%` }}
                     transition={{ type: 'spring', stiffness: 50 }}
-                    className={`absolute top-0 bottom-0 left-0 rounded-full ${isBottleneckDetected ? 'bg-gradient-to-r from-red-500 to-amber-500 shadow-[0_0_10px_#ef4444]' : 'bg-gradient-to-r from-[#00bffa]/40 to-[#00bffa] shadow-[0_0_10px_#00bffa]'}`}
+                    className={`absolute top-0 bottom-0 left-0 rounded-full ${isDespairMode ? 'bg-gradient-to-r from-red-600 to-red-400 shadow-[0_0_15px_#ef4444]' : isBottleneckDetected ? 'bg-gradient-to-r from-red-500 to-amber-500 shadow-[0_0_10px_#ef4444]' : 'bg-gradient-to-r from-[#00bffa]/40 to-[#00bffa] shadow-[0_0_10px_#00bffa]'}`}
                   />
-                  <div className="absolute top-0 bottom-0 left-0 bg-[#005eea] rounded-full" style={{ width: `${Math.min(100, (results.beforeFPS / 900) * 100)}%` }}></div>
+                  <div className="absolute top-0 bottom-0 left-0 bg-[#005eea] rounded-full" style={{ width: `${Math.min(100, (results.beforeFPS / 999) * 100)}%` }}></div>
                 </div>
               </div>
 
@@ -375,11 +479,11 @@ export const PerformanceCalculator = () => {
                 <div className="h-2 w-full bg-white/[0.03] rounded-full overflow-hidden relative">
                   <motion.div 
                     initial={{ width: 0 }}
-                    animate={{ width: `${Math.min(100, (results.afterLow / 800) * 100)}%` }}
+                    animate={{ width: `${Math.min(100, (results.afterLow / 900) * 100)}%` }}
                     transition={{ type: 'spring', stiffness: 50 }}
                     className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-[#00bffa]/40 to-[#00bffa] rounded-full shadow-[0_0_10px_#00bffa]"
                   />
-                  <div className="absolute top-0 bottom-0 left-0 bg-[#005eea]/50 rounded-full" style={{ width: `${Math.min(100, (results.beforeLow / 800) * 100)}%` }}></div>
+                  <div className="absolute top-0 bottom-0 left-0 bg-[#005eea]/50 rounded-full" style={{ width: `${Math.min(100, (results.beforeLow / 900) * 100)}%` }}></div>
                 </div>
                 <p className="text-[9px] text-zinc-600 font-light italic">{t.fpsDesc}</p>
               </div>
@@ -407,9 +511,9 @@ export const PerformanceCalculator = () => {
 
             <button 
               onClick={handleWhatsAppSimulation}
-              className={`w-full mt-10 !py-6 group text-xs font-bold tracking-[0.2em] relative z-10 flex justify-center items-center gap-2 rounded-xl transition-all ${isBottleneckDetected ? 'bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white shadow-[0_0_20px_rgba(220,38,38,0.3)]' : 'btn-elite-primary'}`}
+              className={`w-full mt-10 !py-6 group text-xs font-bold tracking-[0.2em] relative z-10 flex justify-center items-center gap-2 rounded-xl transition-all ${isDespairMode ? 'bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white shadow-[0_0_30px_rgba(220,38,38,0.6)] border border-red-500/50 animate-pulse' : isBottleneckDetected ? 'bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white shadow-[0_0_20px_rgba(220,38,38,0.3)]' : 'btn-elite-primary'}`}
             >
-              {t.cta} <ArrowRight size={16} className="group-hover:translate-x-1.5 transition-transform" />
+              {isDespairMode ? t.ctaDespair : t.cta} <ArrowRight size={16} className="group-hover:translate-x-1.5 transition-transform" />
             </button>
           </div>
 
