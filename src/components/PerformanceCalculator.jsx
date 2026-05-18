@@ -449,7 +449,7 @@ export const PerformanceCalculator = () => {
           </div>
           <h2 className="text-5xl md:text-7xl font-light tracking-tighter text-white mb-6 uppercase leading-none">
             {isEn ? 'CALCULATE YOUR' : 'CALCULE SEU'}<br />
-            <span className="text-zinc-500 italic">{isEn ? 'FPS BOOST.' : 'FPS BOOST REAL.'}</span>
+            <span className="text-[#00bffa] italic">{isEn ? 'FPS BOOST.' : 'FPS BOOST REAL.'}</span>
           </h2>
           <p className="text-zinc-500 text-sm font-light max-w-2xl leading-relaxed italic">
             {t.subtitle}

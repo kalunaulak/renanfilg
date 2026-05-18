@@ -79,7 +79,7 @@ export const Services = () => {
             <div className="text-[#00bffa] font-light text-[10px] uppercase tracking-[0.4em] mb-4">{t.tag}</div>
             <h2 className="text-5xl md:text-7xl font-light tracking-tighter text-white uppercase leading-tight">
               {t.title} <br />
-              <span className="text-zinc-500 italic">{t.title_italic}</span>
+              <span className="text-[#00bffa] italic">{t.title_italic}</span>
             </h2>
           </div>
           <HoverHelper />

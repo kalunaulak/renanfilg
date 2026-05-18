@@ -35,7 +35,7 @@ export const PerformanceComparison = () => {
             <div className="text-performance font-light text-[10px] uppercase tracking-[0.4em] mb-4">Métricas de Performance</div>
             <h2 className="text-5xl md:text-7xl font-light tracking-tighter text-white mb-12 uppercase leading-none">
               DADOS <br />
-              <span className="text-zinc-500 italic">REAIS.</span>
+              <span className="text-[#00bffa] italic">REAIS.</span>
             </h2>
             
             <div className="space-y-10">
