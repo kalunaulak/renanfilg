@@ -146,35 +146,43 @@ export const About = () => {
         </Link>
       </div>
 
-      {/* Hero Banner Panorâmico (Título sempre visível no topo, foto intocada) */}
-      <div className="relative w-full h-[75vh] md:h-[85vh] flex flex-col justify-start pt-32 md:pt-40">
+      {/* Hero Banner Panorâmico (Com sobreposição de 70% à direita e degradê de fusão lateral) */}
+      <div className="relative w-full h-[75vh] md:h-[85vh] flex flex-col justify-center overflow-hidden">
         
-        {/* Imagem de Fundo (Absoluta, preenche o banner inteiro) */}
+        {/* Imagem de Fundo e Máscaras */}
         <div className="absolute inset-0 z-0">
           <img 
             src="/upscaled renan e flakes.webp.webp" 
             alt="Renan Filgueiras e Flakes Power" 
             className="w-full h-full object-cover object-center md:object-[center_60%] opacity-100 block"
           />
-          {/* Degradê super leve, descendo do topo apenas para dar contraste ao título, deixando o resto da foto 100% nítida */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#020202]/90 via-[#020202]/20 to-transparent"></div>
           
-          {/* Linha fina na base só para não fazer um corte seco com a cor da página */}
-          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#020202] to-transparent"></div>
+          {/* Sobreposição preta de 70% da metade para a direita no desktop */}
+          <div className="absolute inset-y-0 right-0 w-full md:w-[50%] lg:w-[45%] bg-black/70 z-10 hidden md:block">
+            {/* Lateral esquerda da sobreposição com degradê suave horizontal (fusão perfeita com a foto) */}
+            <div className="absolute top-0 bottom-0 -left-64 w-64 bg-gradient-to-r from-transparent to-black/70"></div>
+          </div>
+
+          {/* Degradê padrão apenas para celular (para dar leitura sem a sobreposição desktop) */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#020202]/90 via-[#020202]/30 to-transparent md:hidden z-10"></div>
+          
+          {/* Degradê da parte inferior da foto (mantido exatamente como solicitado) */}
+          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#020202] to-transparent z-15"></div>
         </div>
 
-        {/* Título Principal (Aparece imediatamente ao abrir a página) */}
-        <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full">
+        {/* Título Principal (Sobreposto por cima da máscara de 70% à direita no desktop) */}
+        <div className="relative z-20 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full flex justify-end">
           <motion.div 
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }} 
+            className="w-full md:w-[48%] lg:w-[42%] text-left"
           >
             <span className="text-[9px] tracking-[0.4em] text-[#00bffa] uppercase block mb-6 font-light drop-shadow-md">
               {t.tag}
             </span>
             
-            <h1 className="text-5xl md:text-7xl lg:text-[6rem] font-thin uppercase leading-[0.9] tracking-tighter drop-shadow-2xl">
+            <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-thin uppercase leading-[0.9] tracking-tighter drop-shadow-2xl">
               {t.title_first} <br/>
               <span className="font-medium italic bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent">
                 {t.title_last}
