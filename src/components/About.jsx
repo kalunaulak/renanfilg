@@ -146,22 +146,25 @@ export const About = () => {
         </Link>
       </div>
 
-      {/* Hero Banner Panorâmico (Proporção 100% preservada, sem recortes, texto embaixo) */}
-      <div className="relative w-full bg-[#020202]">
+      {/* Hero Banner Panorâmico (Título sempre visível no topo, foto intocada) */}
+      <div className="relative w-full h-[75vh] md:h-[85vh] flex flex-col justify-start pt-32 md:pt-40">
         
-        {/* Imagem de Fundo (De ponta a ponta, altura automática para não cortar nada) */}
-        <div className="relative w-full">
+        {/* Imagem de Fundo (Absoluta, preenche o banner inteiro) */}
+        <div className="absolute inset-0 z-0">
           <img 
             src="/upscaled renan e flakes.webp.webp" 
             alt="Renan Filgueiras e Flakes Power" 
-            className="w-full h-auto opacity-100 block"
+            className="w-full h-full object-cover object-center md:object-[center_60%] opacity-100 block"
           />
-          {/* Degradê sutil na base, apenas o suficiente para a transição do texto */}
-          <div className="absolute bottom-0 left-0 right-0 h-32 md:h-48 bg-gradient-to-t from-[#020202] via-[#020202]/50 to-transparent"></div>
+          {/* Degradê super leve, descendo do topo apenas para dar contraste ao título, deixando o resto da foto 100% nítida */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#020202]/90 via-[#020202]/20 to-transparent"></div>
+          
+          {/* Linha fina na base só para não fazer um corte seco com a cor da página */}
+          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#020202] to-transparent"></div>
         </div>
 
-        {/* Título Principal (Sobreposição leve: apenas o topo do texto invade a imagem) */}
-        <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full pt-8 pb-12 -mt-16 md:-mt-24 lg:-mt-32">
+        {/* Título Principal (Aparece imediatamente ao abrir a página) */}
+        <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full">
           <motion.div 
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }} 
